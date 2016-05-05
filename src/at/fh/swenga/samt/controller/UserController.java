@@ -24,7 +24,7 @@ public class UserController {
 	@RequestMapping(value = { "/", "listUser" })
 	public String showAllUsers(Model model) {
 		model.addAttribute("users", userManager.getAllUsers());
-		return "listUser";
+		return "index";
 	}
 
 	@RequestMapping("/fillUserList")
