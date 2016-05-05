@@ -1,6 +1,16 @@
 package at.fh.swenga.samt.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Min;
+
 
 public class UserModel implements Comparable<UserModel> {
 
@@ -13,6 +23,27 @@ public class UserModel implements Comparable<UserModel> {
 	private String email;
 	private String password;
 	private String profilePicture;
+	
+	//#######################################
+	//verknüpfung zu Grades
+    @OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+    @OrderBy("gradeNumber")
+    private ArrayList<GradeModel> grades;
+    
+    //verknüpfung zu Notes
+    @OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+    @OrderBy("dateOfNote")
+    private List<NotesModel> notes;
+    
+    //verknüpfung zu forum
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<ForumModel> forums;
+	
+	//verknüpfung zu gruppen
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<GroupModel> groups;
+	
+	//######################################
 
 	public UserModel() {
 	}
@@ -28,6 +59,8 @@ public class UserModel implements Comparable<UserModel> {
 		this.password = password;
 		this.profilePicture = profilePicture;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -84,6 +117,72 @@ public class UserModel implements Comparable<UserModel> {
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+	
+	
+	//##########################################
+	//getters and setters to foreign elements
+	
+	public ArrayList<GradeModel> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(ArrayList<GradeModel> grades) {
+		this.grades = grades;
+	}
+	
+	public void addGrade(GradeModel grade) {		
+		if (grades== null) {
+		grades= new ArrayList<GradeModel>();
+		}
+		grades.add(grade);
+	}
+
+	public List<NotesModel> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<NotesModel> notes) {
+		this.notes = notes;
+	}
+	
+	public void addNote(NotesModel note) {		
+		if (notes== null) {
+		notes= new ArrayList<NotesModel>();
+		}
+		notes.add(note);
+	}
+
+	public List<ForumModel> getForums() {
+		return forums;
+	}
+
+	public void setForums(List<ForumModel> forums) {
+		this.forums = forums;
+	}
+	
+	public void addForum(ForumModel forum) {		
+		if (forums== null) {
+		forums= new ArrayList<ForumModel>();
+		}
+		forums.add(forum);
+	}
+
+	public List<GroupModel> getGrous() {
+		return groups;
+	}
+
+	public void setGrous(List<GroupModel> grous) {
+		this.groups = grous;
+	}
+	
+	public void addGroup(GroupModel group) {		
+		if (groups == null) {
+		groups = new ArrayList<GroupModel>();
+		}
+		groups.add(group);
+	}
+	
+	//###################################
 
 	@Override
 	public int compareTo(UserModel o) {
