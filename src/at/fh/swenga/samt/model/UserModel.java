@@ -27,12 +27,11 @@ public class UserModel implements Comparable<UserModel> {
 	//#######################################
 	//verknüpfung zu Grades
     @OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-    @OrderBy("gradeNumber")
     private ArrayList<GradeModel> grades;
     
     //verknüpfung zu Notes
     @OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-    @OrderBy("dateOfNote")
+    @OrderBy("date")
     private List<NotesModel> notes;
     
     //verknüpfung zu forum
@@ -167,12 +166,12 @@ public class UserModel implements Comparable<UserModel> {
 		forums.add(forum);
 	}
 
-	public List<GroupModel> getGrous() {
+	public List<GroupModel> getGroups() {
 		return groups;
 	}
 
-	public void setGrous(List<GroupModel> grous) {
-		this.groups = grous;
+	public void setGroups(List<GroupModel> groups) {
+		this.groups = groups;
 	}
 	
 	public void addGroup(GroupModel group) {		

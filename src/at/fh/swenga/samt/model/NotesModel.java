@@ -25,19 +25,19 @@ public class NotesModel {
 	String content;
 	
 	@Temporal(TemporalType.DATE)
-	Date dateOfNote;
+	Date date;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	UserModel user;
 	
 	public NotesModel() {}
 
-	public NotesModel(int id, String header, String content, Date dateOfNote) {
+	public NotesModel(int id, String header, String content, Date date) {
 		super();
 		this.id = id;
 		this.header = header;
 		this.content = content;
-		this.dateOfNote = dateOfNote;
+		this.date = date;
 	}
 
 	public int getId() {
@@ -72,12 +72,12 @@ public class NotesModel {
 		this.user = user;
 	}
 
-	public Date getDateOfNote() {
-		return dateOfNote;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateOfNote(Date dateOfNote) {
-		this.dateOfNote = dateOfNote;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }

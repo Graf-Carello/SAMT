@@ -18,17 +18,17 @@ public class GroupModel {
 	private int id;
 	
 	@Column(nullable = false, length = 30)
-	int groupName;
+	String name;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserModel> users;
 	
 	public GroupModel() {}
 
-	public GroupModel(int id, int groupName) {
+	public GroupModel(int id, String name) {
 		super();
 		this.id = id;
-		this.groupName = groupName;
+		this.name = name;
 	}
 
 	public int getId() {
@@ -39,12 +39,12 @@ public class GroupModel {
 		this.id = id;
 	}
 
-	public int getGroupName() {
-		return groupName;
+	public String getName() {
+		return name;
 	}
 
-	public void setGroupName(int groupName) {
-		this.groupName = groupName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<UserModel> getUsers() {
