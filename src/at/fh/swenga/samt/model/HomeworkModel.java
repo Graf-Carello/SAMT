@@ -1,6 +1,8 @@
 package at.fh.swenga.samt.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,7 +31,7 @@ public class HomeworkModel {
 	private Date deadline;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	UserModel user;
+	private List<UserModel> users;
 
 	public HomeworkModel() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +42,6 @@ public class HomeworkModel {
 		this.id = id;
 		this.description = description;
 		this.deadline = deadline;
-		this.user = user;
 	}
 
 	public int getId() {
@@ -67,12 +68,19 @@ public class HomeworkModel {
 		this.deadline = deadline;
 	}
 
-	public UserModel getUser() {
-		return user;
+	public List<UserModel> getUsers() {
+		return users;
 	}
 
-	public void setUser(UserModel user) {
-		this.user = user;
+	public void setUsers(List<UserModel> users) {
+		this.users = users;
+	}
+
+	public void addUser(UserModel user) {
+		if (users == null) {
+			users = new ArrayList<UserModel>();
+		}
+		users.add(user);
 	}
 
 }
