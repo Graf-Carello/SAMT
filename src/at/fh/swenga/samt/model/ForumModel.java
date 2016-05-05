@@ -3,7 +3,6 @@ package at.fh.swenga.samt.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,29 +22,29 @@ public class ForumModel {
 	private int id;
 	
 	@Column(nullable = false, length = 30)
-	String forumName;
+	String name;
 	
 	@Column(nullable = false, length = 30)
-	String forumPost;
+	String post;
 	
 	@Column(nullable = false, length = 30)
-	String forumThread;
+	String thread;
 	
 	@Temporal(TemporalType.DATE)
-	Date dateOfPost;
+	Date date;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<UserModel> users;
 	
 	public ForumModel() {}
 
-	public ForumModel(int id, String forumName, String forumPost, String forumThread, Date dateOfPost) {
+	public ForumModel(int id, String name, String post, String thread, Date date) {
 		super();
 		this.id = id;
-		this.forumName = forumName;
-		this.forumPost = forumPost;
-		this.forumThread = forumThread;
-		this.dateOfPost = dateOfPost;
+		this.name = name;
+		this.post = post;
+		this.thread = thread;
+		this.date = date;
 	}
 
 	public int getId() {
@@ -56,36 +55,36 @@ public class ForumModel {
 		this.id = id;
 	}
 
-	public String getForumName() {
-		return forumName;
+	public String getName() {
+		return name;
 	}
 
-	public void setForumName(String forumName) {
-		this.forumName = forumName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getForumPost() {
-		return forumPost;
+	public String getPost() {
+		return post;
 	}
 
-	public void setForumPost(String forumPost) {
-		this.forumPost = forumPost;
+	public void setPost(String post) {
+		this.post = post;
 	}
 
-	public String getForumThread() {
-		return forumThread;
+	public String getThread() {
+		return thread;
 	}
 
-	public void setForumThread(String forumThread) {
-		this.forumThread = forumThread;
+	public void setThread(String thread) {
+		this.thread = thread;
 	}
 
-	public Date getDateOfPost() {
-		return dateOfPost;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateOfPost(Date dateOfPost) {
-		this.dateOfPost = dateOfPost;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public List<UserModel> getUsers() {
