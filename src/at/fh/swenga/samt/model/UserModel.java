@@ -5,22 +5,36 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.validation.constraints.Min;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "user")
 public class UserModel implements Comparable<UserModel> {
 
-	@Min(1)
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(nullable = false, length = 30)
 	private String firstName;
+	
+	@Column(nullable = false, length = 30)
 	private String lastName;
+	
 	private String degreeCourse;
 	private String email;
+	
+	@Column(nullable = false, length = 20)
 	private String password;
 	private String profilePicture;
 	
