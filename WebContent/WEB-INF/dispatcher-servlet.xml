@@ -76,6 +76,12 @@
 	<!-- if no Controller can handle a request, ask Servlet Container, if he 
 		can handle it, otherwise return 404 -->
 	<mvc:default-servlet-handler />
+	
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/bower_components/**" location="/bower_components/" />
+	<mvc:resources mapping="/fonts/**" location="/fonts/" />
+	<mvc:resources mapping="/less/**" location="/less/" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
