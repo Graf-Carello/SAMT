@@ -1,6 +1,3 @@
-<script src="<c:url value="/js/vendor/bootstrap.min.js" />"></script>
-<script src="<c:url value="/js/vendor/npm.js" />"></script>
-
 <script src="<c:url value="/bower_components/jquery/dist/jquery.min.js" />"></script>
 <script src="<c:url value="/bower_components/bootstrap/dist/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/bower_components/metisMenu/dist/metisMenu.min.js" />"></script>
