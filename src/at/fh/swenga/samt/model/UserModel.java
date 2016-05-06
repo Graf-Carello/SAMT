@@ -37,6 +37,9 @@ public class UserModel implements Comparable<UserModel> {
 	private String password;
 	private String profilePicture;
 
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<ProjectModel> projects;
+
 	public UserModel() {
 	}
 
@@ -108,8 +111,13 @@ public class UserModel implements Comparable<UserModel> {
 		this.profilePicture = profilePicture;
 	}
 
+	public List<ProjectModel> getProjects() {
+		return projects;
+	}
 
-	// ###################################
+	public void setProjects(List<ProjectModel> projects) {
+		this.projects = projects;
+	}
 
 	@Override
 	public int compareTo(UserModel o) {
