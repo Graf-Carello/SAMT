@@ -1,7 +1,5 @@
 package at.fh.swenga.samt.dao;
 
-public class UserDao {
-	
-	
+public class GeadeRepository {
 
 }

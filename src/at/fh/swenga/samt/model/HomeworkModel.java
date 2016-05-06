@@ -1,25 +1,26 @@
 package at.fh.swenga.samt.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "homework")
 public class HomeworkModel {
 
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
@@ -30,8 +31,11 @@ public class HomeworkModel {
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<UserModel> users;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private UserModel users;
+	
+	@Version
+	long version;
 
 	public HomeworkModel() {
 		// TODO Auto-generated constructor stub
@@ -68,19 +72,11 @@ public class HomeworkModel {
 		this.deadline = deadline;
 	}
 
-	public List<UserModel> getUsers() {
+	public UserModel getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserModel> users) {
+	public void setUsers(UserModel users) {
 		this.users = users;
 	}
-
-	public void addUser(UserModel user) {
-		if (users == null) {
-			users = new ArrayList<UserModel>();
-		}
-		users.add(user);
-	}
-
 }

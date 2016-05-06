@@ -6,14 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "user")
@@ -36,6 +35,15 @@ public class UserModel implements Comparable<UserModel> {
 	@Column(nullable = false, length = 20)
 	private String password;
 	private String profilePicture;
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<ProjectModel> projects;
+	
+	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	private List<HomeworkModel> homework;
+	
+	@Version
+	long version;
 
 	public UserModel() {
 	}
@@ -108,8 +116,28 @@ public class UserModel implements Comparable<UserModel> {
 		this.profilePicture = profilePicture;
 	}
 
+	public List<ProjectModel> getProjects() {
+		return projects;
+	}
 
-	// ###################################
+	public void setProjects(List<ProjectModel> projects) {
+		this.projects = projects;
+	}
+
+	public  List<HomeworkModel> getHomework() {
+		return homework;
+	}
+
+	public void setHomework( List<HomeworkModel> homework) {
+		this.homework = homework;
+	}
+	
+	public void addHomework(HomeworkModel homework) {		
+		if (this.homework== null) {
+			this.homework= new ArrayList<HomeworkModel>();
+		}
+		this.homework.add(homework);
+	}
 
 	@Override
 	public int compareTo(UserModel o) {
