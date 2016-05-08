@@ -44,6 +44,9 @@ public class UserModel implements Comparable<UserModel> {
 
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
 	private List<GradeModel> grade;
+	
+	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	private List<NotesModel> notes;
 
 	@Version
 	long version;
@@ -142,7 +145,8 @@ public class UserModel implements Comparable<UserModel> {
 		this.homework.add(homework);
 	}
 
-	public List<GradeModel> getGrades() {
+	//Wieso grades und nicht grade?
+	public List<GradeModel> getGrades() { 
 		return grade;
 	}
 
@@ -155,6 +159,21 @@ public class UserModel implements Comparable<UserModel> {
 			this.grade = new ArrayList<GradeModel>();
 		}
 		this.grade.add(grade);
+	}
+
+	public List<NotesModel> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<NotesModel> note) {
+		this.notes = note;
+	}
+	
+	public void addNote(NotesModel note) {
+		if (notes == null) {
+			notes = new ArrayList<NotesModel>();
+		}
+		notes.add(note);
 	}
 
 	@Override
