@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "projet")
+@Table(name = "project")
 public class ProjectModel {
 
 	@Id

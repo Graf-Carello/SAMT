@@ -38,10 +38,13 @@ public class UserModel implements Comparable<UserModel> {
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ProjectModel> projects;
-	
+
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
 	private List<HomeworkModel> homework;
-	
+
+	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	private List<GradeModel> grade;
+
 	@Version
 	long version;
 
@@ -124,19 +127,34 @@ public class UserModel implements Comparable<UserModel> {
 		this.projects = projects;
 	}
 
-	public  List<HomeworkModel> getHomework() {
+	public List<HomeworkModel> getHomework() {
 		return homework;
 	}
 
-	public void setHomework( List<HomeworkModel> homework) {
+	public void setHomework(List<HomeworkModel> homework) {
 		this.homework = homework;
 	}
-	
-	public void addHomework(HomeworkModel homework) {		
-		if (this.homework== null) {
-			this.homework= new ArrayList<HomeworkModel>();
+
+	public void addHomework(HomeworkModel homework) {
+		if (this.homework == null) {
+			this.homework = new ArrayList<HomeworkModel>();
 		}
 		this.homework.add(homework);
+	}
+
+	public List<GradeModel> getGrades() {
+		return grade;
+	}
+
+	public void setGrade(List<GradeModel> grade) {
+		this.grade = grade;
+	}
+
+	public void addGrade(GradeModel grade) {
+		if (this.grade == null) {
+			this.grade = new ArrayList<GradeModel>();
+		}
+		this.grade.add(grade);
 	}
 
 	@Override
