@@ -15,6 +15,51 @@
 <body>
 
 
+
+<!-- #################################################################################### -->
+
+
+<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<h1>User</h1>
+				<table data-toggle="table" class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>DegreeCourse</th>
+							<th>Email</th>
+							<th>Password</th>
+							<th>Profilepicture</th>
+							<th>Action <a href="fill"><button type="button"
+										class="btn btn-success">Fill List</button></a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${users}" var="user">
+							<tr>
+								<td>${user.id}</td>
+								<td>${user.firstName}</td>
+								<td>${user.lastName}</td>
+								<td>${user.degreeCourse}</td>
+								<td>${user.email}</td>
+								<td>${user.password}</td>
+								<td><img src="img/profiles/${user.profilePicture}" alt="${user.firstName} ${user.lastName}"></td>
+								<td><a href="delete?id=${user.id}">Delete</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+
+
+<!-- #################################################################################### -->
+
 <div id="wrapper">
 
         <!-- Navigation -->

@@ -27,11 +27,11 @@ public class UserController {
 		return "index";
 	}
 
-	@RequestMapping("/fillUserList")
+	@RequestMapping(value = {"/fillUserList", "/fill"})
 	public String fillUserList() {
 
 		userManager.addUser(userManager.createUserModel(1, "Max", "Mustermann", "IMA", "max@mustermann.at", "password",
-				"picture.png"));
+				"user1.png"));
 
 		return "forward:/listUser";
 	}
