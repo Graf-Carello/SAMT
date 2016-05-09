@@ -1,138 +1,96 @@
 package at.fh.swenga.samt.controller;
 
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import at.fh.swenga.samt.model.UserManager;
+import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.UserModel;
 
 @Controller
 public class UserController {
-	@Autowired
-	private UserManager userManager;
 
-	@RequestMapping(value = { "/", "listUser" })
-	public String showAllUsers(Model model) {
-		model.addAttribute("users", userManager.getAllUsers());
+	@Autowired
+	UserRepository userRepository;
+
+	@RequestMapping(value = { "/", "list" })
+	public String index(Model model) {
+		List<UserModel> users = userRepository.findAll();
+		model.addAttribute("users", users);
+		model.addAttribute("type", "findAll");
 		return "index";
 	}
 
-	@RequestMapping(value = {"/fillUserList", "/fill"})
-	public String fillUserList() {
+	@RequestMapping(value = { "/getPage" })
+	public String getPage(Pageable page, Model model) {
 
-		userManager.addUser(userManager.createUserModel(1, "Max", "Mustermann", "IMA", "max@mustermann.at", "password",
-				"user1.png"));
+		Page<UserModel> users = userRepository.findAll(page);
+		model.addAttribute("users", users.getContent());
+		model.addAttribute("usersPage", users);
 
-		return "forward:/listUser";
+		return "index";
 	}
 
-	@RequestMapping("/deleteUser")
-	public String delete(Model model, @RequestParam int id) {
-		boolean isRemoved = userManager.remove(id);
+	@RequestMapping(value = { "/find" })
+	public String find(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
+		List<UserModel> users = null;
+		int count = 0;
 
-		if (isRemoved) {
-			model.addAttribute("warningMessage", "User " + id + " deleted");
-		} else {
-			model.addAttribute("errorMessage", "There is no User " + id);
+		switch (type) {
+		case "findAll":
+			users = userRepository.findAll();
+			break;
+
+		default:
+			users = userRepository.findAll();
 		}
 
-		// Multiple ways to "forward" to another Method
-		// return "forward:/listUser";
-		return showAllUsers(model);
+		model.addAttribute("users", users);
+		model.addAttribute("count", count);
+		return "index";
 	}
 
-	@RequestMapping("/searchUsers")
-	public String search(Model model, @RequestParam String searchString) {
-		model.addAttribute("users", userManager.getFilteredUsers(searchString));
-		return "listUser";
+	@RequestMapping(value = { "/findById" })
+	public String findById(@RequestParam("id") UserModel u, Model model) {
+		List<UserModel> users = new ArrayList<>();
+		users.add(u);
+		model.addAttribute("users", users);
+
+		return "index";
 	}
 
-	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
-	public String showAddUserForm(Model model) {
-		return "editUser";
+	@RequestMapping("/fill")
+	@Transactional
+	public String fillData(Model model) {
+
+		UserModel um1 = new UserModel(1, "Max", "Mustermann", "IMA", "max@mustermann.at", "password", "user1.png");
+		UserModel um2 = new UserModel(2, "Michael", "Michel", "IMA", "michel@gmail.com", "password", "user1.png");
+		UserModel um3 = new UserModel(3, "Moritz", "More", "IMA", "m@more.at", "password", "user1.png");
+
+		userRepository.save(um1);
+		userRepository.save(um2);
+		userRepository.save(um3);
+
+		return "forward:list";
 	}
 
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute UserModel newUserModel, BindingResult bindingResult, Model model) {
+	@RequestMapping("/delete")
+	public String deleteData(Model model, @RequestParam int id) {
+		userRepository.delete(id);
 
-		if (bindingResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid<br>";
-			}
-			model.addAttribute("errorMessage", errorMessage);
-			return "forward:/listUser";
-		}
-
-		UserModel user = userManager.getUserById(newUserModel.getId());
-
-		if (user != null) {
-			model.addAttribute("errorMessage", "User already exists!<br>");
-		} else {
-			userManager.addUser(newUserModel);
-			model.addAttribute("message", "New user " + newUserModel.getId() + " added.");
-		}
-
-		return "forward:/listUser";
+		return "forward:list";
 	}
 
-	@RequestMapping(value = "/changeUser", method = RequestMethod.GET)
-	public String showChangeUserForm(Model model, @RequestParam int id) {
-		UserModel user = userManager.getUserById(id);
-		if (user != null) {
-			model.addAttribute("user", user);
-			return "editUser";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:/listUser";
-		}
-	}
-
-	@RequestMapping(value = "/changeUser", method = RequestMethod.POST)
-	public String changeUser(@Valid @ModelAttribute UserModel changedUserModel, BindingResult bindingResult,
-			Model model) {
-
-		if (bindingResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid<br>";
-			}
-			model.addAttribute("errorMessage", errorMessage);
-			return "forward:/listUser";
-		}
-
-		UserModel user = userManager.getUserById(changedUserModel.getId());
-
-		if (user == null) {
-			model.addAttribute("errorMessage", "User does not exist!<br>");
-		} else {
-			user.setId(changedUserModel.getId());
-			user.setFirstName(changedUserModel.getFirstName());
-			user.setLastName(changedUserModel.getLastName());
-			user.setDegreeCourse(changedUserModel.getDegreeCourse());
-
-			model.addAttribute("message", "Changed user " + changedUserModel.getId());
-		}
-
-		return "forward:/listUser";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
-	}
-
-	@ExceptionHandler(Exception.class)
+	// @ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
 		return "showError";
