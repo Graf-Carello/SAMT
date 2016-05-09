@@ -1,3 +1,4 @@
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/bootstrap/dist/css/bootstrap.min.css" />" />
