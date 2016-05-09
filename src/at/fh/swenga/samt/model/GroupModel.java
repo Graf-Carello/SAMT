@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "group")
+@Table(name = "Group")
 public class GroupModel implements Comparable<GroupModel> {
 
 	@Id
