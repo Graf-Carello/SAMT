@@ -1,10 +1,10 @@
 
 .users { margin-bottom:20px; }
 
-#page-wrapper .users > tbody > tr > td.tabledata { vertical-align:middle; height:15px; }
-
-#page-wrapper .users > tbody > tr > td.profilepic { width:100px; }
-td.profilepic img { border:1px solid #999; }
+#page-wrapper .users > tbody > tr > td.tabledata { height:15px; }
+#page-wrapper .users > tbody > tr > td { vertical-align:middle; }
+#page-wrapper .users > tbody > tr > td.profilepic { width:173px; vertical-align:top; }
+td.profilepic img { border:1px solid #999; width:173px; }
 .name h2 { display:inline; }
 .name { height:70px; }
 .action { text-align:right; height:70px; }
