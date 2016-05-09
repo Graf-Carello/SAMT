@@ -12,7 +12,7 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name = "notes")
-public class NotesModel {
+public class NoteModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,11 @@ public class NotesModel {
 	@Version
 	long version;
 
-	public NotesModel() {
+	public NoteModel() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotesModel(int id, String name, String content) {
+	public NoteModel(int id, String name, String content) {
 		super();
 		this.id = id;
 		this.name = name;
