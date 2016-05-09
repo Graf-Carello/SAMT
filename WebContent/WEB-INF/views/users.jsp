@@ -40,42 +40,47 @@
 			<div class="row">
 				<div class="col-lg-12">
 
-<!-- ########## CONTENT ############################################################# -->
+					<!-- ########## CONTENT ############################################################# -->
 
-					<h1>User</h1>
-					<table data-toggle="table" class="table table-striped">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>DegreeCourse</th>
-								<th>Email</th>
-								<th>Password</th>
-								<th>Profilepicture</th>
-								<th>Action <a href="fill"><button type="button"
-											class="btn btn-success">Fill List</button></a>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${users}" var="user">
+					<h1>Users</h1>
+					<a href="fill" style="position: absolute; right: 20px; top: 10px;"><button
+							type="button" class="btn btn-success">Fill List</button></a> <br />
+
+					<c:forEach items="${users}" var="user">
+						<table data-toggle="table" class="table table-striped users">
+							<tbody>
 								<tr>
-									<td>${user.id}</td>
-									<td>${user.firstName}</td>
-									<td>${user.lastName}</td>
-									<td>${user.degreeCourse}</td>
-									<td>${user.email}</td>
-									<td>${user.password}</td>
-									<td><img src="img/profiles/${user.profilePicture}"
+									<td rowspan="6" class="profilepic"><img
+										src="img/profiles/${user.profilePicture}"
 										alt="${user.firstName} ${user.lastName}"></td>
-									<td><a href="delete?id=${user.id}">Delete</a></td>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+								<tr>
+									<td class="name"><h2>${user.firstName} ${user.lastName}</h2></td>
+									<td class="action"><a
+										href="delete?id=${user.id}"><button type="button"
+												class="btn btn-danger">Delete User #${user.id}</button></a></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="tabledata"><b>Degree Course:</b>
+										${user.degreeCourse}</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="tabledata"><b>E-Mail:</b>
+										${user.email}</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="tabledata"><b>Password:</b>
+										${user.password}</td>
+								</tr>
+								<tr>
+									<td colspan="2"></td>
+								</tr>
+							</tbody>
+						</table>
+					</c:forEach>
 
-<!-- ########## /CONTENT ############################################################ -->
+
+					<!-- ########## /CONTENT ############################################################ -->
 
 				</div>
 			</div>

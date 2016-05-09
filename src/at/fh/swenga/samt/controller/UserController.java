@@ -88,7 +88,7 @@ public class UserController {
 		userRepository.save(um2);
 		userRepository.save(um3);
 
-		return "forward:list";
+		return "forward:users";
 	}
 
 	@RequestMapping("/delete")
