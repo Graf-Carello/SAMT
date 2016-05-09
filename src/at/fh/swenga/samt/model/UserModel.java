@@ -43,10 +43,16 @@ public class UserModel implements Comparable<UserModel> {
 	private List<HomeworkModel> homework;
 
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
-	private List<GradeModel> grade;
+	private List<GradeModel> grades;
 
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
 	private List<NotesModel> notes;
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<ForumModel> forum;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<GroupModel> groups;
 
 	@Version
 	long version;
@@ -54,10 +60,9 @@ public class UserModel implements Comparable<UserModel> {
 	public UserModel() {
 	}
 
-	public UserModel(int id, String firstName, String lastName, String degreeCourse, String email, String password,
+	public UserModel(String firstName, String lastName, String degreeCourse, String email, String password,
 			String profilePicture) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.degreeCourse = degreeCourse;
@@ -145,20 +150,19 @@ public class UserModel implements Comparable<UserModel> {
 		this.homework.add(homework);
 	}
 
-	// Wieso grades und nicht grade?
 	public List<GradeModel> getGrades() {
-		return grade;
+		return grades;
 	}
 
-	public void setGrade(List<GradeModel> grade) {
-		this.grade = grade;
+	public void setGrades(List<GradeModel> grades) {
+		this.grades = grades;
 	}
 
 	public void addGrade(GradeModel grade) {
-		if (this.grade == null) {
-			this.grade = new ArrayList<GradeModel>();
+		if (grades == null) {
+			grades = new ArrayList<GradeModel>();
 		}
-		this.grade.add(grade);
+		grades.add(grade);
 	}
 
 	public List<NotesModel> getNotes() {
@@ -174,6 +178,36 @@ public class UserModel implements Comparable<UserModel> {
 			notes = new ArrayList<NotesModel>();
 		}
 		notes.add(note);
+	}
+
+	public List<ForumModel> getForum() {
+		return forum;
+	}
+
+	public void setForum(List<ForumModel> forum) {
+		this.forum = forum;
+	}
+	
+	public void addForum(ForumModel forum) {
+		if (this.forum == null) {
+			this.forum = new ArrayList<ForumModel>();
+		}
+		this.forum.add(forum);
+	}
+
+	public List<GroupModel> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<GroupModel> groups) {
+		this.groups = groups;
+	}
+	
+	public void addGroup(GroupModel group) {
+		if (groups == null) {
+			groups = new ArrayList<GroupModel>();
+		}
+		groups.add(group);
 	}
 
 	@Override
