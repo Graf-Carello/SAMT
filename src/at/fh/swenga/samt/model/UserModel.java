@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class UserModel implements Comparable<UserModel> {
 
 	@Id
