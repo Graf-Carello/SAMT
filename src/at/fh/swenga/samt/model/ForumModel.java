@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name="Forum")
+@Table(name="forum")
 public class ForumModel {
 	
 	@Id

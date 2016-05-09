@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "Note")
+@Table(name = "notes")
 public class NoteModel {
 
 	@Id
