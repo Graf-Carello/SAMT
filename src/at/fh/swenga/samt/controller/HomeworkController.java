@@ -21,6 +21,7 @@ import at.fh.swenga.samt.model.HomeworkModel;
 import at.fh.swenga.samt.model.UserModel;
 
 @Controller
+@RequestMapping("/homework")
 public class HomeworkController {
 
 
