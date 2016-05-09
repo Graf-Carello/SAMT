@@ -41,12 +41,11 @@ public class GradeModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GradeModel(int id, String course, Date date, long version) {
+	public GradeModel(String course, Date date) {
 		super();
-		this.id = id;
 		this.course = course;
 		this.date = date;
-		this.version = version;
+
 	}
 
 	public int getId() {
