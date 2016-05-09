@@ -29,6 +29,14 @@ public class UserController {
 		model.addAttribute("type", "findAll");
 		return "index";
 	}
+	
+	@RequestMapping("users")
+	public String users(Model model) {
+		List<UserModel> users = userRepository.findAll();
+		model.addAttribute("users", users);
+		model.addAttribute("type", "findAll");
+		return "users";
+	}
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
