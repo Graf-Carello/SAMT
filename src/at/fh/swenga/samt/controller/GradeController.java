@@ -18,30 +18,31 @@ import at.fh.swenga.samt.dao.GradeRepository;
 import at.fh.swenga.samt.model.GradeModel;
 
 @Controller
+@RequestMapping("/grades")
 public class GradeController {
 
 	@Autowired
 	GradeRepository gradeRepository;
 
-	@RequestMapping(value = { "listGrades" })
+	@RequestMapping(value = { "/", "list" })
 	public String indexGrades(Model model) {
 		List<GradeModel> grades = gradeRepository.findAll();
 		model.addAttribute("grades", grades);
 		model.addAttribute("type", "findAllGrades");
-		return "grades";
+		return "index";
 	}
 
-	@RequestMapping(value = { "/getPageGrades" })
+	@RequestMapping(value = { "/getPage" })
 	public String getPageGrades(Pageable page, Model model) {
 
 		Page<GradeModel> grades = gradeRepository.findAll(page);
 		model.addAttribute("grades", grades.getContent());
 		model.addAttribute("usersPage", grades);
 
-		return "grades";
+		return "index";
 	}
 
-	@RequestMapping(value = { "/findGrades" })
+	@RequestMapping(value = { "/find" })
 	public String findGrade(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
 		List<GradeModel> grades = null;
 		int count = 0;
@@ -57,19 +58,19 @@ public class GradeController {
 
 		model.addAttribute("grades", grades);
 		model.addAttribute("count", count);
-		return "grades";
+		return "index";
 	}
 
-	@RequestMapping(value = { "/findByIdGrade" })
+	@RequestMapping(value = { "/findById" })
 	public String findByIdGrade(@RequestParam("id") GradeModel g, Model model) {
 		List<GradeModel> grades = new ArrayList<>();
 		grades.add(g);
 		model.addAttribute("grades", grades);
 
-		return "grades";
+		return "index";
 	}
 
-	@RequestMapping("/fillGrades")
+	@RequestMapping("/fill")
 	@Transactional
 	public String fillDataGrades(Model model) {
 
@@ -85,7 +86,7 @@ public class GradeController {
 		return "forward:list";
 	}
 
-	@RequestMapping("/deleteGrade")
+	@RequestMapping("/delete")
 	public String deleteDataGrade(Model model, @RequestParam int id) {
 		gradeRepository.delete(id);
 
