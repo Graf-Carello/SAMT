@@ -3,13 +3,18 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Michael Fuchs
+    Paul Körner
+    Felix Graf
+    Elza Karimova
 
 # THANKS
 
-    <name>
+    Mario Zupan
+    Johann "Gaben" Blauensteiner
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, Modernizr, Bootstrap
+    Java Spring

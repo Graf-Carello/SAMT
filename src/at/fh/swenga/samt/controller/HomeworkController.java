@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.samt.dao.HomeworkRepository;
 import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.HomeworkModel;
 import at.fh.swenga.samt.model.UserModel;
@@ -29,7 +30,7 @@ public class HomeworkController {
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping(value = { "/", "list" })
+	@RequestMapping("listHomework")
 	public String index(Model model) {
 		List<HomeworkModel> homeworks = homeworkRepository.findAll(); //get all emp
 		model.addAttribute("homeworks", homeworks); //put into model
@@ -37,8 +38,8 @@ public class HomeworkController {
 		return "index"; //all empl distplay on bootstrap
 	}
 
-	@RequestMapping(value = { "/getPage" })
-	public String getPage(Pageable page,Model model) {
+	@RequestMapping("/getPage")
+	public String getPageHomework(Pageable page,Model model) {
 		//page contains list and some addit. info
 		Page<HomeworkModel> homeworks = homeworkRepository.findAll(page);
 		model.addAttribute("homeworks", homeworks.getContent()); //liste mit empl zeigen 

@@ -12,8 +12,9 @@
 				</div> <!-- /input-group -->
 			</li>
 
-			<li><a href="users"><i class="fa fa-user fa-fw"></i> Users</a>
-			<li>
+			<li><a href="users"><i class="fa fa-user fa-fw"></i> Users</a></li>
+			<li><a href="grades"><i class="fa fa-user fa-fw"></i> Grades</a></li>
+			
 			<li>
 				<hr />
 			</li>
