@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 	public List<UserModel> findByLastName(String lastName);	
 	
+	public UserModel findFirstByEmail(String email);
 }
