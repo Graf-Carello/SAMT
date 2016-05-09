@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.samt.dao.HomeworkRepository;
 import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.HomeworkModel;
 import at.fh.swenga.samt.model.UserModel;
 
 @Controller
+@RequestMapping("/homework")
 public class HomeworkController {
 
 
