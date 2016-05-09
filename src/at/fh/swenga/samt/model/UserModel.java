@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "user")
+@Table(name = "Users")
 public class UserModel implements Comparable<UserModel> {
 
 	@Id
@@ -46,7 +46,7 @@ public class UserModel implements Comparable<UserModel> {
 	private List<GradeModel> grades;
 
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
-	private List<NotesModel> notes;
+	private List<NoteModel> notes;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ForumModel> forum;
@@ -165,17 +165,17 @@ public class UserModel implements Comparable<UserModel> {
 		grades.add(grade);
 	}
 
-	public List<NotesModel> getNotes() {
+	public List<NoteModel> getNotes() {
 		return notes;
 	}
 
-	public void setNotes(List<NotesModel> note) {
+	public void setNotes(List<NoteModel> note) {
 		this.notes = note;
 	}
 
-	public void addNote(NotesModel note) {
+	public void addNote(NoteModel note) {
 		if (notes == null) {
-			notes = new ArrayList<NotesModel>();
+			notes = new ArrayList<NoteModel>();
 		}
 		notes.add(note);
 	}
