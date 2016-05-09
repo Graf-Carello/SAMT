@@ -31,8 +31,8 @@ public class GroupModel implements Comparable<GroupModel> {
 
 	private String project;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<ProjectModel> projects;
+	@ManyToMany(mappedBy = "groups", cascade = CascadeType.PERSIST)
+	private List<UserModel> users;
 
 	@Version
 	long version;
@@ -46,7 +46,7 @@ public class GroupModel implements Comparable<GroupModel> {
 		this.groupName = groupName;
 		this.members = members;
 		this.project = project;
-		}
+	}
 
 	public int getId() {
 		return id;
@@ -80,12 +80,12 @@ public class GroupModel implements Comparable<GroupModel> {
 		this.project = project;
 	}
 
-	public List<ProjectModel> getProjects() {
-		return projects;
+	public List<UserModel> getUsers() {
+		return users;
 	}
 
-	public void setProjects(List<ProjectModel> projects) {
-		this.projects = projects;
+	public void setUsers(List<UserModel> users) {
+		this.users = users;
 	}
 
 	@Override

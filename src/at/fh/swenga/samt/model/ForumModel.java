@@ -1,12 +1,14 @@
 package at.fh.swenga.samt.model;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -31,8 +33,8 @@ public class ForumModel {
 	@Column
 	private Boolean isMain;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	private UserModel user;
+	@ManyToMany(mappedBy = "forum", fetch = FetchType.EAGER)
+	private List<UserModel> users;
 
 	@Version
 	long version;
@@ -103,13 +105,13 @@ public class ForumModel {
 	}
 
 
-	public UserModel getUser() {
-		return user;
+	public List<UserModel> getUsers() {
+		return users;
 	}
 
 
-	public void setUser(UserModel user) {
-		this.user = user;
+	public void setUsers(List<UserModel> user) {
+		this.users = user;
 	}
     
 	
