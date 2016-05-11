@@ -8,7 +8,12 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "index";
+		return "forward:login";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
 
 	// @ExceptionHandler(Exception.class)
