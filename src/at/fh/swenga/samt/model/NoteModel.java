@@ -34,9 +34,8 @@ public class NoteModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoteModel(int id, String name, String content) {
+	public NoteModel(String name, String content) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.content = content;
 	}
