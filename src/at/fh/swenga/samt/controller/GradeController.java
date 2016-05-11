@@ -24,7 +24,7 @@ public class GradeController {
 	@Autowired
 	GradeRepository gradeRepository;
 
-	@RequestMapping("")
+	@RequestMapping(value = {"","list"})
 	public String indexGrades(Model model) {
 		List<GradeModel> grades = gradeRepository.findAll();
 		model.addAttribute("grades", grades);

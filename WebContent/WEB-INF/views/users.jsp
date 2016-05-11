@@ -43,7 +43,7 @@
 					<!-- ########## CONTENT ############################################################# -->
 
 					<h1>Users</h1>
-					<a href="fill" style="position: absolute; right: 20px; top: 10px;"><button
+					<a href="users/fill" style="position: absolute; right: 20px; top: 10px;"><button
 							type="button" class="btn btn-success">Fill List</button></a> <br />
 
 					<c:forEach items="${users}" var="user">
@@ -51,7 +51,7 @@
 							<tbody>
 								<tr>
 									<td rowspan="6" class="profilepic"><img
-										src="img/profiles/${user.profilePicture}"
+										src="/img/profiles/${user.profilePicture}"
 										alt="${user.firstName} ${user.lastName}"></td>
 								</tr>
 								<tr>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="meta/main.inc"%>
-<title>Grades | SAMT</title>
+<title>Users | SAMT</title>
 
 <%@include file="includes/top.jsp"%>
 
@@ -42,38 +42,25 @@
 
 					<!-- ########## CONTENT ############################################################# -->
 
-					<h1>Grades (momentan noch Users)</h1>
-					<a href="fill" style="position: absolute; right: 20px; top: 10px;"><button
+					<h1>Grades</h1>
+					<a href="grades/fill"
+						style="position: absolute; right: 20px; top: 10px;"><button
 							type="button" class="btn btn-success">Fill List</button></a> <br />
 
-					<c:forEach items="${users}" var="user">
+					<c:forEach items="${grades}" var="grade">
 						<table data-toggle="table" class="table table-striped users">
 							<tbody>
 								<tr>
-									<td rowspan="6" class="profilepic"><img
-										src="img/profiles/${user.profilePicture}"
-										alt="${user.firstName} ${user.lastName}"></td>
+									<td><b>ID: </b></td>
+									<td>${grade.id}</td>
 								</tr>
 								<tr>
-									<td class="name"><h2>${user.firstName} ${user.lastName}</h2></td>
-									<td class="action"><a
-										href="delete?id=${user.id}"><button type="button"
-												class="btn btn-danger">Delete User #${user.id}</button></a></td>
+									<td><b>Course: </b></td>
+									<td>${grade.course}</td>
 								</tr>
 								<tr>
-									<td colspan="2" class="tabledata"><b>Degree Course:</b>
-										${user.degreeCourse}</td>
-								</tr>
-								<tr>
-									<td colspan="2" class="tabledata"><b>E-Mail:</b>
-										${user.email}</td>
-								</tr>
-								<tr>
-									<td colspan="2" class="tabledata"><b>Password:</b>
-										${user.password}</td>
-								</tr>
-								<tr>
-									<td colspan="2"></td>
+									<td><b>Date: </b></td>
+									<td>${grade.date}</td>
 								</tr>
 							</tbody>
 						</table>

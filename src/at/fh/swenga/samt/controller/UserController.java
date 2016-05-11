@@ -17,17 +17,18 @@ import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.UserModel;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
-
-	@RequestMapping(value = { "/", "list" })
-	public String index(Model model) {
+	
+	@RequestMapping(value = { "", "list" })
+	public String list(Model model) {
 		List<UserModel> users = userRepository.findAll();
 		model.addAttribute("users", users);
 		model.addAttribute("type", "findAll");
-		return "index";
+		return "users";
 	}
 	
 	@RequestMapping("users")
@@ -88,7 +89,7 @@ public class UserController {
 		userRepository.save(um2);
 		userRepository.save(um3);
 
-		return "forward:users";
+		return "forward:list";
 	}
 
 	@RequestMapping("/delete")
