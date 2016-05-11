@@ -26,7 +26,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">SAMT</a>
+			<a class="navbar-brand" href="/">SAMT</a>
 		</div>
 
 		<!-- Top-Navigation --> <%@include file="partials/topnav.jsp"%>
