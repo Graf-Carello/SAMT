@@ -24,12 +24,12 @@ public class GradeController {
 	@Autowired
 	GradeRepository gradeRepository;
 
-	@RequestMapping(value = { "/", "list" })
+	@RequestMapping("")
 	public String indexGrades(Model model) {
 		List<GradeModel> grades = gradeRepository.findAll();
 		model.addAttribute("grades", grades);
 		model.addAttribute("type", "findAllGrades");
-		return "index";
+		return "grades";
 	}
 
 	@RequestMapping(value = { "/getPage" })
@@ -39,7 +39,7 @@ public class GradeController {
 		model.addAttribute("grades", grades.getContent());
 		model.addAttribute("usersPage", grades);
 
-		return "index";
+		return "grades";
 	}
 
 	@RequestMapping(value = { "/find" })
@@ -58,7 +58,7 @@ public class GradeController {
 
 		model.addAttribute("grades", grades);
 		model.addAttribute("count", count);
-		return "index";
+		return "grades";
 	}
 
 	@RequestMapping(value = { "/findById" })
@@ -67,7 +67,7 @@ public class GradeController {
 		grades.add(g);
 		model.addAttribute("grades", grades);
 
-		return "index";
+		return "grades";
 	}
 
 	@RequestMapping("/fill")

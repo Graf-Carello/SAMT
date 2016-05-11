@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="meta/main.inc"%>
-<title>Users | SAMT</title>
+<title>Grades | SAMT</title>
 
 <%@include file="includes/top.jsp"%>
 
@@ -42,7 +42,7 @@
 
 					<!-- ########## CONTENT ############################################################# -->
 
-					<h1>Users</h1>
+					<h1>Grades (momentan noch Users)</h1>
 					<a href="fill" style="position: absolute; right: 20px; top: 10px;"><button
 							type="button" class="btn btn-success">Fill List</button></a> <br />
 
