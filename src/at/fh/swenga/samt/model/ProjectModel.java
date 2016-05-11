@@ -46,9 +46,8 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(int id, String projectName, Date deadline, String progress, String course) {
+	public ProjectModel(String projectName, Date deadline, String progress, String course) {
 		super();
-		this.id = id;
 		this.projectName = projectName;
 		this.deadline = deadline;
 		this.progress = progress;

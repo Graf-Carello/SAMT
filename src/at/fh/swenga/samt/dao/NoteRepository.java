@@ -8,6 +8,7 @@ import at.fh.swenga.samt.model.NoteModel;
 
 @Repository
 @Transactional
-public interface NotesRepository extends JpaRepository<NoteModel, Integer>{
+public interface NoteRepository extends JpaRepository<NoteModel, Integer>{
+	
 
 }
