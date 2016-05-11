@@ -45,9 +45,8 @@ public class ForumModel {
     }
 
 
-	public ForumModel(int id, String forumName, String post, String thread, Boolean isMain) {
+	public ForumModel(String forumName, String post, String thread, Boolean isMain) {
 		super();
-		this.id = id;
 		this.forumName = forumName;
 		this.post = post;
 		this.thread = thread;
