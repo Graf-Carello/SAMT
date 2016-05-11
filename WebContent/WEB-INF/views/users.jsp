@@ -51,7 +51,7 @@
 							<tbody>
 								<tr>
 									<td rowspan="6" class="profilepic"><img
-										src="/img/profiles/${user.profilePicture}"
+										src="/SAMT/img/profiles/${user.profilePicture}"
 										alt="${user.firstName} ${user.lastName}"></td>
 								</tr>
 								<tr>

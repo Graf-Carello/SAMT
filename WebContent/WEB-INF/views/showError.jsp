@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SAMT | Error</title>
+<title>Error | SAMT</title>
 </head>
 <body>
 	<h1>Fehler</h1>
