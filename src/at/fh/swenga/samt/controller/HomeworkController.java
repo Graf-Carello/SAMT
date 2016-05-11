@@ -31,7 +31,7 @@ public class HomeworkController {
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping("listHomework")
+	@RequestMapping("")
 	public String index(Model model) {
 		List<HomeworkModel> homeworks = homeworkRepository.findAll(); //get all emp
 		model.addAttribute("homeworks", homeworks); //put into model
