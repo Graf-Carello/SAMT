@@ -62,6 +62,10 @@
 									<td><b>Date: </b></td>
 									<td>${grade.date}</td>
 								</tr>
+								<tr>
+									<td><b>Grade: </b></td>
+									<td>${grade.grade}</td>
+								</tr>
 							</tbody>
 						</table>
 					</c:forEach>

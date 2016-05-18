@@ -76,9 +76,9 @@ public class GradeController {
 	public String fillDataGrades(Model model) {
 
 		Date now = new Date();
-		GradeModel gm1 = new GradeModel("SWENGA", now);
-		GradeModel gm2 = new GradeModel("Math2", now);
-		GradeModel gm3 = new GradeModel("SWENGA", now);
+		GradeModel gm1 = new GradeModel("SWENGA", now, 1);
+		GradeModel gm2 = new GradeModel("Math2", now, 2);
+		GradeModel gm3 = new GradeModel("SWENGA", now, 2);
 
 		gradeRepository.save(gm1);
 		gradeRepository.save(gm2);

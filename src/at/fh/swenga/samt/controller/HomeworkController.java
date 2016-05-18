@@ -93,6 +93,7 @@ public class HomeworkController {
 			
 			
 			if(i%10==0){
+				String userUserName = "testUser11";
 				String userFirstName = df.getFirstName();
 				String userLastName = df.getLastName();
 				String degreeCourse = "IMA";
@@ -101,7 +102,7 @@ public class HomeworkController {
 				String profilePicture = "picture";
 				user = userRepository.findFirstByEmail(userFirstName + userLastName + "@gmail.com"); //weil in model string name gibt für comrepository
 				if(user == null) { //if company not in db then create one in db
-					user = new UserModel(userFirstName, userLastName, degreeCourse, email, password, profilePicture); //unmanaged; but when we ask it from db, than a managed instance is returned
+					user = new UserModel(userUserName, userFirstName, userLastName, degreeCourse, email, password, profilePicture); //unmanaged; but when we ask it from db, than a managed instance is returned
 				}
 			}
 			

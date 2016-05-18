@@ -1,11 +1,15 @@
 package at.fh.swenga.samt.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,14 +18,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "Users")
-public class UserModel implements Comparable<UserModel> {
+public class UserModel implements Serializable {
+
+	private static final long serialVersionUID = 6258273242561430139L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(nullable = false, length = 30, unique = true)
+	private String userName;
 
 	@Column(nullable = false, length = 30)
 	private String firstName;
@@ -30,10 +41,12 @@ public class UserModel implements Comparable<UserModel> {
 	private String lastName;
 
 	private String degreeCourse;
+	
 	private String email;
 
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false)
 	private String password;
+	
 	private String profilePicture;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -50,19 +63,23 @@ public class UserModel implements Comparable<UserModel> {
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ForumModel> forum;
-	
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<GroupModel> groups;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserRole> userRoles;
+
 	@Version
-	long version;
+	private long version;
 
 	public UserModel() {
 	}
 
-	public UserModel(String firstName, String lastName, String degreeCourse, String email, String password,
-			String profilePicture) {
+	public UserModel(String userName, String firstName, String lastName, String degreeCourse, String email,
+			String password, String profilePicture) {
 		super();
+		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.degreeCourse = degreeCourse;
@@ -77,6 +94,14 @@ public class UserModel implements Comparable<UserModel> {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getFirstName() {
@@ -126,6 +151,22 @@ public class UserModel implements Comparable<UserModel> {
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	public void addUserRole(UserRole role) {
+		if (userRoles == null) {
+			userRoles = new HashSet<UserRole>();
+		}
+		userRoles.add(role);
+	}
+	
 
 	public List<ProjectModel> getProjects() {
 		return projects;
@@ -187,7 +228,7 @@ public class UserModel implements Comparable<UserModel> {
 	public void setForum(List<ForumModel> forum) {
 		this.forum = forum;
 	}
-	
+
 	public void addForum(ForumModel forum) {
 		if (this.forum == null) {
 			this.forum = new ArrayList<ForumModel>();
@@ -202,17 +243,12 @@ public class UserModel implements Comparable<UserModel> {
 	public void setGroups(List<GroupModel> groups) {
 		this.groups = groups;
 	}
-	
+
 	public void addGroup(GroupModel group) {
 		if (groups == null) {
 			groups = new ArrayList<GroupModel>();
 		}
 		groups.add(group);
-	}
-
-	@Override
-	public int compareTo(UserModel o) {
-		return id - o.getId();
 	}
 
 	@Override

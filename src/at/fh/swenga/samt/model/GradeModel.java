@@ -30,6 +30,9 @@ public class GradeModel {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
+	@Column(nullable = false)
+	private int grade;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel users;
 
@@ -41,10 +44,11 @@ public class GradeModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GradeModel(String course, Date date) {
+	public GradeModel(String course, Date date, int grade) {
 		super();
 		this.course = course;
 		this.date = date;
+		this.grade = grade;
 
 	}
 
@@ -70,6 +74,14 @@ public class GradeModel {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public UserModel getUsers() {

@@ -11,6 +11,8 @@ import at.fh.swenga.samt.model.UserModel;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
+	
+	public List<UserModel> findByUserName(String userName);
 
 	public List<UserModel> findByLastName(String lastName);	
 	

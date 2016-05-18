@@ -81,9 +81,9 @@ public class UserController {
 	@Transactional
 	public String fillData(Model model) {
 
-		UserModel um1 = new UserModel("Max", "Mustermann", "IMA", "max@mustermann.at", "password", "user1.png");
-		UserModel um2 = new UserModel("Michael", "Michel", "IMA", "michel@gmail.com", "password", "user1.png");
-		UserModel um3 = new UserModel("Moritz", "More", "IMA", "m@more.at", "password", "user1.png");
+		UserModel um1 = new UserModel("mmusterm", "Max", "Mustermann", "IMA", "max@mustermann.at", "password", "user1.png");
+		UserModel um2 = new UserModel("michel13", "Michael", "Michel", "IMA", "michel@gmail.com", "password", "user1.png");
+		UserModel um3 = new UserModel("moreandmore", "Moritz", "More", "IMA", "m@more.at", "password", "user1.png");
 
 		userRepository.save(um1);
 		userRepository.save(um2);
