@@ -76,12 +76,12 @@
 		can handle it, otherwise return 404 -->
 	<mvc:default-servlet-handler />
 
-	<mvc:resources mapping="/css/**" location="/includes/css/" />
-	<mvc:resources mapping="/js/**" location="/includes/js/" />
-	<mvc:resources mapping="/bower_components/**" location="/includes/bower_components/" />
-	<mvc:resources mapping="/fonts/**" location="/includes/fonts/" />
-	<mvc:resources mapping="/less/**" location="/includes/less/" />
-	<mvc:resources mapping="/img/**" location="/includes/img/" />
+	<mvc:resources mapping="/css/**" location="resources/css/" />
+	<mvc:resources mapping="/js/**" location="resources/js/" />
+	<mvc:resources mapping="/bower_components/**" location="resources/bower_components/" />
+	<mvc:resources mapping="/fonts/**" location="resources/fonts/" />
+	<mvc:resources mapping="/less/**" location="resources/less/" />
+	<mvc:resources mapping="/img/**" location="resources/img/" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -1,4 +1,4 @@
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/x-icon" href="<c:url value="favicon.ico" />" />
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/bootstrap/dist/css/bootstrap.min.css" />" />
@@ -19,4 +19,4 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<script src="<c:url value="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" />"></script>

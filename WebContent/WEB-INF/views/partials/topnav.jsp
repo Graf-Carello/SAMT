@@ -167,8 +167,13 @@
 					Profile</a></li>
 			<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
 			<li class="divider"></li>
-			<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
-					Logout</a></li>
+			<li>
+			<c:url value="/logout" var="logoutUrl" />
+			<form action="${logoutUrl}" method="post">
+			<input class="btn btn-xs btn-danger" type="submit" value="Logut" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+			</li>
 		</ul> <!-- /.dropdown-user --></li>
 	<!-- /.dropdown -->
 </ul>
