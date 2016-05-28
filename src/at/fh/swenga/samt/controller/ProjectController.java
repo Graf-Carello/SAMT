@@ -25,70 +25,70 @@ public class ProjectController {
 	@Autowired
 	ProjectRepository projectRepository;
 
-	@RequestMapping("")
-	public String index(Model model) {
-		List<ProjectModel> project = projectRepository.findAll();
-		model.addAttribute("project", project);
-		model.addAttribute("type", "findAll");
-		return "index";
+	@RequestMapping(value = {"","list"})
+	public String indexProjects(Model model) {
+		List<ProjectModel> projects = projectRepository.findAll();
+		model.addAttribute("projects", projects);
+		model.addAttribute("type", "findAllProjects");
+		return "projects";
 	}
 
 	@RequestMapping(value = { "/getPage" })
-	public String getPage(Pageable page, Model model) {
+	public String getPageProjects(Pageable page, Model model) {
 
-		Page<ProjectModel> project = projectRepository.findAll(page);
-		model.addAttribute("project", project.getContent());
-		model.addAttribute("usersPage", project);
+		Page<ProjectModel> projects = projectRepository.findAll(page);
+		model.addAttribute("projects", projects.getContent());
+		model.addAttribute("usersPage", projects);
 
-		return "index";
+		return "projects";
 	}
 
 	@RequestMapping(value = { "/find" })
-	public String find(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
-		List<ProjectModel> project = null;
+	public String findProject(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
+		List<ProjectModel> projects = null;
 		int count = 0;
 
 		switch (type) {
 		case "findAll":
-			project = projectRepository.findAll();
+			projects = projectRepository.findAll();
 			break;
 
 		default:
-			project = projectRepository.findAll();
+			projects = projectRepository.findAll();
 		}
 
-		model.addAttribute("project", project);
+		model.addAttribute("projects", projects);
 		model.addAttribute("count", count);
-		return "index";
+		return "projects";
 	}
 
 	@RequestMapping(value = { "/findById" })
-	public String findById(@RequestParam("id") ProjectModel p, Model model) {
-		List<ProjectModel> project = new ArrayList<>();
-		project.add(p);
-		model.addAttribute("project", project);
+	public String findByIdProject(@RequestParam("id") ProjectModel g, Model model) {
+		List<ProjectModel> projects = new ArrayList<>();
+		projects.add(g);
+		model.addAttribute("projects", projects);
 
-		return "index";
+		return "projects";
 	}
 
-	@RequestMapping("/fill")
-	@Transactional
-	public String fillData(Model model) {
+	  @RequestMapping("/fill")
+	  @Transactional
+	  public String fillData(Model model) {
 
-		ProjectModel pm1 = new ProjectModel("Project SAMT", new Date(), "25%",  "SWENGA");
-		ProjectModel pm2 = new ProjectModel("Project Game of Jumps", new Date(), "10%",  "DMT");
-		ProjectModel pm3 = new ProjectModel("Passwords term paper", new Date(), "0%",  "HVSYS");
-		
+	    ProjectModel pm1 = new ProjectModel("Project SAMT", new Date(), "25",  "SWENGA");
+	    ProjectModel pm2 = new ProjectModel("Project Game of Jumps", new Date(), "10",  "DMT");
+	    ProjectModel pm3 = new ProjectModel("Passwords term paper", new Date(), "0",  "HVSYS");
+	    
 
-		projectRepository.save(pm1);
-		projectRepository.save(pm2);
-		projectRepository.save(pm3);
-		
-		return "forward:list";
-	}
+	    projectRepository.save(pm1);
+	    projectRepository.save(pm2);
+	    projectRepository.save(pm3);
+	    
+	    return "forward:list";
+	  }
 
 	@RequestMapping("/delete")
-	public String deleteData(Model model, @RequestParam int id) {
+	public String deleteDataProject(Model model, @RequestParam int id) {
 		projectRepository.delete(id);
 
 		return "forward:list";

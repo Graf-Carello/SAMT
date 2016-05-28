@@ -11,9 +11,8 @@
 					</span>
 				</div> <!-- /input-group -->
 			</li>
-
-			<li><a href="/SAMT/users"><i class="fa fa-user fa-fw"></i> Users</a></li>
-			<li><a href="/SAMT/grades"><i class="fa fa-graduation-cap fa-fw"></i> Grades</a></li>
+			
+			<li><a href="<c:url value="/projects" />"><i class="fa fa-file-text-o fa-fw"></i> Projects</a></li>
 			
 			<li>
 				<hr />

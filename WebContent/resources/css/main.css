@@ -8,3 +8,5 @@ td.profilepic img { border:1px solid #999; width:173px; }
 .name h2 { display:inline; }
 .name { height:70px; }
 .action { text-align:right; height:70px; }
+
+.projects { margin-top:15px; }

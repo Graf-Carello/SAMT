@@ -29,9 +29,9 @@
 			<a class="navbar-brand" href="/">SAMT</a>
 		</div>
 
-		<!-- Top-Navigation --> <%@include file="partials/topnav.jsp"%>
+		<!-- Top-Navigation --> <%--@include file="partials/topnav.jsp"--%>
 
-		<!-- Side-Navigation --> <%@include file="partials/sidenav.jsp"%>
+		<!-- Side-Navigation --> <%--@include file="partials/sidenav.jsp"--%>
 
 
 		</nav>
