@@ -5,6 +5,8 @@
 <script type="text/javascript" src="<c:url value="/bower_components/morrisjs/morris.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/morris-data.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/sb-admin-2.js" />"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery-ui.min.js" />"></script>
+
 
 <script type="text/javascript" src="<c:url value="/js/plugins.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/main.js" />"></script>

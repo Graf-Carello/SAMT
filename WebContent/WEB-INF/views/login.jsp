@@ -15,67 +15,45 @@
 <body>
 
 	<div id="wrapper">
+		<div class="row">
+			<div class="col-lg-12">
 
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">SAMT</a>
-		</div>
+				<!-- ########## CONTENT ############################################################# -->
 
-		<!-- Top-Navigation --> <%--@include file="partials/topnav.jsp"--%>
-
-		<!-- Side-Navigation --> <%--@include file="partials/sidenav.jsp"--%>
-
-
-		</nav>
-
-		<div id="page-wrapper">
-			<div class="row">
-				<div class="col-lg-12">
-
-					<!-- ########## CONTENT ############################################################# -->
-
-					<div class="container" role="main">
-						<div class="row">
-							<div class="col-md-4 col-md-offset-4">
-								<c:url value="/login" var="loginUrl" />
-								<form action="${loginUrl}" method="post">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
-									<h2 class="form-signin-heading">Please sign in</h2>
-									<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message != null}">
-										<div class="alert alert-danger" role="alert">
-											<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-										</div>
-									</c:if>
-									<label for="inputEmail" class="sr-only">Email address</label> <input
-										type="text" id="username" class="form-control"
-										placeholder="User" required autofocus name="username">
-									<label for="inputPassword" class="sr-only">Password</label> <input
-										type="password" id="password" class="form-control"
-										placeholder="Password" required name="password">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-										in</button>
-								</form>
-							</div>
+				<div class="container" role="main">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<c:url value="/login" var="loginUrl" />
+							<form action="${loginUrl}" method="post">
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+								<h2 class="form-signin-heading">Please sign in</h2>
+								<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message != null}">
+									<div class="alert alert-danger" role="alert">
+										<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+									</div>
+								</c:if>
+								<label for="inputEmail" class="sr-only">Email address</label> <input
+									type="text" id="username" class="form-control"
+									placeholder="User" required autofocus name="username">
+								<label for="inputPassword" class="sr-only">Password</label> <input
+									type="password" id="password" class="form-control"
+									placeholder="Password" required name="password">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+									in</button>
+							</form>
 						</div>
 					</div>
-
-
-					<!-- ########## /CONTENT ############################################################ -->
-
 				</div>
+
+
+				<!-- ########## /CONTENT ############################################################ -->
+
 			</div>
 		</div>
-		<!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-		<%@include file="includes/bottom.jsp"%>
+	<%@include file="includes/bottom.jsp"%>
 </body>
 </html>

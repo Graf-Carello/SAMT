@@ -23,7 +23,7 @@ public class NoteController {
 	@Autowired
 	NoteRepository noteRepository;
 
-	@RequestMapping("")
+	@RequestMapping(value = {"","/own"})
 	public String indexNotes(Model model) {
 		List<NoteModel> notes = noteRepository.findAll();
 		model.addAttribute("notes", notes);
