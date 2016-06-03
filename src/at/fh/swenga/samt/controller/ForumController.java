@@ -74,9 +74,9 @@ public class ForumController {
 	@Transactional
 	public String fillData(Model model) {
 
-		ForumModel fm1 = new ForumModel("SWENGA Homework HELP!!!", "I need help! I don't have a clue", "1", true);
-		ForumModel fm2 = new ForumModel("Christmas party", "Who wants a christmas party?", "2", true);
-		ForumModel fm3 = new ForumModel("SWENGA Homework HELP!!", "No. Just read the error message!", "1", false);
+		ForumModel fm1 = new ForumModel("SWENGA Homework HELP!!!", "I need help! I don't have a clue", "1", "1", true);
+		ForumModel fm2 = new ForumModel("Christmas party", "Who wants a christmas party?", "2", "2", true);
+		ForumModel fm3 = new ForumModel("SWENGA Homework HELP!!", "No. Just read the error message!", "1", "2", false);
 
 		forumRepository.save(fm1);
 		forumRepository.save(fm2);

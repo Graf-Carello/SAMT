@@ -75,9 +75,9 @@ public class ProjectController {
 	  @Transactional
 	  public String fillData(Model model) {
 
-	    ProjectModel pm1 = new ProjectModel("Project SAMT", new Date(), "25",  "SWENGA");
-	    ProjectModel pm2 = new ProjectModel("Project Game of Jumps", new Date(), "10",  "DMT");
-	    ProjectModel pm3 = new ProjectModel("Passwords term paper", new Date(), "0",  "HVSYS");
+	    ProjectModel pm1 = new ProjectModel("Project SAMT", new Date(), "25",  "SWENGA", "1");
+	    ProjectModel pm2 = new ProjectModel("Project Game of Jumps", new Date(), "10",  "DMT", "1");
+	    ProjectModel pm3 = new ProjectModel("Passwords term paper", new Date(), "0",  "HVSYS", "2");
 	    
 
 	    projectRepository.save(pm1);

@@ -34,24 +34,26 @@ public class ProjectModel {
 
 	private String progress;
 	private String course;
-	
+
+	private String user;
+
 	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
 	private List<UserModel> users;
-	
+
 	@Version
 	long version;
-	
-	
+
 	public ProjectModel() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(String projectName, Date deadline, String progress, String course) {
+	public ProjectModel(String projectName, Date deadline, String progress, String course, String user) {
 		super();
 		this.projectName = projectName;
 		this.deadline = deadline;
 		this.progress = progress;
 		this.course = course;
+		this.user = user;
 	}
 
 	public int getId() {
@@ -94,6 +96,14 @@ public class ProjectModel {
 		this.course = course;
 	}
 
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
 	public List<UserModel> getUsers() {
 		return users;
 	}
@@ -101,12 +111,12 @@ public class ProjectModel {
 	public void setUsers(List<UserModel> users) {
 		this.users = users;
 	}
-	
-	public void addUser(UserModel user) {		
-		if (users== null) {
-			users= new ArrayList<UserModel>();
+
+	public void addUser(UserModel user) {
+		if (users == null) {
+			users = new ArrayList<UserModel>();
 		}
 		users.add(user);
-	}	
+	}
 
 }
