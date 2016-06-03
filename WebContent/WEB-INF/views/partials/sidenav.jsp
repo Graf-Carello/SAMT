@@ -43,7 +43,7 @@
 				<ul class="nav nav-second-level">
 					<li><a href="<c:url value="/notes" />"> View own</a></li>
 					<li><a href="<c:url value="/notes/public" />"> View public</a></li>
-					<li><a href="<c:url value="/homework/add" />"> Add new</a></li>
+					<li><a href="<c:url value="/notes/add" />"> Add new</a></li>
 				</ul>
 			</li>
 			<li><a href="<c:url value="/admin" />"><i class="fa fa-users fa-fw"></i> Edit Users</a></li>
