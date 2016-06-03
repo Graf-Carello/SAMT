@@ -31,6 +31,9 @@ public class ForumModel {
 	private String thread;
 	
 	@Column
+	private String user;
+	
+	@Column
 	private Boolean isMain;
 	
 	@ManyToMany(mappedBy = "forum", fetch = FetchType.EAGER)
@@ -45,11 +48,12 @@ public class ForumModel {
     }
 
 
-	public ForumModel(String forumName, String post, String thread, Boolean isMain) {
+	public ForumModel(String forumName, String post, String thread, String user, Boolean isMain) {
 		super();
 		this.forumName = forumName;
 		this.post = post;
 		this.thread = thread;
+		this.user = user;
 		this.isMain = isMain;
 	}
 
@@ -91,6 +95,16 @@ public class ForumModel {
 
 	public void setThread(String thread) {
 		this.thread = thread;
+	}
+	
+
+	public String getUser() {
+		return user;
+	}
+
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 
