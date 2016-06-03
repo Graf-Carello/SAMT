@@ -1,5 +1,9 @@
 
-.users { margin-bottom:20px; }
+.clearfix:after {
+    content:" ";
+    display:table;
+    clear:both;
+}
 
 #page-wrapper .users > tbody > tr > td.tabledata { height:15px; }
 #page-wrapper .users > tbody > tr > td { vertical-align:middle; }
@@ -10,3 +14,34 @@ td.profilepic img { border:1px solid #999; width:173px; }
 .action { text-align:right; height:70px; }
 
 .projects { margin-top:15px; }
+
+#notewrapper .note h3 { font-weight:bold; font-size:15px; max-width:200px; word-break:break-all; }
+
+#notewrapper .note { 
+	background:#ff9;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(136,136,136,1);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(136,136,136,1);
+	box-shadow: 3px 3px 5px 0px rgba(136,136,136,1);
+	padding:20px;
+	margin:20px;
+	float:left;
+	position:relative;
+	}
+	
+#notewrapper .note a {
+	position:absolute;
+	width:20px;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	font-size:20px;
+	right:10px;
+	top:10px;
+}
+	
+#notewrapper .note textarea {
+	width: 200px;
+	height: 200px;
+	background:transparent;
+	border:0px none;
+}

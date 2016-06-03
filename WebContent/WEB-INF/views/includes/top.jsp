@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/metisMenu/dist/metisMenu.min.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/morrisjs/morris.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/font-awesome/css/font-awesome.css" />" />
+<link rel="stylesheet" type="text/css" href="<c:url value="/css/jquery-ui.css" />" />
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css" />" />
 
