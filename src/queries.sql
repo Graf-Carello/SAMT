@@ -9,19 +9,19 @@ INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_ADMIN', '1');
 
 INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('michael','Michael', 'Fuchs', 'IMA', 'michael@fuchs.at', '$2a$06$MVAYELlfv3ghyEUF26J1sO/MAFOc7gk08PEQ4C.dJGIsUR7UkBsl6', 'michael.png', 1);
+VALUES ('michael','Michael', 'Fuchs', 'IMA', 'michael@fuchs.at', '$2a$06$Qguj48kEhsLbcUclc940u.jVtv8JnRyI83WtymmtHrIH/i.d1dWs6', 'michael.png', 1);
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '2');
 
 INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('paul','Paul', 'Körner', 'IMA', 'paul@körner.at', '$2a$06$MVAYELlfv3ghyEUF26J1sO/MAFOc7gk08PEQ4C.dJGIsUR7UkBsl6', 'paul.png', 1);
+VALUES ('paul','Paul', 'Körner', 'IMA', 'paul@körner.at', '$2a$06$D2ZRNg4dA3EX0ehGbMU89u58sWR9TAFzp9LXmGUHxm2BUm6PvUIS6', 'paul.png', 1);
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '3');
 
 INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('elsa','Elsa', 'Karimova', 'IMA', 'elsa@karimova.at', '$2a$06$MVAYELlfv3ghyEUF26J1sO/MAFOc7gk08PEQ4C.dJGIsUR7UkBsl6', 'elsa.png', 1);
+VALUES ('elsa','Elsa', 'Karimova', 'IMA', 'elsa@karimova.at', '$2a$06$H5LaaUqodExGOOiH/hO.JOFEZWdWsF.na9eRXbhoaovlP.Ex6Tmbi', 'elsa.png', 1);
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '4');
