@@ -14,15 +14,23 @@
 </head>
 <body>
 
-	<c:choose>
-		<c:otherwise>
-			<c:set var="legend">New Note</c:set>
-			<c:set var="formAction">add</c:set>
-			<c:set var="readonly"></c:set>
-		</c:otherwise>
-	</c:choose>
 
 	<div class="container" role="main">
+	
+	<!--  add or edit?  ----------------------------------------------------------- -->
+		<c:choose>
+			<c:when test="${not empty note}">
+				<c:set var="legend">Change Note ${note.id}</c:set>
+				<c:set var="formAction">edit</c:set>
+				<c:set var="readonly">readonly</c:set>
+			</c:when>
+			<c:otherwise>
+				<c:set var="legend">New Note</c:set>
+				<c:set var="formAction">add</c:set>
+				<c:set var="readonly"></c:set>
+			</c:otherwise>
+		</c:choose>
+		
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<form class="form-horizontal" method="post" action="${formAction}">
@@ -49,7 +57,11 @@
 							</div>
 						</div>
 
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+
 					</fieldset>
+
+
 				</form>
 			</div>
 		</div>

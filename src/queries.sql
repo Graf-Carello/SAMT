@@ -96,10 +96,10 @@ VALUES ('2016-07-01', 'Ferien', 1, 2);
 
 -- Insert Projects
 INSERT INTO Projects(projectName, deadline, progress, course, user, version)
-VALUES ('SAMT', '2016-06-20', '40%', 'SWENGA', '1', 1);
+VALUES ('SAMT', '2016-06-20', '40', 'SWENGA', '1', 1);
 
 INSERT INTO Projects(projectName, deadline, progress, course, user, version)
-VALUES ('BAC-1', '2016-07-11', '30%', 'BAC-1', '1', 1);
+VALUES ('BAC-1', '2016-07-11', '30', 'BAC-1', '1', 1);
 
 
 
