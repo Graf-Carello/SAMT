@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="meta/main.inc"%>
-<title>Notes | SAMT</title>
+<title>Edit Note | SAMT</title>
 
 <%@include file="includes/top.jsp"%>
 
