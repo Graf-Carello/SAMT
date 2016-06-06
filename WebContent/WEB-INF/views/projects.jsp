@@ -51,13 +51,12 @@
 
 						<nav class="navbar navbar-default">
 						<div class="container-fluid">
-							<a href="<c:url value="projects/fill" />">
-								<button type="button" class="btn btn-success">Fill List</button>
+							
 							</a> <a href="<c:url value="projects/new" />">
-								<button type="button" class="btn btn-default">New</button>
+								<button type="button" class="btn btn-default success">New</button>
 							</a>
 							<button type="submit" class="btn btn-default">Edit</button>
-							<button type="submit" class="btn btn-danger">Delete</button>
+							<button type="submit" class="btn btn-danger delete clearfix">Delete</button>
 
 
 						</div>
