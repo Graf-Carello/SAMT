@@ -16,8 +16,8 @@
 
 
 	<div class="container" role="main">
-	
-	<!--  add or edit?  ----------------------------------------------------------- -->
+
+		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
 			<c:when test="${not empty note}">
 				<c:set var="legend">Change Note ${note.id}</c:set>
@@ -30,12 +30,13 @@
 				<c:set var="readonly"></c:set>
 			</c:otherwise>
 		</c:choose>
-		
+
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<form class="form-horizontal" method="post" action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+						value="${_csrf.token}" /> <input type="hidden" name="id"
+						value="${note.id }" />
 					<fieldset>
 						<legend>${legend}</legend>
 

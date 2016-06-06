@@ -105,9 +105,12 @@ public class NoteController {
 	public String showEditForm(Model model, @RequestParam int id) {
 
 		NoteModel note = noteRepository.findOne(id);
+		
+		System.out.println(note.getId());
 
 		if (note != null) {
 			model.addAttribute("note", note);
+
 			return "editNote";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find note " + id);
@@ -130,11 +133,15 @@ public class NoteController {
 			return "forward:list";
 		}
 
+		System.out.println(changedNoteModel.getId() + changedNoteModel.getName() + changedNoteModel.getContent());
+
+		
 		NoteModel note = noteRepository.findOne(changedNoteModel.getId());
 
 		if (note == null) {
 			model.addAttribute("errorMessage", "Note does not exist!<br>");
 		} else {
+
 			note.setName(changedNoteModel.getName());
 			note.setContent(changedNoteModel.getContent());
 
@@ -152,7 +159,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam String content) {
+	public String add(Model model, @RequestParam int id, @RequestParam String name, @RequestParam String content) {
 		{
 			model.addAttribute(name);
 			model.addAttribute(content);
