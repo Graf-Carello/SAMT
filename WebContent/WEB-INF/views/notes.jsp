@@ -44,11 +44,22 @@
 
 					<h1>Your notes</h1>
 
+					<nav class="navbar navbar-default">
+					<div class="container-fluid">
+
+						</a> <a href="<c:url value="projects/new" />">
+							<button type="button" class="btn btn-default success">New</button>
+						</a>
+
+					</div>
+					</nav>
 					<div id="notewrapper">
 						<c:forEach items="${notes}" var="note">
 							<div class="note clearfix">
 								<h3>${note.name}</h3>
-								<a class="edit" href="<c:url value="/edit" />"><i class="fa fa-wrench fa-fw"></i></a>
+								<a class="edit" href="<c:url value="/edit" />"><i
+									class="fa fa-wrench fa-fw"></i></a> <a class="delete"
+									href="<c:url value="/delete" />"><i class="fa fa-ban fa-fw"></i></a>
 								<textarea readonly>${note.content}</textarea>
 							</div>
 						</c:forEach>

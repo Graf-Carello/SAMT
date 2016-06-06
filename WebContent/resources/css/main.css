@@ -1,3 +1,4 @@
+/* GENERAL */
 
 .clearfix:after {
     content:" ";
@@ -5,15 +6,10 @@
     clear:both;
 }
 
-#page-wrapper .users > tbody > tr > td.tabledata { height:15px; }
-#page-wrapper .users > tbody > tr > td { vertical-align:middle; }
-#page-wrapper .users > tbody > tr > td.profilepic { width:173px; vertical-align:top; }
-td.profilepic img { border:1px solid #999; width:173px; }
-.name h2 { display:inline; }
-.name { height:70px; }
-.action { text-align:right; height:70px; }
+.navbar .container-fluid { padding:7px; }
+.navbar .container-fluid .delete { float:right; }
 
-.projects { margin-top:15px; }
+/* NOTES */
 
 #notewrapper .note h3 { font-weight:bold; font-size:15px; max-width:200px; word-break:break-all; }
 
@@ -45,3 +41,12 @@ td.profilepic img { border:1px solid #999; width:173px; }
 	background:transparent;
 	border:0px none;
 }
+
+#notewrapper .note .edit { position:absolute; right:35px; color:#888; }
+#notewrapper .note .delete { position:absolute; right:10px; color:#f88; }
+
+#notewrapper .note .edit:hover { color:#333; }
+#notewrapper .note .delete:hover { color:#f33; }
+
+/* PROJECTS */
+
