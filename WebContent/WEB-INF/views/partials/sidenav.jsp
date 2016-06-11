@@ -26,13 +26,6 @@
 					<li><a href="<c:url value="/projects/add" />"> Add new</a></li>
 				</ul>
 			</li>
-			<li><a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Grades<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="<c:url value="/grades" />"> View</a></li>
-					<li><a href="<c:url value="/grades/report" />"> Generate report</a></li>
-					<li><a href="<c:url value="/grades/add" />"> Add new</a></li>
-				</ul>
-			</li>
 			<li><a href="#"><i class="fa fa-paperclip fa-fw"></i> Homework<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="<c:url value="/homework" />"> View all</a></li>

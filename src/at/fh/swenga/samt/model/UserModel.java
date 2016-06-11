@@ -56,9 +56,6 @@ public class UserModel implements Serializable {
 	private List<HomeworkModel> homework;
 
 	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
-	private List<GradeModel> grades;
-
-	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
 	private List<NoteModel> notes;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -189,21 +186,6 @@ public class UserModel implements Serializable {
 			this.homework = new ArrayList<HomeworkModel>();
 		}
 		this.homework.add(homework);
-	}
-
-	public List<GradeModel> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(List<GradeModel> grades) {
-		this.grades = grades;
-	}
-
-	public void addGrade(GradeModel grade) {
-		if (grades == null) {
-			grades = new ArrayList<GradeModel>();
-		}
-		grades.add(grade);
 	}
 
 	public List<NoteModel> getNotes() {

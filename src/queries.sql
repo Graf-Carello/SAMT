@@ -44,23 +44,6 @@ INSERT INTO Notes(name, content, version, users_id)
 VALUES ('FH', 'Abschlussfeier planen', 1, 2);
 
 
--- Insert Grades
-INSERT INTO Grades(course, date, grade, version, users_id)
-VALUES ('SWENGA', '2016-05-20', '1', 1, 1);
-
-INSERT INTO Grades(course, date, grade, version, users_id)
-VALUES ('SWENGA', '2016-04-20', '2', 1, 2);
-
-INSERT INTO Grades(course, date, grade, version, users_id)
-VALUES ('QM', '2016-03-10', '1', 1, 1);
-
-INSERT INTO Grades(course, date, grade, version, users_id)
-VALUES ('BWL', '2016-05-15', '3', 1, 4);
-
-INSERT INTO Grades(course, date, grade, version, users_id)
-VALUES ('Englisch', '2016-03-02', '2', 1, 1);
-
-
 -- Insert Groups
 INSERT INTO Groups(groupName, members, project, version)
 VALUES ('SAMT', '1, 2, 3, 4', 'SWENGA Projekt', 1);
