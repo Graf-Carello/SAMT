@@ -38,9 +38,17 @@ public class NoteController {
 
 	@RequestMapping(value = { "", "list", "own" })
 	public String indexNotes(Model model) {
-		List<NoteModel> notes = noteRepository.findAllByOrderByIdDesc();
+		
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    String userName = userdet.getUsername();
+	      
+	    List<UserModel> user = userRepository.findByUserName(userName);
+	    UserModel userModel = user.get(0);
+	    
+		List<NoteModel> notes = noteRepository.findByUserOrderByIdDesc(userModel);
+
 		model.addAttribute("notes", notes);
-		model.addAttribute("type", "findAllNotes");
+		model.addAttribute("type", "findOwnNotes");
 		return "notes";
 	}
 
@@ -53,7 +61,7 @@ public class NoteController {
 
 		return "notes";
 	}
-
+	
 	@RequestMapping(value = { "/find" })
 	public String findNote(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
 		List<NoteModel> notes = null;
@@ -162,10 +170,10 @@ public class NoteController {
 	public String add(Model model, @RequestParam String name, @RequestParam String content) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		    String username = userdet.getUsername();
+		    String userName = userdet.getUsername();
 		      
-		    List<UserModel> user = userRepository.findByUserName(username);
-		    UserModel userM = user.get(0);
+		    List<UserModel> user = userRepository.findByUserName(userName);
+		    UserModel userModel = user.get(0);
 		    int user_id = user.get(0).getId();
 					
 			model.addAttribute(name);
@@ -173,7 +181,7 @@ public class NoteController {
 			model.addAttribute(user_id);
 
 			NoteModel nm = new NoteModel(name, content);
-			nm.setUser(userM);
+			nm.setUser(userModel);
 					
 			noteRepository.save(nm);
 
