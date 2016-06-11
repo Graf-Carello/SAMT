@@ -26,7 +26,7 @@ public class NoteModel {
 	private String content;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private UserModel users;
+	private UserModel user;
 
 	@Version
 	long version;
@@ -38,7 +38,7 @@ public class NoteModel {
 	public NoteModel(String name, String content) {
 		super();
 		this.name = name;
-		this.content = content;
+		this.content = content;	
 	}
 
 	public int getId() {
@@ -65,12 +65,12 @@ public class NoteModel {
 		this.content = content;
 	}
 
-	public UserModel getUsers() {
-		return users;
+	public UserModel getUser() {
+		return user;
 	}
 
-	public void setUsers(UserModel users) {
-		this.users = users;
+	public void setUser(UserModel user) {
+		this.user = user;
 	}
 
 }

@@ -20,27 +20,21 @@ VALUES ('paul','Paul', 'Koerner', 'IMA', 'paul@koerner.at', '$2a$06$D2ZRNg4dA3EX
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '3');
 
-INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('elsa','Elsa', 'Karimova', 'IMA', 'elsa@karimova.at', '$2a$06$H5LaaUqodExGOOiH/hO.JOFEZWdWsF.na9eRXbhoaovlP.Ex6Tmbi', 'elsa.png', 1);
-
-INSERT INTO user_roles (role, idUser)
-VALUES ('ROLE_USER', '4');
-
 
 -- Insert Notes
-INSERT INTO Notes(name, content, version, users_id)
+INSERT INTO Notes(name, content, version, user_id)
 VALUES ('Dokumente mitnehmen', 'Studentenausweis erneuern', 1, 1);
 
-INSERT INTO Notes(name, content, version, users_id)
+INSERT INTO Notes(name, content, version, user_id)
 VALUES ('SWENGA', 'PR am Freitag', 1, 2);
 
-INSERT INTO Notes(name, content, version, users_id)
+INSERT INTO Notes(name, content, version, user_id)
 VALUES ('HVSYS', 'Seminararbeit schreiben', 1, 1);
 
-INSERT INTO Notes(name, content, version, users_id)
+INSERT INTO Notes(name, content, version, user_id)
 VALUES ('GPM', 'Abschlussübung', 1, 1);
 
-INSERT INTO Notes(name, content, version, users_id)
+INSERT INTO Notes(name, content, version, user_id)
 VALUES ('FH', 'Abschlussfeier planen', 1, 2);
 
 
@@ -64,16 +58,16 @@ VALUES ('SWENGA', 3, false, 'just press it a couple of times, and it will work j
 
 
 -- Insert Homework
-INSERT INTO Homework(deadline, description, version, users_id)
+INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-06-20', 'BAC-1 Arbeit', 1, 1);
 
-INSERT INTO Homework(deadline, description, version, users_id)
+INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-06-01', 'QMMGT Seminararbeit', 1, 4);
 
-INSERT INTO Homework(deadline, description, version, users_id)
+INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-06-13', 'HVSYS Seminararbeit', 1, 3);
 
-INSERT INTO Homework(deadline, description, version, users_id)
+INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-07-01', 'Ferien', 1, 2);
 
 

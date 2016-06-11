@@ -5,10 +5,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,13 +17,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.NoteRepository;
+import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.NoteModel;
+import at.fh.swenga.samt.model.UserModel;
 
 @Controller
 @RequestMapping("/notes")
@@ -30,6 +32,9 @@ public class NoteController {
 
 	@Autowired
 	NoteRepository noteRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping(value = { "", "list", "own" })
 	public String indexNotes(Model model) {
@@ -154,12 +159,22 @@ public class NoteController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam int id, @RequestParam String name, @RequestParam String content) {
+	public String add(Model model, @RequestParam String name, @RequestParam String content) {
 		{
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		    String username = userdet.getUsername();
+		      
+		    List<UserModel> user = userRepository.findByUserName(username);
+		    UserModel userM = user.get(0);
+		    int user_id = user.get(0).getId();
+					
 			model.addAttribute(name);
-			model.addAttribute(content);
+			model.addAttribute(content);	
+			model.addAttribute(user_id);
 
 			NoteModel nm = new NoteModel(name, content);
+			nm.setUser(userM);
+					
 			noteRepository.save(nm);
 
 		}

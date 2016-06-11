@@ -32,7 +32,7 @@ public class HomeworkModel {
 	private Date deadline;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private UserModel users;
+	private UserModel user;
 	
 	@Version
 	long version;
@@ -72,11 +72,11 @@ public class HomeworkModel {
 		this.deadline = deadline;
 	}
 
-	public UserModel getUsers() {
-		return users;
+	public UserModel getUser() {
+		return user;
 	}
 
-	public void setUsers(UserModel users) {
-		this.users = users;
+	public void setUsers(UserModel user) {
+		this.user = user;
 	}
 }

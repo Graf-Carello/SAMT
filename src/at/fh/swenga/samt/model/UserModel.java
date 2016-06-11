@@ -52,10 +52,10 @@ public class UserModel implements Serializable {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ProjectModel> projects;
 
-	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private List<HomeworkModel> homework;
 
-	@OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private List<NoteModel> notes;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
