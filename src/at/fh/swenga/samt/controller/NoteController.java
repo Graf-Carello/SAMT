@@ -105,8 +105,6 @@ public class NoteController {
 	public String showEditForm(Model model, @RequestParam int id) {
 
 		NoteModel note = noteRepository.findOne(id);
-		
-		System.out.println(note.getId());
 
 		if (note != null) {
 			model.addAttribute("note", note);
@@ -133,9 +131,6 @@ public class NoteController {
 			return "forward:list";
 		}
 
-		System.out.println(changedNoteModel.getId() + changedNoteModel.getName() + changedNoteModel.getContent());
-
-		
 		NoteModel note = noteRepository.findOne(changedNoteModel.getId());
 
 		if (note == null) {
