@@ -36,6 +36,8 @@ public class ProjectModel {
 	private String course;
 
 	private String user;
+	
+	private Boolean isArchived;
 
 	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
 	private List<UserModel> users;
@@ -102,6 +104,14 @@ public class ProjectModel {
 
 	public void setUser(String user) {
 		this.user = user;
+	}	
+
+	public Boolean getIsArchived() {
+		return isArchived;
+	}
+
+	public void setIsArchived(Boolean isArchived) {
+		this.isArchived = isArchived;
 	}
 
 	public List<UserModel> getUsers() {
