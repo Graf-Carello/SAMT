@@ -11,7 +11,7 @@
 
 /* NOTES */
 
-#notewrapper .note h3 { font-weight:bold; font-size:15px; max-width:200px; word-break:break-all; }
+#notewrapper .note h3 { font-family: 'Indie Flower', cursive; font-weight:bold; font-size:25px; max-width:300px; word-break:break-all; margin-top:30px; }
 
 #notewrapper .note { 
 	background:#ff9;
@@ -35,16 +35,19 @@
 	top:10px;
 }
 	
-#notewrapper .note textarea {
-	width: 200px;
-	height: 200px;
+#notewrapper .note p {
+	font-family: 'Indie Flower', cursive;
+	font-size:25px;
+	width: 300px;
+	height: 250px;
 	background:transparent;
 	border:0px none;
 }
 
 #notewrapper .note .edit { position:absolute; right:35px; color:#888; }
 #notewrapper .note .delete { position:absolute; right:10px; color:#f88; }
-#notewrapper .note .globe { position:absolute; right:10px; color:#39f; }
+#notewrapper .note .globe { position:absolute; left:15px; color:#39f; }
+#notewrapper .note .author { position:absolute; left:50px; top:10px; color:#aaa; }
 
 #notewrapper .note .edit:hover { color:#333; }
 #notewrapper .note .delete:hover { color:#f33; }

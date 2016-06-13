@@ -1,5 +1,6 @@
 <link rel="icon" type="image/x-icon" href="<c:url value="favicon.ico" />" />
 
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="<c:url value="/css/normalize.css" />" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/bower_components/bootstrap/dist/css/bootstrap.min.css" />" />
 <!-- <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap-theme.min.css" />" /> -->

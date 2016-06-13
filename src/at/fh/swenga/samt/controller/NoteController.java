@@ -1,6 +1,7 @@
 package at.fh.swenga.samt.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -49,6 +50,7 @@ public class NoteController {
 
 		model.addAttribute("notes", notes);
 		model.addAttribute("type", "findOwnNotes");
+		model.addAttribute("title","All yours notes");
 		return "notes";
 	}
 
@@ -56,9 +58,19 @@ public class NoteController {
 	public String indexNotesPublic(Model model) {
 		
 		List<NoteModel> notes = noteRepository.findIfPublic();
-
+		List<String> authors = new ArrayList<String>();
+		
+		for(Iterator<NoteModel> note = notes.iterator(); note.hasNext(); ) {
+		    NoteModel cnote = note.next();
+		    String author = noteRepository.findAuthor(cnote.getId());
+		    authors.add(author);
+		}
+		
 		model.addAttribute("notes", notes);
-		model.addAttribute("type", "findPublicNotes");
+		model.addAttribute("authors", authors);
+		System.out.println(authors);
+		model.addAttribute("type", "public");
+		model.addAttribute("title","All public notes");
 		return "notes";
 	}
 	
@@ -168,10 +180,6 @@ public class NoteController {
 			} else {
 				note.setIsPublic(false);
 			}
-			
-			
-			System.out.println("changed: " + changedNoteModel.getIsPublic());
-			System.out.println("normal: " + note.getIsPublic());
 			
 			model.addAttribute("message", "Changed note " + changedNoteModel.getId());
 		}

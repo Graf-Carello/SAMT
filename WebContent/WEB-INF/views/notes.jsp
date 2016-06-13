@@ -42,27 +42,37 @@
 
 					<!-- ########## CONTENT ############################################################# -->
 
-					<h1>Your notes</h1>
+					<h1>${title}</h1>
 
-					<nav class="navbar navbar-default">
-					<div class="container-fluid">
+					<c:if test="${type != 'public'}">
+						<nav class="navbar navbar-default">
+						<div class="container-fluid">
 
-						<a href="<c:url value="/notes/add" />">
-							<button type="button" class="btn btn-default success">Add</button>
-						</a>
+							<a href="<c:url value="/notes/add" />">
+								<button type="button" class="btn btn-default success">Add</button>
+							</a>
 
-					</div>
-					</nav>
+						</div>
+						</nav>
+					</c:if>
 					<div id="notewrapper">
-						<c:forEach items="${notes}" var="note">
+						<c:forEach items="${notes}" var="note" varStatus="i">
 							<div class="note clearfix">
 								<h3>${note.name}</h3>
 								<c:choose>
-									<c:when test="${note.isPublic}">
-										<a class="globe" /><i class="fa fa-globe fa-fw"></i>
+									<c:when test="${type == 'public'}">
+										<a class="globe" />
+										<i class="fa fa-globe fa-fw"></i>
 										</a>
+										<span class="author">by ${authors[i.index]}</span>
+										
 									</c:when>
 									<c:otherwise>
+										<c:if test="${note.isPublic}">
+											<a class="globe" />
+											<i class="fa fa-globe fa-fw"></i>
+											</a>
+										</c:if>
 										<a class="edit"
 											href="<c:url value="/notes/edit?id=${note.id}" />"><i
 											class="fa fa-wrench fa-fw"></i></a>
@@ -71,7 +81,7 @@
 											class="fa fa-ban fa-fw"></i></a>
 									</c:otherwise>
 								</c:choose>
-								<textarea readonly>${note.content}</textarea>
+								<p>${note.content}</p>
 							</div>
 						</c:forEach>
 					</div>
