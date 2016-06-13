@@ -66,11 +66,11 @@
 							<div class="col-md-10">
 								<c:choose>
 									<c:when test="${note.isPublic}">
-										<input checked class="form-control" id="checkPublic"
+										<input checked class="form-control checkbox" id="checkPublic"
 											type="checkbox" name="isPublic" value="true">
 									</c:when>
 									<c:otherwise>
-										<input class="form-control" id="checkPublic" type="checkbox"
+										<input class="form-control checkbox" id="checkPublic" type="checkbox"
 											name="isPublic" value="true">
 									</c:otherwise>
 								</c:choose>
