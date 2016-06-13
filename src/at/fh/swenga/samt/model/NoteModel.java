@@ -24,6 +24,9 @@ public class NoteModel {
 
 	@Column(nullable = true, length = 500)
 	private String content;
+	
+	@Column
+	private Boolean isPublic;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel user;
@@ -63,6 +66,14 @@ public class NoteModel {
 
 	public void setContent(String content) {
 		this.content = content;
+	}	
+
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 	public UserModel getUser() {
