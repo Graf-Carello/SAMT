@@ -52,6 +52,16 @@ public class NoteController {
 		return "notes";
 	}
 
+	@RequestMapping("public")
+	public String indexNotesPublic(Model model) {
+		
+		List<NoteModel> notes = noteRepository.findIfPublic();
+
+		model.addAttribute("notes", notes);
+		model.addAttribute("type", "findPublicNotes");
+		return "notes";
+	}
+	
 	@RequestMapping(value = { "/getPage" })
 	public String getPageNotes(Pageable page, Model model) {
 
