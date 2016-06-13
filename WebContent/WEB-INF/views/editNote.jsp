@@ -61,7 +61,7 @@
 
 						<!-- ----------------  public ---------------- -->
 						<div class="form-group">
-							<label for="isPublic" class="col-md-2 control-label">public</label>
+							<label for="isPublic" class="col-md-2 control-label">Public</label>
 
 							<div class="col-md-10">
 								<c:choose>
