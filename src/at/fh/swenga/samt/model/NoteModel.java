@@ -25,7 +25,7 @@ public class NoteModel {
 	@Column(nullable = true, length = 500)
 	private String content;
 	
-	@Column
+	@Column(name="isPublic", columnDefinition="boolean default false")
 	private Boolean isPublic;
 
 	@ManyToOne(fetch = FetchType.EAGER)

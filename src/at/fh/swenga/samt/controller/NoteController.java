@@ -163,6 +163,16 @@ public class NoteController {
 			note.setName(changedNoteModel.getName());
 			note.setContent(changedNoteModel.getContent());
 
+			if(changedNoteModel.getIsPublic() != null) {
+				note.setIsPublic(changedNoteModel.getIsPublic());
+			} else {
+				note.setIsPublic(false);
+			}
+			
+			
+			System.out.println("changed: " + changedNoteModel.getIsPublic());
+			System.out.println("normal: " + note.getIsPublic());
+			
 			model.addAttribute("message", "Changed note " + changedNoteModel.getId());
 		}
 
@@ -177,7 +187,7 @@ public class NoteController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam String content) {
+	public String add(Model model, @RequestParam String name, @RequestParam String content, @RequestParam Boolean isPublic) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		    String userName = userdet.getUsername();
@@ -187,11 +197,12 @@ public class NoteController {
 		    int user_id = user.get(0).getId();
 					
 			model.addAttribute(name);
-			model.addAttribute(content);	
+			model.addAttribute(content);
 			model.addAttribute(user_id);
 
 			NoteModel nm = new NoteModel(name, content);
 			nm.setUser(userModel);
+			nm.setIsPublic(isPublic);
 					
 			noteRepository.save(nm);
 

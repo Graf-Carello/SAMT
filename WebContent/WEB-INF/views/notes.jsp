@@ -47,7 +47,7 @@
 					<nav class="navbar navbar-default">
 					<div class="container-fluid">
 
-						 <a href="<c:url value="/notes/add" />">
+						<a href="<c:url value="/notes/add" />">
 							<button type="button" class="btn btn-default success">Add</button>
 						</a>
 
@@ -57,8 +57,20 @@
 						<c:forEach items="${notes}" var="note">
 							<div class="note clearfix">
 								<h3>${note.name}</h3>
-								<a class="edit" href="<c:url value="/notes/edit?id=${note.id}" />"><i class="fa fa-wrench fa-fw"></i></a>
-								<a class="delete" href="<c:url value="/notes/delete?id=${note.id}" />"><i class="fa fa-ban fa-fw"></i></a>
+								<c:choose>
+									<c:when test="${note.isPublic}">
+										<a class="globe" /><i class="fa fa-globe fa-fw"></i>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a class="edit"
+											href="<c:url value="/notes/edit?id=${note.id}" />"><i
+											class="fa fa-wrench fa-fw"></i></a>
+										<a class="delete"
+											href="<c:url value="/notes/delete?id=${note.id}" />"><i
+											class="fa fa-ban fa-fw"></i></a>
+									</c:otherwise>
+								</c:choose>
 								<textarea readonly>${note.content}</textarea>
 							</div>
 						</c:forEach>

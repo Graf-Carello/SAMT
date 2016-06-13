@@ -37,11 +37,11 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
 						value="${note.id }" />
-						
+
 					<fieldset>
 						<legend>${legend}</legend>
 
-						<! ----------------  name ---------------- -->
+						<!-- ----------------  name ---------------- -->
 						<div class="form-group">
 							<label for="inputName" class="col-md-2 control-label">Name</label>
 							<div class="col-md-10">
@@ -50,12 +50,30 @@
 							</div>
 						</div>
 
-						<! ----------------  content ---------------- -->
+						<!-- ----------------  content ---------------- -->
 						<div class="form-group">
 							<label for="inputContent" class="col-md-2 control-label">Content</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputContent" type="text"
 									name="content" value="<c:out value="${note.content}"/>">
+							</div>
+						</div>
+
+						<!-- ----------------  public ---------------- -->
+						<div class="form-group">
+							<label for="isPublic" class="col-md-2 control-label">public</label>
+
+							<div class="col-md-10">
+								<c:choose>
+									<c:when test="${note.isPublic}">
+										<input checked class="form-control" id="checkPublic"
+											type="checkbox" name="isPublic" value="true">
+									</c:when>
+									<c:otherwise>
+										<input class="form-control" id="checkPublic" type="checkbox"
+											name="isPublic" value="true">
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 

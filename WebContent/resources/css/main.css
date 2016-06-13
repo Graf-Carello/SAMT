@@ -44,6 +44,7 @@
 
 #notewrapper .note .edit { position:absolute; right:35px; color:#888; }
 #notewrapper .note .delete { position:absolute; right:10px; color:#f88; }
+#notewrapper .note .globe { position:absolute; right:10px; color:#39f; }
 
 #notewrapper .note .edit:hover { color:#333; }
 #notewrapper .note .delete:hover { color:#f33; }

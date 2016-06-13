@@ -18,7 +18,7 @@ public interface NoteRepository extends JpaRepository<NoteModel, Integer>{
 	
 	public List<NoteModel> findByUserOrderByIdDesc (UserModel userModel);
 	
-	@Query("select n from Notes n where isPublic=true")
+	@Query("select n from NoteModel n where n.isPublic=true")
 	public List<NoteModel> findIfPublic();
 	
 	
