@@ -35,7 +35,7 @@ public class ProjectModel {
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
 
-	private String progress;
+	private Integer progress;
 	private String course;
 	private String user;
 
@@ -52,7 +52,7 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(String projectName, Date deadline, String progress, String course, String user) {
+	public ProjectModel(String projectName, Date deadline, Integer progress, String course, String user) {
 		super();
 		this.projectName = projectName;
 		this.deadline = deadline;
@@ -93,11 +93,11 @@ public class ProjectModel {
 		this.deadline = deadline;
 	}
 
-	public String getProgress() {
+	public Integer getProgress() {
 		return progress;
 	}
 
-	public void setProgress(String progress) {
+	public void setProgress(Integer progress) {
 		this.progress = progress;
 	}
 
