@@ -21,9 +21,12 @@ import javax.persistence.Version;
 public class ProjectModel {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "UID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int uid;
+
+	@Column(name = "PID")
+	private int pid;
 
 	@Column(nullable = false, length = 50)
 	private String projectName;
@@ -32,11 +35,11 @@ public class ProjectModel {
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
 
-	private String progress;
+	private Integer progress;
 	private String course;
-
 	private String user;
-	
+
+	@Column(name="isArchived", columnDefinition="boolean default false")
 	private Boolean isArchived;
 
 	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
@@ -49,7 +52,7 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(String projectName, Date deadline, String progress, String course, String user) {
+	public ProjectModel(String projectName, Date deadline, Integer progress, String course, String user) {
 		super();
 		this.projectName = projectName;
 		this.deadline = deadline;
@@ -58,12 +61,20 @@ public class ProjectModel {
 		this.user = user;
 	}
 
-	public int getId() {
-		return id;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 	public String getProjectName() {
@@ -82,11 +93,11 @@ public class ProjectModel {
 		this.deadline = deadline;
 	}
 
-	public String getProgress() {
+	public Integer getProgress() {
 		return progress;
 	}
 
-	public void setProgress(String progress) {
+	public void setProgress(Integer progress) {
 		this.progress = progress;
 	}
 
@@ -104,7 +115,7 @@ public class ProjectModel {
 
 	public void setUser(String user) {
 		this.user = user;
-	}	
+	}
 
 	public Boolean getIsArchived() {
 		return isArchived;
