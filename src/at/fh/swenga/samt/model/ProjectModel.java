@@ -21,9 +21,12 @@ import javax.persistence.Version;
 public class ProjectModel {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "UID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int uid;
+
+	@Column(name = "PID")
+	private int pid;
 
 	@Column(nullable = false, length = 50)
 	private String projectName;
@@ -34,9 +37,9 @@ public class ProjectModel {
 
 	private String progress;
 	private String course;
-
 	private String user;
-	
+
+	@Column(name="isArchived", columnDefinition="boolean default false")
 	private Boolean isArchived;
 
 	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
@@ -58,12 +61,20 @@ public class ProjectModel {
 		this.user = user;
 	}
 
-	public int getId() {
-		return id;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 	public String getProjectName() {
@@ -104,7 +115,7 @@ public class ProjectModel {
 
 	public void setUser(String user) {
 		this.user = user;
-	}	
+	}
 
 	public Boolean getIsArchived() {
 		return isArchived;
