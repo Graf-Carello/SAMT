@@ -24,7 +24,7 @@ public class ForumController {
 	@Autowired
 	ForumRepository forumRepository;
 
-	@RequestMapping("")
+	@RequestMapping("/")
 	public String index(Model model) {
 		List<ForumModel> forum = forumRepository.findAll();
 		model.addAttribute("forum", forum);

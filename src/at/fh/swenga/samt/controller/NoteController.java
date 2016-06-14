@@ -7,8 +7,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -33,106 +31,51 @@ public class NoteController {
 
 	@Autowired
 	NoteRepository noteRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping(value = { "", "list", "own" })
+	@RequestMapping(value={"/", "own/"})
 	public String indexNotes(Model model) {
-		
+
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    String userName = userdet.getUsername();
-	      
-	    List<UserModel> user = userRepository.findByUserName(userName);
-	    UserModel userModel = user.get(0);
-	    
+		String userName = userdet.getUsername();
+
+		List<UserModel> user = userRepository.findByUserName(userName);
+		UserModel userModel = user.get(0);
+
 		List<NoteModel> notes = noteRepository.findByUserOrderByIdDesc(userModel);
 
 		model.addAttribute("notes", notes);
 		model.addAttribute("type", "findOwnNotes");
-		model.addAttribute("title","All yours notes");
-		return "notes";
+		model.addAttribute("title", "All your notes");
+		return "notes/index";
 	}
 
-	@RequestMapping("public")
+	@RequestMapping("public/")
 	public String indexNotesPublic(Model model) {
-		
+
 		List<NoteModel> notes = noteRepository.findIfPublic();
 		List<String> authors = new ArrayList<String>();
-		
-		for(Iterator<NoteModel> note = notes.iterator(); note.hasNext(); ) {
-		    NoteModel cnote = note.next();
-		    String author = noteRepository.findAuthor(cnote.getId());
-		    authors.add(author);
+
+		for (Iterator<NoteModel> note = notes.iterator(); note.hasNext();) {
+			NoteModel cnote = note.next();
+			String author = noteRepository.findAuthor(cnote.getId());
+			authors.add(author);
 		}
-		
+
 		model.addAttribute("notes", notes);
 		model.addAttribute("authors", authors);
 		System.out.println(authors);
 		model.addAttribute("type", "public");
-		model.addAttribute("title","All public notes");
-		return "notes";
+		model.addAttribute("title", "All public notes");
+		return "notes/index";
 	}
-	
-	@RequestMapping(value = { "/getPage" })
-	public String getPageNotes(Pageable page, Model model) {
-
-		Page<NoteModel> notes = noteRepository.findAll(page);
-		model.addAttribute("notes", notes.getContent());
-		model.addAttribute("usersPage", notes);
-
-		return "notes";
-	}
-	
-	@RequestMapping(value = { "/find" })
-	public String findNote(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
-		List<NoteModel> notes = null;
-		int count = 0;
-
-		switch (type) {
-		case "findAll":
-			notes = noteRepository.findAll();
-			break;
-
-		default:
-			notes = noteRepository.findAll();
-		}
-
-		model.addAttribute("notes", notes);
-		model.addAttribute("count", count);
-		return "notes";
-	}
-
-	@RequestMapping(value = { "/findById" })
-	public String findByIdNote(@RequestParam("id") NoteModel g, Model model) {
-		List<NoteModel> notes = new ArrayList<>();
-		notes.add(g);
-		model.addAttribute("notes", notes);
-
-		return "notes";
-	}
-
-	/*
-	 * @RequestMapping("/fill")
-	 * 
-	 * @Transactional public String fillDataNotes(Model model) {
-	 * 
-	 * NoteModel nm1 = new NoteModel("SWENGA Kurs",
-	 * "Spring Data Web HÜ machen, bis 11.05."); NoteModel nm2 = new
-	 * NoteModel("Math2", "Integralrechnung üben"); NoteModel nm3 = new
-	 * NoteModel("SWENGA", "Quiz Security vorbereiten");
-	 * 
-	 * noteRepository.save(nm1); noteRepository.save(nm2);
-	 * noteRepository.save(nm3);
-	 * 
-	 * return "forward:list"; }
-	 */
 
 	@RequestMapping("/delete")
 	public String deleteDataNote(Model model, @RequestParam int id) {
 		noteRepository.delete(id);
-
-		return "forward:list";
+		return "forward:own/";
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -144,10 +87,10 @@ public class NoteController {
 		if (note != null) {
 			model.addAttribute("note", note);
 
-			return "editNote";
+			return "notes/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find note " + id);
-			return "forward:list";
+			return "forward:own/";
 		}
 
 	}
@@ -161,9 +104,9 @@ public class NoteController {
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
+			
 			model.addAttribute("errorMessage", errorMessage);
-
-			return "forward:list";
+			return "forward:own/";
 		}
 
 		NoteModel note = noteRepository.findOne(changedNoteModel.getId());
@@ -175,48 +118,53 @@ public class NoteController {
 			note.setName(changedNoteModel.getName());
 			note.setContent(changedNoteModel.getContent());
 
-			if(changedNoteModel.getIsPublic() != null) {
-				note.setIsPublic(changedNoteModel.getIsPublic());
-			} else {
+			if (changedNoteModel.getIsPublic() == null) {
 				note.setIsPublic(false);
+			} else {
+				note.setIsPublic(changedNoteModel.getIsPublic());
 			}
-			
-			model.addAttribute("message", "Changed note " + changedNoteModel.getId());
 		}
 
-		return "forward:list";
+		return "forward:own/";
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String showAddNoteForm(Model model) {
 
-		return "editNote";
+		return "notes/create";
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam String content, @RequestParam Boolean isPublic) {
+	public String add(Model model, @RequestParam String name, @RequestParam String content,
+			@RequestParam(required = false) Boolean isPublic) {
 		{
-			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		    String userName = userdet.getUsername();
-		      
-		    List<UserModel> user = userRepository.findByUserName(userName);
-		    UserModel userModel = user.get(0);
-		    int user_id = user.get(0).getId();
-					
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String userName = userdet.getUsername();
+
+			List<UserModel> user = userRepository.findByUserName(userName);
+			UserModel userModel = user.get(0);
+			int user_id = user.get(0).getId();
+
 			model.addAttribute(name);
 			model.addAttribute(content);
 			model.addAttribute(user_id);
 
 			NoteModel nm = new NoteModel(name, content);
 			nm.setUser(userModel);
-			nm.setIsPublic(isPublic);
-					
+
+			if (nm.getIsPublic() == null) {
+				nm.setIsPublic(false);
+			} else {
+				nm.setIsPublic(isPublic);
+			}
+			
 			noteRepository.save(nm);
 
 		}
 
-		return "forward:list";
+		return "forward:own/";
 	}
 
 	@ExceptionHandler(Exception.class)

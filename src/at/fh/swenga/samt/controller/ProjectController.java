@@ -25,7 +25,7 @@ public class ProjectController {
 	@Autowired
 	ProjectRepository projectRepository;
 
-	@RequestMapping(value = {"","list"})
+	@RequestMapping(value = {"/","list/"})
 	public String indexProjects(Model model) {
 		List<ProjectModel> projects = projectRepository.findAll();
 		model.addAttribute("projects", projects);
@@ -43,7 +43,7 @@ public class ProjectController {
 		return "projects";
 	}
 
-	@RequestMapping(value = { "/find" })
+	@RequestMapping(value = { "find/" })
 	public String findProject(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
 		List<ProjectModel> projects = null;
 		int count = 0;
