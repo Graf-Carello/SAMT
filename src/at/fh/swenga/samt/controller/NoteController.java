@@ -78,7 +78,7 @@ public class NoteController {
 		return "forward:own/";
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "edit", method = RequestMethod.GET)
 	@Transactional
 	public String showEditForm(Model model, @RequestParam int id) {
 
@@ -95,7 +95,7 @@ public class NoteController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	@Transactional
 	public String edit(@Valid @ModelAttribute NoteModel changedNoteModel, BindingResult bindingResult, Model model) {
 

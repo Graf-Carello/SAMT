@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "Projects")
 public class ProjectModel {
@@ -25,19 +27,22 @@ public class ProjectModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int uid;
 
-	@Column(name = "PID")
-	private int pid;
+	//@Column(name = "PID")
+	//private int pid;
 
 	@Column(nullable = false, length = 50)
 	private String projectName;
 
 	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date deadline;
-
-	private Integer progress;
+	
+	@Column(name="progress", columnDefinition="int default 0")
+	private int progress;
+	
 	private String course;
-	private String user;
+	private int user;
 
 	@Column(name="isArchived", columnDefinition="boolean default false")
 	private Boolean isArchived;
@@ -52,13 +57,14 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(String projectName, Date deadline, Integer progress, String course, String user) {
+	public ProjectModel(String projectName, Date deadline, Integer progress, String course, int user, boolean isArchived) {
 		super();
 		this.projectName = projectName;
 		this.deadline = deadline;
 		this.progress = progress;
 		this.course = course;
 		this.user = user;
+		this.isArchived = isArchived;
 	}
 
 	public int getUid() {
@@ -67,14 +73,6 @@ public class ProjectModel {
 
 	public void setUid(int uid) {
 		this.uid = uid;
-	}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
 	}
 
 	public String getProjectName() {
@@ -109,11 +107,11 @@ public class ProjectModel {
 		this.course = course;
 	}
 
-	public String getUser() {
+	public int getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 

@@ -22,7 +22,8 @@
 			</li>
 			<li><a href="<c:url value="#" />"><i class="fa fa-tasks fa-fw"></i> Projects<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="<c:url value="/projects/" />"> View</a></li>
+					<li><a href="<c:url value="/projects/active/" />"> Active</a></li>
+					<li><a href="<c:url value="/projects/archived/" />"> Archived</a></li>
 					<li><a href="<c:url value="/projects/add/" />"> Add new</a></li>
 				</ul>
 			</li>

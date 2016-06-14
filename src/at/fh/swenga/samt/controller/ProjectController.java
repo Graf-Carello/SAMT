@@ -1,14 +1,14 @@
 package at.fh.swenga.samt.controller;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.ProjectRepository;
 import at.fh.swenga.samt.dao.UserRepository;
-import at.fh.swenga.samt.model.NoteModel;
 import at.fh.swenga.samt.model.ProjectModel;
 import at.fh.swenga.samt.model.UserModel;
 
@@ -44,10 +43,10 @@ public class ProjectController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userdet.getUsername();
 
-		List<UserModel> user = userRepository.findByUserName(userName);
-		UserModel userModel = user.get(0);
+		List<UserModel> userList = userRepository.findByUserName(userName);
+		int user = userList.get(0).getId();
 
-		List<ProjectModel> projects = projectRepository.findActiveProjects();
+		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
 
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findActiveProjects");
@@ -62,10 +61,10 @@ public class ProjectController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userdet.getUsername();
 
-		List<UserModel> user = userRepository.findByUserName(userName);
-		UserModel userModel = user.get(0);
+		List<UserModel> userList = userRepository.findByUserName(userName);
+		int user = userList.get(0).getId();
 
-		List<ProjectModel> projects = projectRepository.findArchivedProjects();
+		List<ProjectModel> projects = projectRepository.findArchivedProjects(user);
 
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findArchivedProjects");
@@ -113,7 +112,7 @@ public class ProjectController {
 			return "forward:active/";
 		}
 
-		ProjectModel project = projectRepository.findOne(changedProjectModel.getId());
+		ProjectModel project = projectRepository.findOne(changedProjectModel.getUid());
 
 		if (project == null) {
 			model.addAttribute("errorMessage", "Project does not exist!<br>");
@@ -123,7 +122,6 @@ public class ProjectController {
 			project.setDeadline(changedProjectModel.getDeadline());
 			project.setProgress(changedProjectModel.getProgress());
 			project.setCourse(changedProjectModel.getCourse());
-			project.setUser(changedProjectModel.getUser());
 			project.setIsArchived(changedProjectModel.getIsArchived());
 
 		}
@@ -134,32 +132,45 @@ public class ProjectController {
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String showAddProjectForm(Model model) {
 
+		System.out.println("das passiert bevor die user usw.");
+		List<UserModel> allUsers = userRepository.findAll();
+		model.addAttribute("users", allUsers);
+
 		return "projects/create";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String projectName, @RequestParam Date deadline,
-			@RequestParam int progress, @RequestParam String course, @RequestParam int user) {
+	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
+			@RequestParam String course, @RequestParam Set<Integer> participants) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
-			String userName = userdet.getUsername();
+			String stringCreator = userdet.getUsername();
+			List<UserModel> userList = userRepository.findByUserName(stringCreator);
+			int intCreator = userList.get(0).getId();
 
-			List<UserModel> user = userRepository.findByUserName(userName);
-			UserModel userModel = user.get(0);
-			int user_id = user.get(0).getId();
+			participants.add(intCreator);
 
-			model.addAttribute(projectName);
-			model.addAttribute(deadline);
-			model.addAttribute(progress);
-			model.addAttribute(course);
-			model.addAttribute(user);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			Date formattedDeadline = new Date();
+			try {
+				formattedDeadline = sdf.parse(deadline);
+			} catch (ParseException e) {
+				model.addAttribute("errorMessage", "Date Parsing Error" + e);
+			}
 
-			ProjectModel pm = new ProjectModel(projectName, deadline, progress, course);
-			pm.setUser(userModel);
+			for (int user : participants) {
+				model.addAttribute(projectName);
+				model.addAttribute(deadline);
+				model.addAttribute(course);
+				model.addAttribute(user);
 
-			projectRepository.save(pm);
+				ProjectModel pm = new ProjectModel(projectName, formattedDeadline, 0, course, user, false);
+				
+				projectRepository.save(pm);
+
+			}
 
 		}
 

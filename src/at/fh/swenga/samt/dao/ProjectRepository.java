@@ -14,11 +14,11 @@ import at.fh.swenga.samt.model.ProjectModel;
 @Transactional
 public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	
-	@Query("select p from p ProjectModel p.isArchived = true")
-	public List<ProjectModel> findActiveProjects();
+	@Query("select p from ProjectModel p where p.isArchived = false and p.user = :user")
+	public List<ProjectModel> findActiveProjects(@Param("user") int user);
 	
-	@Query("select u.userName from p ProjectModel join p.uid u where u.id = :id")
-	public String findArchivedProjects(@Param("id") int id);
+	@Query("select p from ProjectModel p where p.isArchived = true and p.user = :user")
+	public List<ProjectModel> findArchivedProjects(@Param("user") int user);
 	
 
 }
