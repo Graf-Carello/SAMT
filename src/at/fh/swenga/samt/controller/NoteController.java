@@ -137,7 +137,7 @@ public class NoteController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
 	public String add(Model model, @RequestParam String name, @RequestParam String content,
-			@RequestParam(required = false) Boolean isPublic) {
+			@RequestParam(value="isPublic", required = false) Boolean isPublic) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -150,11 +150,13 @@ public class NoteController {
 			model.addAttribute(name);
 			model.addAttribute(content);
 			model.addAttribute(user_id);
+			model.addAttribute(isPublic);
+			
 
 			NoteModel nm = new NoteModel(name, content);
 			nm.setUser(userModel);
 
-			if (nm.getIsPublic() == null) {
+			if (isPublic == null) {
 				nm.setIsPublic(false);
 			} else {
 				nm.setIsPublic(isPublic);
