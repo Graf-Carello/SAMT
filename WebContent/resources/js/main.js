@@ -6,6 +6,6 @@ $(function() {
 	    return confirm("Are you sure you want to delete this note?");
 	})
 	
-	$(".tagselect").chosen()
+	$(".tagselect").chosen({width: "100%"})
 	
 })

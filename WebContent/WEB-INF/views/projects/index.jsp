@@ -51,13 +51,13 @@
 							<button type="button" class="btn btn-default success">Add</button>
 						</a>
 
-						<form method="POST" action="projects/delete">
+						<form method="POST" action="edit">
 
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 
 							<button type="submit" class="btn btn-default">Edit</button>
-							<button type="submit" class="btn btn-danger delete clearfix">Delete</button>
+							<!-- <button type="submit" class="btn btn-danger delete clearfix">Delete</button> -->
 					</div>
 					</nav>
 

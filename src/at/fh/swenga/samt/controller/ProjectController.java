@@ -131,10 +131,12 @@ public class ProjectController {
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String showAddProjectForm(Model model) {
-
-		System.out.println("das passiert bevor die user usw.");
-		List<UserModel> allUsers = userRepository.findAll();
-		model.addAttribute("users", allUsers);
+		
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		String currentUser = userdet.getUsername();
+		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
+		model.addAttribute("users", possibleMembers);
 
 		return "projects/create";
 	}

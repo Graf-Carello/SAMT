@@ -79,7 +79,7 @@
 						<div class="form-group">
 							<label for="inputUser" class="col-md-2 control-label">User</label>
 							<div class="col-md-10">
-								<select multiple class="tagselect" name="participants">
+								<select multiple class="tagselect" name="participants" data-placeholder="Choose one or more project members">
 								<c:forEach items="${users}" var="user">
 									<option value="${user.id}">${user.firstName} ${user.lastName}</option>
 								</c:forEach>
