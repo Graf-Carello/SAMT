@@ -19,6 +19,7 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	
 	@Query("select p from ProjectModel p where p.isArchived = true and p.user = :user")
 	public List<ProjectModel> findArchivedProjects(@Param("user") int user);
-	
 
+	public ProjectModel findTop1ByOrderByPidDesc();
+	
 }

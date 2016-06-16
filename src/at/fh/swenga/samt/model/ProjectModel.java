@@ -27,8 +27,8 @@ public class ProjectModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int uid;
 
-	//@Column(name = "PID")
-	//private int pid;
+	@Column(name = "PID", columnDefinition="int default 0")
+	private int pid;
 
 	@Column(nullable = false, length = 50)
 	private String projectName;
@@ -57,8 +57,9 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(String projectName, Date deadline, Integer progress, String course, int user, boolean isArchived) {
+	public ProjectModel(int pid, String projectName, Date deadline, Integer progress, String course, int user, boolean isArchived) {
 		super();
+		this.pid = pid;
 		this.projectName = projectName;
 		this.deadline = deadline;
 		this.progress = progress;
@@ -73,6 +74,14 @@ public class ProjectModel {
 
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+	
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 	public String getProjectName() {

@@ -58,3 +58,6 @@
 
 /* PROJECTS */
 
+.projectcontainer { position:relative; }
+.projcheck { position:absolute; }
+.projcon { margin-left:40px; }

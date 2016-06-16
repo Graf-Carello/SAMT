@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>${title}| SAMT</title>
+<title>${title}|SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -67,38 +67,28 @@
 
 					<br />
 
-					<div class="btn-group btn-group-justified" role="group">
-						<div class="btn-group" role="group">
-							<b>Course</b>
-						</div>
-						<div class="btn-group" role="group">
-							<b>Projectname</b>
-						</div>
-						<div class="btn-group" role="group">
-							<b>Deadline</b>
-						</div>
-						<div class="btn-group" role="group">
-							<b>Progress</b>
-						</div>
-					</div>
-
 					<c:forEach items="${projects}" var="project">
+						<div class="projectcontainer">
+						<div class="projcheck">
+						<input class="form-control checkbox" type="checkbox" name="uid" value="${project.uid}" />
+						</div>
+						<div class="projcon">
+							<div class="btn-group btn-group-justified projects" role="group"
+								aria-label="...">
 
-						<div class="btn-group btn-group-justified projects" role="group"
-							aria-label="...">
-							<div class="btn-group" role="group">
-								<input type="checkbox" name="uid" value="${project.uid}" />
-								${project.course}
+								<div class="btn-group" role="group"><b>Course: </b>${project.course}</div>
+								<div class="btn-group" role="group"><b>Name: </b>${project.projectName}</div>
+								<div class="btn-group" role="group"><b>Deadline: </b>${project.deadline}</div>
+								<div class="btn-group" role="group"><b>Progress: </b>${project.progress}%</div>
 							</div>
-							<div class="btn-group" role="group">${project.projectName}</div>
-							<div class="btn-group" role="group">${project.deadline}</div>
-							<div class="btn-group" role="group">${project.progress}%</div>
+							<b>Members: </b>
+							
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuemin="0"
+									aria-valuemax="100" style="width: ${project.progress}%;"></div>
+							</div>
 						</div>
-						<div class="progress">
-							<div class="progress-bar" role="progressbar" aria-valuemin="0"
-								aria-valuemax="100" style="width: ${project.progress}%;"></div>
 						</div>
-
 					</c:forEach>
 
 					</form>
