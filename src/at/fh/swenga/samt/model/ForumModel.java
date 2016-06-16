@@ -13,123 +13,90 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name="Forum")
+@Table(name = "Forum")
 public class ForumModel {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column
 	private String forumName;
-	
+
 	@Column
 	private String post;
-	
+
 	@Column
 	private String thread;
-	
+
 	@Column
-	private String user;
-	
-	@Column
-	private Boolean isMain;
-	
+	private Integer user;
+
 	@ManyToMany(mappedBy = "forum", fetch = FetchType.EAGER)
 	private List<UserModel> users;
 
 	@Version
 	long version;
-    
-    
-    public ForumModel() {
+
+	public ForumModel() {
 		// TODO Auto-generated constructor stub
-    }
+	}
 
-
-	public ForumModel(String forumName, String post, String thread, String user, Boolean isMain) {
+	public ForumModel(String forumName, String post, String thread, Integer user) {
 		super();
 		this.forumName = forumName;
 		this.post = post;
 		this.thread = thread;
 		this.user = user;
-		this.isMain = isMain;
 	}
-
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getForumName() {
 		return forumName;
 	}
 
-
 	public void setForumName(String forumName) {
 		this.forumName = forumName;
 	}
-
 
 	public String getPost() {
 		return post;
 	}
 
-
 	public void setPost(String post) {
 		this.post = post;
 	}
-
 
 	public String getThread() {
 		return thread;
 	}
 
-
 	public void setThread(String thread) {
 		this.thread = thread;
 	}
-	
 
-	public String getUser() {
+	public Integer getUser() {
 		return user;
 	}
 
-
-	public void setUser(String user) {
+	public void setUser(Integer user) {
 		this.user = user;
 	}
-
-
-	public Boolean getIsMain() {
-		return isMain;
-	}
-
-
-	public void setIsMain(Boolean isMain) {
-		this.isMain = isMain;
-	}
-
 
 	public List<UserModel> getUsers() {
 		return users;
 	}
 
-
 	public void setUsers(List<UserModel> user) {
 		this.users = user;
 	}
-    
-	
-    
-    
+
 }
-    
- 

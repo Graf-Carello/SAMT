@@ -1,21 +1,28 @@
 package at.fh.swenga.samt.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.ForumRepository;
+import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.ForumModel;
+import at.fh.swenga.samt.model.UserModel;
+
 
 @Controller
 @RequestMapping("/forum")
@@ -23,6 +30,9 @@ public class ForumController {
 
 	@Autowired
 	ForumRepository forumRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -32,64 +42,86 @@ public class ForumController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/getPage" })
-	public String getPage(Pageable page, Model model) {
-
-		Page<ForumModel> forum = forumRepository.findAll(page);
-		model.addAttribute("forum", forum.getContent());
-		model.addAttribute("usersPage", forum);
-
-		return "index";
-	}
-
-	@RequestMapping(value = { "/find" })
-	public String find(Model model, @RequestParam String searchString, @ModelAttribute("type") String type) {
-		List<ForumModel> forum = null;
-		int count = 0;
-
-		switch (type) {
-		case "findAll":
-			forum = forumRepository.findAll();
-			break;
-
-		default:
-			forum = forumRepository.findAll();
-		}
-
-		model.addAttribute("forum", forum);
-		model.addAttribute("count", count);
-		return "index";
-	}
-
-	@RequestMapping(value = { "/findById" })
-	public String findById(@RequestParam("id") ForumModel f, Model model) {
-		List<ForumModel> forum = new ArrayList<>();
-		forum.add(f);
-		model.addAttribute("forum", forum);
-
-		return "index";
-	}
-
-	@RequestMapping("/fill")
-	@Transactional
-	public String fillData(Model model) {
-
-		ForumModel fm1 = new ForumModel("SWENGA Homework HELP!!!", "I need help! I don't have a clue", "1", "1", true);
-		ForumModel fm2 = new ForumModel("Christmas party", "Who wants a christmas party?", "2", "2", true);
-		ForumModel fm3 = new ForumModel("SWENGA Homework HELP!!", "No. Just read the error message!", "1", "2", false);
-
-		forumRepository.save(fm1);
-		forumRepository.save(fm2);
-		forumRepository.save(fm3);
-		
-		return "forward:list";
-	}
-
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		forumRepository.delete(id);
 
 		return "forward:list";
+	}
+
+	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@Transactional
+	public String showEditForm(Model model, @RequestParam int id) {
+
+		ForumModel forum = forumRepository.findOne(id);
+
+		if (forum != null) {
+			model.addAttribute("forum", forum);
+
+			return "forum/create";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find forum " + id);
+			return "forward:"; // Einsetzen wohin
+		}
+
+	}
+
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	@Transactional
+	public String edit(@Valid @ModelAttribute ForumModel changedForumModel, BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:"; // Einsetzen wohin
+		}
+
+		ForumModel forum = forumRepository.findOne(changedForumModel.getId());
+
+		if (forum == null) {
+			model.addAttribute("errorMessage", "Forum does not exist!<br>");
+		} else {
+
+			forum.setForumName(changedForumModel.getForumName());
+			forum.setPost(changedForumModel.getPost());
+			forum.setThread(changedForumModel.getThread());
+		}
+
+		return "forward:"; // Einsetzen wohin
+	}
+
+	@RequestMapping(value = "add", method = RequestMethod.GET)
+	public String showAddNoteForm(Model model) {
+
+		return "forum/create";
+	}
+
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@Transactional
+	public String add(Model model, @RequestParam String name, @RequestParam String post, @RequestParam String thread) {
+		{
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String stringCreator = userdet.getUsername();
+
+			List<UserModel> userList = userRepository.findByUserName(stringCreator);
+			int intCreator = userList.get(0).getId();
+
+			model.addAttribute(name);
+			model.addAttribute(post);
+			model.addAttribute(thread);
+			model.addAttribute(intCreator);
+
+			ForumModel fm = new ForumModel(name, post, thread, intCreator);
+
+			forumRepository.save(fm);
+		}
+
+		return "forward:"; // EIntragen wohin
 	}
 
 	@ExceptionHandler(Exception.class)

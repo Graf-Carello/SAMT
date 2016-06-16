@@ -80,7 +80,7 @@ public class ProjectController {
 		return "forward:active/";
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "edit", method = RequestMethod.GET)
 	@Transactional
 	public String showEditForm(Model model, @RequestParam int id) {
 
@@ -89,7 +89,7 @@ public class ProjectController {
 		if (project != null) {
 			model.addAttribute("project", project);
 
-			return "notes/create";
+			return "projects/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find project " + id);
 			return "forward:active/";
@@ -97,7 +97,7 @@ public class ProjectController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	@Transactional
 	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult,
 			Model model) {
