@@ -31,167 +31,164 @@ import at.fh.swenga.samt.model.UserModel;
 @RequestMapping("/projects")
 public class ProjectController {
 
-  @Autowired
-  ProjectRepository projectRepository;
+	@Autowired
+	ProjectRepository projectRepository;
 
-  @Autowired
-  UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 
-  @RequestMapping(value = { "/", "active/" })
-  public String indexProjects(Model model) {
+	@RequestMapping(value = { "/", "active/" })
+	public String indexProjects(Model model) {
 
-    final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String userName = userdet.getUsername();
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userdet.getUsername();
 
-    List<UserModel> userList = userRepository.findByUserName(userName);
-    int user = userList.get(0).getId();
+		List<UserModel> userList = userRepository.findByUserName(userName);
+		int user = userList.get(0).getId();
 
-    List<ProjectModel> projects = projectRepository.findActiveProjects(user);
+		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
 
-    model.addAttribute("projects", projects);
-    model.addAttribute("type", "findActiveProjects");
-    model.addAttribute("title", "All your projects");
+		model.addAttribute("projects", projects);
+		model.addAttribute("type", "findActiveProjects");
+		model.addAttribute("title", "All your projects");
 
-    return "projects/index";
-  }
+		return "projects/index";
+	}
 
-  @RequestMapping(value = { "/", "archived/" })
-  public String indexProjectsArchived(Model model) {
+	@RequestMapping(value = { "/", "archived/" })
+	public String indexProjectsArchived(Model model) {
 
-    final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String userName = userdet.getUsername();
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userdet.getUsername();
 
-    List<UserModel> userList = userRepository.findByUserName(userName);
-    int user = userList.get(0).getId();
+		List<UserModel> userList = userRepository.findByUserName(userName);
+		int user = userList.get(0).getId();
 
-    List<ProjectModel> projects = projectRepository.findArchivedProjects(user);
+		List<ProjectModel> projects = projectRepository.findArchivedProjects(user);
 
-    model.addAttribute("projects", projects);
-    model.addAttribute("type", "findArchivedProjects");
-    model.addAttribute("title", "All your archived projects");
+		model.addAttribute("projects", projects);
+		model.addAttribute("type", "findArchivedProjects");
+		model.addAttribute("title", "All your archived projects");
 
-    return "projects/index";
-  }
+		return "projects/index";
+	}
 
-  @RequestMapping("/archive")
-  public String deleteDataProject(Model model, @RequestParam int id) {
-    projectRepository.delete(id);
+	@RequestMapping("/archive")
+	public String deleteDataProject(Model model, @RequestParam int id) {
+		projectRepository.delete(id);
 
-    return "forward:active/";
-  }
+		return "forward:active/";
+	}
 
-  @RequestMapping(value = "edit", method = RequestMethod.GET)
-  @Transactional
-  public String showEditForm(Model model, @RequestParam int id) {
+	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@Transactional
+	public String showEditForm(Model model, @RequestParam int id) {
 
-    ProjectModel project = projectRepository.findOne(id);
+		ProjectModel project = projectRepository.findOne(id);
 
-    if (project != null) {
-      model.addAttribute("project", project);
+		if (project != null) {
+			model.addAttribute("project", project);
 
-      return "projects/create";
-    } else {
-      model.addAttribute("errorMessage", "Couldn't find project " + id);
-      return "forward:active/";
-    }
+			return "projects/create";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find project " + id);
+			return "forward:active/";
+		}
+	}
 
-  }
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	@Transactional
+	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult,
+			Model model) {
 
-  @RequestMapping(value = "edit", method = RequestMethod.POST)
-  @Transactional
-  public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult,
-      Model model) {
+		if (bindingResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid<br>";
+			}
 
-    if (bindingResult.hasErrors()) {
-      String errorMessage = "";
-      for (FieldError fieldError : bindingResult.getFieldErrors()) {
-        errorMessage += fieldError.getField() + " is invalid<br>";
-      }
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:active/";
+		}
 
-      model.addAttribute("errorMessage", errorMessage);
-      return "forward:active/";
-    }
+		ProjectModel project = projectRepository.findOne(changedProjectModel.getUid());
 
-    ProjectModel project = projectRepository.findOne(changedProjectModel.getUid());
+		if (project == null) {
+			model.addAttribute("errorMessage", "Project does not exist!<br>");
+		} else {
 
-    if (project == null) {
-      model.addAttribute("errorMessage", "Project does not exist!<br>");
-    } else {
+			project.setProjectName(changedProjectModel.getProjectName());
+			project.setDeadline(changedProjectModel.getDeadline());
+			project.setProgress(changedProjectModel.getProgress());
+			project.setCourse(changedProjectModel.getCourse());
+			project.setIsArchived(changedProjectModel.getIsArchived());
 
+		}
 
-      project.setProjectName(changedProjectModel.getProjectName());
-      project.setDeadline(changedProjectModel.getDeadline());
-      project.setProgress(changedProjectModel.getProgress());
-      project.setCourse(changedProjectModel.getCourse());
-      project.setIsArchived(changedProjectModel.getIsArchived());
+		return "forward:active/";
+	}
 
-    }
+	@RequestMapping(value = "add", method = RequestMethod.GET)
+	public String showAddProjectForm(Model model) {
 
-    return "forward:active/";
-  }
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String currentUser = userdet.getUsername();
+		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
+		model.addAttribute("users", possibleMembers);
 
-  @RequestMapping(value = "add", method = RequestMethod.GET)
-  public String showAddProjectForm(Model model) {
-    
-    final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-    String currentUser = userdet.getUsername();
-    List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
-    model.addAttribute("users", possibleMembers);
+		return "projects/create";
+	}
 
-    return "projects/create";
-  }
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@Transactional
+	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
+			@RequestParam String course, @RequestParam Set<Integer> participants) {
+		{
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String stringCreator = userdet.getUsername();
+			List<UserModel> userList = userRepository.findByUserName(stringCreator);
+			int intCreator = userList.get(0).getId();
 
-  @RequestMapping(value = "add", method = RequestMethod.POST)
-  @Transactional
-  public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
-      @RequestParam String course, @RequestParam Set<Integer> participants) {
-    {
-      final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-          .getPrincipal();
-      String stringCreator = userdet.getUsername();
-      List<UserModel> userList = userRepository.findByUserName(stringCreator);
-      int intCreator = userList.get(0).getId();
+			participants.add(intCreator);
 
-      participants.add(intCreator);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			Date formattedDeadline = new Date();
+			try {
+				formattedDeadline = sdf.parse(deadline);
+			} catch (ParseException e) {
+				model.addAttribute("errorMessage", "Date Parsing Error" + e);
+			}
 
-      SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-      Date formattedDeadline = new Date();
-      try {
-        formattedDeadline = sdf.parse(deadline);
-      } catch (ParseException e) {
-        model.addAttribute("errorMessage", "Date Parsing Error" + e);
-      }
+			ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
+			int pid = 0;
+			if (chp == null) {
+				pid = 1;
+			} else {
+				pid = chp.getPid() + 1;
+			}
+			for (int user : participants) {
+				model.addAttribute(pid);
+				model.addAttribute(projectName);
+				model.addAttribute(deadline);
+				model.addAttribute(course);
+				model.addAttribute(user);
 
-      ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
-      int pid = 0;
-      if(chp == null) {
-    	  pid = 1;
-      } else {
-    	  pid = chp.getPid()+1;
-      }
-      for (int user : participants) {
-    	model.addAttribute(pid);
-        model.addAttribute(projectName);
-        model.addAttribute(deadline);
-        model.addAttribute(course);
-        model.addAttribute(user);
+				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, user, false);
 
-        ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, user, false);
-        
-        projectRepository.save(pm);
+				projectRepository.save(pm);
 
-      }
+			}
 
-    }
+		}
 
-    return "forward:active/";
-  }
+		return "forward:active/";
+	}
 
-  @ExceptionHandler(Exception.class)
-  public String handleAllException(Exception ex) {
+	@ExceptionHandler(Exception.class)
+	public String handleAllException(Exception ex) {
 
-    return "showError";
+		return "showError";
 
-  }
+	}
 }

@@ -47,14 +47,14 @@ VALUES ('EWGUBI', '1, 2, 3', 'Gaming und free time fun activities', 1);
 
 
 -- Insert Forum
-INSERT INTO Forum(forumName, user, isMain, post, thread, version)
-VALUES ('SWENGA', 1, true, 'Need help with current homework pls', 1, 1);
+INSERT INTO Forum(forumName, user, post, thread, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1, 1);
 
-INSERT INTO Forum(forumName, user, isMain, post, thread, version)
-VALUES ('SWENGA', 2, false, 'just look at the tutorial on moodle', 1, 1);
+INSERT INTO Forum(forumName, user, post, thread, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1, 1);
 
-INSERT INTO Forum(forumName, user, isMain, post, thread, version)
-VALUES ('SWENGA', 3, false, 'just press it a couple of times, and it will work just fine', 1, 1);
+INSERT INTO Forum(forumName, user, post, thread, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1, 1);
 
 
 -- Insert Homework
