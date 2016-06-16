@@ -100,22 +100,5 @@
 
 	<%@include file="../includes/bottom.jsp"%>
 	
-	<script type="text/javascript"
-    src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-
-  <script>
-    $(function() {
-
-      $("#inputDeadline").datetimepicker({
-        format : "dd.mm.yyyy",
-        autoclose : true,
-        todayBtn : true,
-        pickerPosition : "bottom-left",
-        minView : 2
-      });
-
-    });
-  </script>
-	
 </body>
 </html>
