@@ -77,11 +77,11 @@
 
 						<!-- ----------------  user ---------------- -->
 						<div class="form-group">
-							<label for="inputUser" class="col-md-2 control-label">User</label>
+							<label for="inputMembers" class="col-md-2 control-label">Member</label>
 							<div class="col-md-10">
-								<select multiple class="tagselect" name="participants" data-placeholder="Choose one or more project members">
-								<c:forEach items="${users}" var="user">
-									<option value="${user.id}">${user.firstName} ${user.lastName}</option>
+								<select multiple class="tagselect" name="members" data-placeholder="Choose one or more project members">
+								<c:forEach items="${members}" var="member">
+									<option value="${member.id}">${member.firstName} ${member.lastName}</option>
 								</c:forEach>
 								</select>
 							</div>

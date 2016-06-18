@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -143,7 +144,7 @@ public class ProjectController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String currentUser = userdet.getUsername();
 		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
-		model.addAttribute("users", possibleMembers);
+		model.addAttribute("members", possibleMembers);
 
 		return "projects/create";
 	}
@@ -151,7 +152,7 @@ public class ProjectController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
 	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
-			@RequestParam String course, @RequestParam Set<Integer> participants) {
+			@RequestParam String course, @RequestParam(value="members", required=false) Set<Integer> members) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -159,8 +160,12 @@ public class ProjectController {
 			List<UserModel> userList = userRepository.findByUserName(stringCreator);
 			int intCreator = userList.get(0).getId();
 
-			participants.add(intCreator);
-
+			Set<Integer> allMembers = new HashSet<Integer>();
+			allMembers.add(intCreator);
+			if(members != null) {
+				allMembers.addAll(members);
+			}
+				
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 			Date formattedDeadline = new Date();
 			try {
@@ -176,14 +181,15 @@ public class ProjectController {
 			} else {
 				pid = chp.getPid() + 1;
 			}
-			for (int user : participants) {
+			for (int member : allMembers) {
+				System.out.println(member);
 				model.addAttribute(pid);
 				model.addAttribute(projectName);
 				model.addAttribute(deadline);
 				model.addAttribute(course);
-				model.addAttribute(user);
+				model.addAttribute(member);
 
-				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, user, false);
+				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, member, false);
 
 				projectRepository.save(pm);
 
