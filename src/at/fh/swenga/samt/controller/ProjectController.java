@@ -2,6 +2,7 @@ package at.fh.swenga.samt.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,16 @@ public class ProjectController {
 		int user = userList.get(0).getId();
 
 		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
-
+		
+		//ArrayList<List<UserModel>> memberList = new ArrayList<List<UserModel>>();
+		//System.out.println(memberList.get(0));
+		
+		//for (ProjectModel project : projects) {
+		//	List<UserModel> members = projectRepository.findMembers(project.getPid());
+		//	memberList.add(members);
+		//}
+		
+		//model.addAttribute("memberList", memberList);
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findActiveProjects");
 		model.addAttribute("title", "All your projects");
@@ -88,7 +98,6 @@ public class ProjectController {
 
 		if (project != null) {
 			model.addAttribute("project", project);
-
 			return "projects/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find project " + id);

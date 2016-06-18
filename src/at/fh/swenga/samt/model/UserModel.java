@@ -61,9 +61,6 @@ public class UserModel implements Serializable {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ForumModel> forum;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<GroupModel> groups;
-
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserRole> userRoles;
 
@@ -216,21 +213,6 @@ public class UserModel implements Serializable {
 			this.forum = new ArrayList<ForumModel>();
 		}
 		this.forum.add(forum);
-	}
-
-	public List<GroupModel> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(List<GroupModel> groups) {
-		this.groups = groups;
-	}
-
-	public void addGroup(GroupModel group) {
-		if (groups == null) {
-			groups = new ArrayList<GroupModel>();
-		}
-		groups.add(group);
 	}
 
 	@Override

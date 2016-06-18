@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.samt.model.ProjectModel;
+import at.fh.swenga.samt.model.UserModel;
 
 @Repository
 @Transactional
@@ -21,5 +22,8 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	public List<ProjectModel> findArchivedProjects(@Param("user") int user);
 
 	public ProjectModel findTop1ByOrderByPidDesc();
+	
+	//@Query("select u from ProjectModel p join p.user u where p.pid = :pid")
+	//public List<UserModel> findMembers(@Param("pid") int pid);
 	
 }

@@ -67,7 +67,7 @@
 
 					<br />
 
-					<c:forEach items="${projects}" var="project">
+					<c:forEach items="${projects}" var="project" varStatus="i">
 						<div class="projectcontainer">
 						<div class="projcheck">
 						<input class="form-control checkbox" type="checkbox" name="uid" value="${project.uid}" />
@@ -82,7 +82,9 @@
 								<div class="btn-group" role="group"><b>Progress: </b>${project.progress}%</div>
 							</div>
 							<b>Members: </b>
-							
+							<c:forEach items="${memberList[i.index]}" var="member">
+							${member.firstName} ${member.LastName},  
+							</c:forEach>
 							<div class="progress">
 								<div class="progress-bar" role="progressbar" aria-valuemin="0"
 									aria-valuemax="100" style="width: ${project.progress}%;"></div>

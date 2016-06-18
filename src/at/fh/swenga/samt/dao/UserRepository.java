@@ -22,4 +22,5 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	@Query("select u from UserModel u where u.userName <> :currentUser")
 	public List<UserModel> findPossibleMembers(@Param("currentUser") String currentUser);
+	
 }
