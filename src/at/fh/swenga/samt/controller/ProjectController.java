@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.ProjectRepository;
 import at.fh.swenga.samt.dao.UserRepository;
-import at.fh.swenga.samt.model.NoteModel;
 import at.fh.swenga.samt.model.ProjectModel;
 import at.fh.swenga.samt.model.UserModel;
 
