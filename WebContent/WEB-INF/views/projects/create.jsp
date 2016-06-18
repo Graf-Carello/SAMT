@@ -19,8 +19,8 @@
 
 		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
-			<c:when test="${not empty note}">
-				<c:set var="legend">Change Project ${note.id}</c:set>
+			<c:when test="${not empty project}">
+				<c:set var="legend">Change Project ${project.id}</c:set>
 				<c:set var="formAction">edit</c:set>
 				<c:set var="readonly">readonly</c:set>
 			</c:when>
@@ -36,7 +36,7 @@
 				<form class="form-horizontal" method="post" action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${note.id }" />
+						value="${project.id }" />
 
 					<fieldset>
 						<legend>${legend}</legend>
@@ -80,30 +80,21 @@
 							<label for="inputMembers" class="col-md-2 control-label">Member</label>
 							<div class="col-md-10">
 
-								<c:choose>
-									<c:when test="${type == 'edit'}">
-										<b>Current members: </b>
-										<c:forEach items="${previousMembers}" var="pmember" varStatus="loop">
-										${pmember.firstName} ${pmember.lastName}<c:if test="${!loop.last}">,</c:if>
-										</c:forEach>
-										<select multiple class="tagselect" name="members"
-											data-placeholder="Choose one or more project members">
-											<c:forEach items="${possibleMembers}" var="member">
-												<option value="${member.id}">${member.firstName}
-													${member.lastName}</option>
-											</c:forEach>
-										</select>
-									</c:when>
-									<c:otherwise>
-										<select multiple class="tagselect" name="members"
-											data-placeholder="Choose one or more project members">
-											<c:forEach items="${possibleMembers}" var="member">
-												<option value="${member.id}">${member.firstName}
-													${member.lastName}</option>
-											</c:forEach>
-										</select>
-									</c:otherwise>
-								</c:choose>
+								<c:if test="${type == 'edit'}">
+									<b>Current members: </b>
+									<c:forEach items="${previousMembers}" var="pmember"
+										varStatus="loop">
+										${pmember.firstName} ${pmember.lastName}<c:if
+											test="${!loop.last}">,</c:if>
+									</c:forEach>
+								</c:if>
+								<select multiple class="tagselect" name="users"
+									data-placeholder="Choose one or more project members">
+									<c:forEach items="${possibleMembers}" var="member">
+										<option value="${member.id}">${member.firstName}
+											${member.lastName}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 

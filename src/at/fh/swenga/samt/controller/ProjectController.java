@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.ProjectRepository;
 import at.fh.swenga.samt.dao.UserRepository;
+import at.fh.swenga.samt.model.NoteModel;
 import at.fh.swenga.samt.model.ProjectModel;
 import at.fh.swenga.samt.model.UserModel;
 
@@ -102,15 +103,13 @@ public class ProjectController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String currentUser = userdet.getUsername();
 		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
-		
+
 		Set<UserModel> previousMembers = new HashSet();
 		Set<Integer> users = projectRepository.findUserByPid(project.getPid());
 		for (int user : users) {
-			previousMembers.add(userRepository.findById(user));	
+			previousMembers.add(userRepository.findById(user));
 		}
-		
-		System.out.println(previousMembers.toString());
-		
+
 		if (project != null) {
 			model.addAttribute("project", project);
 			model.addAttribute("previousMembers", previousMembers);
@@ -125,65 +124,62 @@ public class ProjectController {
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	@Transactional
-	public String edit(Model model, @RequestParam String projectName, @RequestParam String deadline,
-			@RequestParam String course, @RequestParam(value = "members", required = false) Set<Integer> members,
-			@RequestParam int progress, @RequestParam(value = "isArchived", required = false) Boolean isArchived) {
-		{
+	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid<br>";
+			}
+			
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:own/";
+		}
+		
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
 			String stringCreator = userdet.getUsername();
 			List<UserModel> userList = userRepository.findByUserName(stringCreator);
 			int intCreator = userList.get(0).getId();
 
-			Set<Integer> allMembers = new HashSet<Integer>();
-			allMembers.add(intCreator);
-			if (members != null) {
-				allMembers.addAll(members);
+			int pid = projectRepository.findPidById(changedProjectModel.getId());
+			
+			Set<UserModel> previousMembers = new HashSet();
+			Set<Integer> users = projectRepository.findUserByPid(pid);
+			for (int user : users) {
+				previousMembers.add(userRepository.findById(user));
 			}
 
-			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-			Date formattedDeadline = new Date();
-			try {
-				formattedDeadline = sdf.parse(deadline);
-			} catch (ParseException e) {
-				model.addAttribute("errorMessage", "Date Parsing Error" + e);
-			}
-
-			ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
+			/*ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
 			int pid = 0;
 			if (chp == null) {
 				pid = 1;
 			} else {
 				pid = chp.getPid() + 1;
-			}
+			}*/
 			
+			List<ProjectModel> projects = projectRepository.findByPid(pid);
 			
+			//changedProjectModel.getUsers();
 			
+			for (ProjectModel project : projects) {
+				project.setPid(pid);
+				project.setProjectName(changedProjectModel.getProjectName());
+				project.setDeadline(changedProjectModel.getDeadline());
+				project.setCourse(changedProjectModel.getCourse());
+				project.setUser(intCreator);
+				project.setProgress(changedProjectModel.getProgress());
 			
-			
-			for (int member : allMembers) {
-				model.addAttribute(pid);
-				model.addAttribute(projectName);
-				model.addAttribute(deadline);
-				model.addAttribute(course);
-				model.addAttribute(member);
-				model.addAttribute(progress);
-			
-				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, progress, course, member);
-
-				if(isArchived == null) {
-					pm.setIsArchived(false);
+				if(changedProjectModel.getIsArchived() == null) {
+					project.setIsArchived(false);
 				} else {
-					pm.setIsArchived(isArchived);
+					project.setIsArchived(changedProjectModel.getIsArchived());
 				}
-				
-				projectRepository.save(pm);
 
 			}
 
-		}
+	return"forward:active/";
 
-		return "forward:active/";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
@@ -192,7 +188,7 @@ public class ProjectController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String currentUser = userdet.getUsername();
 		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
-		model.addAttribute("members", possibleMembers);
+		model.addAttribute("possibleMembers", possibleMembers);
 
 		return "projects/create";
 	}
