@@ -49,19 +49,23 @@ public class ProjectController {
 		List<UserModel> userList = userRepository.findByUserName(userName);
 		int user = userList.get(0).getId();
 
+
 		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
-
-		// ArrayList<List<UserModel>> memberList = new
-		// ArrayList<List<UserModel>>();
-		// System.out.println(memberList.get(0));
-
-		// for (ProjectModel project : projects) {
-		// List<UserModel> members =
-		// projectRepository.findMembers(project.getPid());
-		// memberList.add(members);
-		// }
-
-		// model.addAttribute("memberList", memberList);
+		ArrayList<List<UserModel>> memberList = new ArrayList<List<UserModel>>();
+		for (ProjectModel project : projects) {
+			List<Integer> memberIDs = projectRepository.findUserByPidAndActive(project.getPid());
+			List<UserModel> members = new ArrayList<UserModel>();
+			for (int member : memberIDs) {
+				members.add(userRepository.findById(member));
+			}
+			memberList.add(members);
+	    }
+	
+		for(List<UserModel> member : memberList) {
+			System.out.println(member.toString());
+		}
+		
+		model.addAttribute("memberList", memberList);
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findActiveProjects");
 		model.addAttribute("title", "All your projects");
@@ -104,8 +108,8 @@ public class ProjectController {
 		String currentUser = userdet.getUsername();
 		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
 
-		Set<UserModel> previousMembers = new HashSet();
-		Set<Integer> users = projectRepository.findUserByPid(project.getPid());
+		List<UserModel> previousMembers = new ArrayList();
+		List<Integer> users = projectRepository.findUserByPid(project.getPid());
 		for (int user : users) {
 			previousMembers.add(userRepository.findById(user));
 		}
@@ -124,61 +128,88 @@ public class ProjectController {
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	@Transactional
-	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult, Model model) {
-		
+	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult,
+			Model model) {
+
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
-			
+
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:own/";
+			return "forward:active/";
+		}
+
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String stringCreator = userdet.getUsername();
+		List<UserModel> userList = userRepository.findByUserName(stringCreator);
+		int intCreator = userList.get(0).getId();
+
+		int pid = projectRepository.findPidById(changedProjectModel.getId());
+
+
+		/*
+		 * ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc(); int
+		 * pid = 0; if (chp == null) { pid = 1; } else { pid = chp.getPid() + 1;
+		 * }
+		 */
+
+
+		List<Integer> previousMembers = new ArrayList();
+		List<Integer> users = projectRepository.findUserByPid(pid);
+		for (int user : users) {
+			previousMembers.add(userRepository.findById(user).getId());
+		}
+
+		List<Integer> newMembers = new ArrayList<Integer>();
+		newMembers.add(intCreator);
+		if (changedProjectModel.getUsers() != null) {
+			for (UserModel user : changedProjectModel.getUsers()) {
+				newMembers.add(user.getId());
+			}
 		}
 		
-			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-					.getPrincipal();
-			String stringCreator = userdet.getUsername();
-			List<UserModel> userList = userRepository.findByUserName(stringCreator);
-			int intCreator = userList.get(0).getId();
-
-			int pid = projectRepository.findPidById(changedProjectModel.getId());
-			
-			Set<UserModel> previousMembers = new HashSet();
-			Set<Integer> users = projectRepository.findUserByPid(pid);
-			for (int user : users) {
-				previousMembers.add(userRepository.findById(user));
-			}
-
-			/*ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
-			int pid = 0;
-			if (chp == null) {
-				pid = 1;
-			} else {
-				pid = chp.getPid() + 1;
-			}*/
-			
-			List<ProjectModel> projects = projectRepository.findByPid(pid);
-			
-			//changedProjectModel.getUsers();
-			
-			for (ProjectModel project : projects) {
+		//List<ProjectModel> projects = projectRepository.findByPid(pid);
+		
+		List<Integer> allMembers = new ArrayList<Integer>();
+		allMembers.addAll(newMembers);
+		allMembers.addAll(previousMembers);
+		
+		for(int member : allMembers) {
+			if(previousMembers.contains(member) && !newMembers.contains(member)) {
+				ProjectModel project = projectRepository.findByUserAndPid(member,pid);
+				project.setIsArchived(true);
+			} else if(previousMembers.contains(member) && newMembers.contains(member)) {
+				ProjectModel project = projectRepository.findByUserAndPid(member,pid);
 				project.setPid(pid);
 				project.setProjectName(changedProjectModel.getProjectName());
 				project.setDeadline(changedProjectModel.getDeadline());
 				project.setCourse(changedProjectModel.getCourse());
-				project.setUser(intCreator);
+				project.setUser(member);
 				project.setProgress(changedProjectModel.getProgress());
-			
-				if(changedProjectModel.getIsArchived() == null) {
+
+				if (changedProjectModel.getIsArchived() == null) {
 					project.setIsArchived(false);
 				} else {
 					project.setIsArchived(changedProjectModel.getIsArchived());
 				}
+			} else if(!previousMembers.contains(member) && newMembers.contains(member)) {
+				model.addAttribute(pid);
+				model.addAttribute(changedProjectModel.getProjectName());
+				model.addAttribute(changedProjectModel.getDeadline());
+				model.addAttribute(changedProjectModel.getCourse());
+				model.addAttribute(member);
+				model.addAttribute(changedProjectModel.getProgress());
 
+				ProjectModel pm = new ProjectModel(pid, changedProjectModel.getProjectName(), changedProjectModel.getDeadline(), changedProjectModel.getProgress(), changedProjectModel.getCourse(), member);
+				pm.setIsArchived(false);
+
+				projectRepository.save(pm);
 			}
+		}
 
-	return"forward:active/";
+		return "forward:active/";
 
 	}
 
@@ -196,7 +227,7 @@ public class ProjectController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
 	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
-			@RequestParam String course, @RequestParam(value = "members", required = false) Set<Integer> members) {
+			@RequestParam String course, @RequestParam(value = "users", required = false) Set<Integer> users) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -206,8 +237,8 @@ public class ProjectController {
 
 			Set<Integer> allMembers = new HashSet<Integer>();
 			allMembers.add(intCreator);
-			if (members != null) {
-				allMembers.addAll(members);
+			if (users != null) {
+				allMembers.addAll(users);
 			}
 
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

@@ -25,13 +25,19 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	public ProjectModel findTop1ByOrderByPidDesc();
 	
 	@Query("select p.user from ProjectModel p where p.pid = :pid")
-	public Set<Integer> findUserByPid(@Param("pid") int pid);
+	public List<Integer> findUserByPid(@Param("pid") int pid);
+	
+	@Query("select p.user from ProjectModel p where p.pid = :pid and p.isArchived = false")
+	public List<Integer> findUserByPidAndActive(@Param("pid") int pid);
 	
 	@Query("select p from ProjectModel p where p.pid = :pid")
 	public List<ProjectModel> findByPid(@Param("pid") int pid);
 	
 	@Query("select p.pid from ProjectModel p where p.id = :id")
 	public int findPidById(@Param("id") int id);
+	
+	@Query("select p from ProjectModel p where p.user = :user and p.pid = :pid")
+	public ProjectModel findByUserAndPid(@Param("user") int user, @Param("pid") int pid);
 	
 	//@Query("select u from ProjectModel p join p.user u where p.pid = :pid")
 	//public List<UserModel> findMembers(@Param("pid") int pid);
