@@ -49,16 +49,18 @@ public class ProjectController {
 		int user = userList.get(0).getId();
 
 		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
-		
-		//ArrayList<List<UserModel>> memberList = new ArrayList<List<UserModel>>();
-		//System.out.println(memberList.get(0));
-		
-		//for (ProjectModel project : projects) {
-		//	List<UserModel> members = projectRepository.findMembers(project.getPid());
-		//	memberList.add(members);
-		//}
-		
-		//model.addAttribute("memberList", memberList);
+
+		// ArrayList<List<UserModel>> memberList = new
+		// ArrayList<List<UserModel>>();
+		// System.out.println(memberList.get(0));
+
+		// for (ProjectModel project : projects) {
+		// List<UserModel> members =
+		// projectRepository.findMembers(project.getPid());
+		// memberList.add(members);
+		// }
+
+		// model.addAttribute("memberList", memberList);
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findActiveProjects");
 		model.addAttribute("title", "All your projects");
@@ -91,14 +93,29 @@ public class ProjectController {
 		return "forward:active/";
 	}
 
-	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "editPage", method = RequestMethod.POST)
 	@Transactional
 	public String showEditForm(Model model, @RequestParam int id) {
 
 		ProjectModel project = projectRepository.findOne(id);
 
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String currentUser = userdet.getUsername();
+		List<UserModel> possibleMembers = userRepository.findPossibleMembers(currentUser);
+		
+		Set<UserModel> previousMembers = new HashSet();
+		Set<Integer> users = projectRepository.findUserByPid(project.getPid());
+		for (int user : users) {
+			previousMembers.add(userRepository.findById(user));	
+		}
+		
+		System.out.println(previousMembers.toString());
+		
 		if (project != null) {
 			model.addAttribute("project", project);
+			model.addAttribute("previousMembers", previousMembers);
+			model.addAttribute("possibleMembers", possibleMembers);
+			model.addAttribute("type", "edit");
 			return "projects/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find project " + id);
@@ -108,30 +125,61 @@ public class ProjectController {
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	@Transactional
-	public String edit(@Valid @ModelAttribute ProjectModel changedProjectModel, BindingResult bindingResult,
-			Model model) {
+	public String edit(Model model, @RequestParam String projectName, @RequestParam String deadline,
+			@RequestParam String course, @RequestParam(value = "members", required = false) Set<Integer> members,
+			@RequestParam int progress, @RequestParam(value = "isArchived", required = false) Boolean isArchived) {
+		{
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String stringCreator = userdet.getUsername();
+			List<UserModel> userList = userRepository.findByUserName(stringCreator);
+			int intCreator = userList.get(0).getId();
 
-		if (bindingResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid<br>";
+			Set<Integer> allMembers = new HashSet<Integer>();
+			allMembers.add(intCreator);
+			if (members != null) {
+				allMembers.addAll(members);
 			}
 
-			model.addAttribute("errorMessage", errorMessage);
-			return "forward:active/";
-		}
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			Date formattedDeadline = new Date();
+			try {
+				formattedDeadline = sdf.parse(deadline);
+			} catch (ParseException e) {
+				model.addAttribute("errorMessage", "Date Parsing Error" + e);
+			}
 
-		ProjectModel project = projectRepository.findOne(changedProjectModel.getUid());
+			ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc();
+			int pid = 0;
+			if (chp == null) {
+				pid = 1;
+			} else {
+				pid = chp.getPid() + 1;
+			}
+			
+			
+			
+			
+			
+			for (int member : allMembers) {
+				model.addAttribute(pid);
+				model.addAttribute(projectName);
+				model.addAttribute(deadline);
+				model.addAttribute(course);
+				model.addAttribute(member);
+				model.addAttribute(progress);
+			
+				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, progress, course, member);
 
-		if (project == null) {
-			model.addAttribute("errorMessage", "Project does not exist!<br>");
-		} else {
+				if(isArchived == null) {
+					pm.setIsArchived(false);
+				} else {
+					pm.setIsArchived(isArchived);
+				}
+				
+				projectRepository.save(pm);
 
-			project.setProjectName(changedProjectModel.getProjectName());
-			project.setDeadline(changedProjectModel.getDeadline());
-			project.setProgress(changedProjectModel.getProgress());
-			project.setCourse(changedProjectModel.getCourse());
-			project.setIsArchived(changedProjectModel.getIsArchived());
+			}
 
 		}
 
@@ -152,7 +200,7 @@ public class ProjectController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
 	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
-			@RequestParam String course, @RequestParam(value="members", required=false) Set<Integer> members) {
+			@RequestParam String course, @RequestParam(value = "members", required = false) Set<Integer> members) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -162,10 +210,10 @@ public class ProjectController {
 
 			Set<Integer> allMembers = new HashSet<Integer>();
 			allMembers.add(intCreator);
-			if(members != null) {
+			if (members != null) {
 				allMembers.addAll(members);
 			}
-				
+
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 			Date formattedDeadline = new Date();
 			try {
@@ -189,7 +237,8 @@ public class ProjectController {
 				model.addAttribute(course);
 				model.addAttribute(member);
 
-				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, member, false);
+				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, member);
+				pm.setIsArchived(false);
 
 				projectRepository.save(pm);
 

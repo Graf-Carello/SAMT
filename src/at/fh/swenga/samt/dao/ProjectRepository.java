@@ -1,6 +1,7 @@
 package at.fh.swenga.samt.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,9 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	public List<ProjectModel> findArchivedProjects(@Param("user") int user);
 
 	public ProjectModel findTop1ByOrderByPidDesc();
+	
+	@Query("select p.user from ProjectModel p where p.pid = :pid")
+	public Set<Integer> findUserByPid(@Param("pid") int pid);
 	
 	//@Query("select u from ProjectModel p join p.user u where p.pid = :pid")
 	//public List<UserModel> findMembers(@Param("pid") int pid);

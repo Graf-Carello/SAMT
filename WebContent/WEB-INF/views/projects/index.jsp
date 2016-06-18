@@ -51,7 +51,7 @@
 							<button type="button" class="btn btn-default success">Add</button>
 						</a>
 
-						<form method="POST" action="edit">
+						<form method="POST" action="../editPage">
 
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
@@ -70,7 +70,7 @@
 					<c:forEach items="${projects}" var="project" varStatus="i">
 						<div class="projectcontainer">
 						<div class="projcheck">
-						<input class="form-control checkbox" type="checkbox" name="uid" value="${project.uid}" />
+						<input class="form-control checkbox" type="checkbox" name="id" value="${project.id}" />
 						</div>
 						<div class="projcon">
 							<div class="btn-group btn-group-justified projects" role="group"

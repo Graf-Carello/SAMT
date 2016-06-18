@@ -1,6 +1,7 @@
 package at.fh.swenga.samt.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +23,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	@Query("select u from UserModel u where u.userName <> :currentUser")
 	public List<UserModel> findPossibleMembers(@Param("currentUser") String currentUser);
+	
+	public UserModel findById(int id);
 	
 }

@@ -23,11 +23,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ProjectModel {
 
 	@Id
-	@Column(name = "UID")
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int uid;
+	private int id;
 
-	@Column(name = "PID", columnDefinition="int default 0")
+	@Column(name = "PID", columnDefinition = "int default 0")
 	private int pid;
 
 	@Column(nullable = false, length = 50)
@@ -37,14 +37,14 @@ public class ProjectModel {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date deadline;
-	
-	@Column(name="progress", columnDefinition="int default 0")
+
+	@Column(name = "progress", columnDefinition = "int default 0")
 	private int progress;
-	
+
 	private String course;
 	private int user;
 
-	@Column(name="isArchived", columnDefinition="boolean default false")
+	@Column(name = "isArchived", columnDefinition = "boolean default false")
 	private Boolean isArchived;
 
 	@ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
@@ -57,7 +57,7 @@ public class ProjectModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectModel(int pid, String projectName, Date deadline, Integer progress, String course, int user, boolean isArchived) {
+	public ProjectModel(int pid, String projectName, Date deadline, Integer progress, String course, int user) {
 		super();
 		this.pid = pid;
 		this.projectName = projectName;
@@ -65,17 +65,16 @@ public class ProjectModel {
 		this.progress = progress;
 		this.course = course;
 		this.user = user;
-		this.isArchived = isArchived;
 	}
 
-	public int getUid() {
-		return uid;
+	public int getId() {
+		return id;
 	}
 
-	public void setUid(int uid) {
-		this.uid = uid;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
+
 	public int getPid() {
 		return pid;
 	}

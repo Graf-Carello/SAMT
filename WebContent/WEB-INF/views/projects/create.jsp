@@ -60,8 +60,8 @@
 						<div class="form-group">
 							<label for="inputProjectName" class="col-md-2 control-label">Deadline</label>
 							<div class="col-md-10">
-								<input class="form-control form_datetime" id="inputDeadline" type="text"
-									name="deadline"
+								<input class="form-control form_datetime" id="inputDeadline"
+									type="text" name="deadline"
 									value="<fmt:formatDate value="${project.deadline}" pattern="dd.MM.yyyy"/>">
 							</div>
 						</div>
@@ -79,13 +79,55 @@
 						<div class="form-group">
 							<label for="inputMembers" class="col-md-2 control-label">Member</label>
 							<div class="col-md-10">
-								<select multiple class="tagselect" name="members" data-placeholder="Choose one or more project members">
-								<c:forEach items="${members}" var="member">
-									<option value="${member.id}">${member.firstName} ${member.lastName}</option>
-								</c:forEach>
-								</select>
+
+								<c:choose>
+									<c:when test="${type == 'edit'}">
+										<b>Current members: </b>
+										<c:forEach items="${previousMembers}" var="pmember" varStatus="loop">
+										${pmember.firstName} ${pmember.lastName}<c:if test="${!loop.last}">,</c:if>
+										</c:forEach>
+										<select multiple class="tagselect" name="members"
+											data-placeholder="Choose one or more project members">
+											<c:forEach items="${possibleMembers}" var="member">
+												<option value="${member.id}">${member.firstName}
+													${member.lastName}</option>
+											</c:forEach>
+										</select>
+									</c:when>
+									<c:otherwise>
+										<select multiple class="tagselect" name="members"
+											data-placeholder="Choose one or more project members">
+											<c:forEach items="${possibleMembers}" var="member">
+												<option value="${member.id}">${member.firstName}
+													${member.lastName}</option>
+											</c:forEach>
+										</select>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
+
+						<c:if test="${type == 'edit'}">
+
+							<!-- ----------------  progress ---------------- -->
+							<div class="form-group">
+								<label for="inputProgress" class="col-md-2 control-label">Progress</label>
+								<div class="col-md-10">
+									<input class="form-control" id="inputProgress" type="text"
+										name="progress" value="${project.progress}">
+								</div>
+							</div>
+
+							<!-- ----------------  isArchived ---------------- -->
+							<div class="form-group">
+								<label for="inputIsArchived" class="col-md-2 control-label">Archive</label>
+								<div class="col-md-10">
+									<input class="form-control checkbox" id="checkArchived"
+										type="checkbox" name="isArchived" value="true">
+								</div>
+							</div>
+
+						</c:if>
 
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
@@ -99,6 +141,6 @@
 	</div>
 
 	<%@include file="../includes/bottom.jsp"%>
-	
+
 </body>
 </html>
