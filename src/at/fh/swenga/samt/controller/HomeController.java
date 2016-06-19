@@ -16,6 +16,11 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+	
+	@RequestMapping("/calendar")
+	public String calendar() {
+		return "calendar";
+	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {

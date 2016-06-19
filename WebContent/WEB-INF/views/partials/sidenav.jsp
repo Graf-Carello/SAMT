@@ -40,6 +40,7 @@
 					<li><a href="<c:url value="/notes/add/" />"> Add new</a></li>
 				</ul>
 			</li>
+			<li><a href="<c:url value="/calendar" />"><i class="fa fa-calendar fa-fw"></i> Calendar</a></li>
 			<li><a href="<c:url value="/admin/" />"><i class="fa fa-users fa-fw"></i> Edit Users</a></li>
 			
 		</ul>
