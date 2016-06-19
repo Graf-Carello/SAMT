@@ -47,59 +47,24 @@
 					<nav class="navbar navbar-default">
 					<div class="container-fluid">
 
-						<a href="<c:url value="/projects/add" />">
+						<a href="<c:url value="/homework/add" />">
 							<button type="button" class="btn btn-default success">Add</button>
 						</a>
 
-						<form method="POST" action="<c:url value="/projects/editPage" />">
-
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
-
-							<button type="submit" class="btn btn-default">Edit</button>
-							<!-- <button type="submit" class="btn btn-danger delete clearfix">Delete</button> -->
 					</div>
 					</nav>
 
-
-
-
-
-					<br />
-
-					<c:forEach items="${projects}" var="project" varStatus="i">
-						<div class="projectcontainer">
-							<div class="projcheck">
-								<input class="form-control checkbox" type="checkbox" name="id"
-									value="${project.id}" />
-							</div>
-							<div class="projcon">
-								<div class="btn-group btn-group-justified projects" role="group"
-									aria-label="...">
-
-									<div class="btn-group" role="group">
-										<b>Course: </b>${project.course}</div>
-									<div class="btn-group" role="group">
-										<b>Name: </b>${project.projectName}</div>
-									<div class="btn-group" role="group">
-										<b>Deadline: </b><fmt:formatDate value="${project.deadline}" pattern="dd.MM.yyyy"/></div>
-									<div class="btn-group" role="group">
-										<b>Progress: </b>${project.progress}%</div>
+					<div id="homeworkwrapper">
+						<c:forEach items="${homeworks}" var="homework" varStatus="i">
+									
+								<div>
+									<h4>${homework.course} :: <fmt:formatDate value="${homework.deadline}" pattern="dd.MM.yyyy"/></h4>
+									<p>${homework.description}</p>
+									<a href="<c:url value="/homework/edit?id=${homework.id}" />">edit</a>
 								</div>
-								<b>Members: </b>
-								<c:forEach items="${memberList[i.index]}" var="member"
-									varStatus="loop">
-							${member.firstName} ${member.lastName}<c:if test="${!loop.last}">,</c:if>
-								</c:forEach>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" aria-valuemin="0"
-										aria-valuemax="100" style="width: ${project.progress}%;"></div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-
-					</form>
+							
+						</c:forEach>
+					</div>
 
 					<!-- ########## /CONTENT ############################################################ -->
 

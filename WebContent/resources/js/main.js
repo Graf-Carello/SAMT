@@ -16,15 +16,15 @@ $(function() {
     var yyyy = today.getFullYear();
     if(dd<10){dd='0'+dd} 
     if(mm<10){mm='0'+mm} 
-    var today = yyyy+'-'+mm+1+'-'+dd;
+    var today = dd+'.'+mm+1+'.'+yyyy;
    
-	$("#inputDeadline").datetimepicker({
-        format : "dd.MM yyyy",
+  $("#inputDeadline").datetimepicker({
+        format : "dd.mm.yyyy",
         setStartDate : today,
         autoclose : true,
         todayBtn : true,
         pickerPosition : "bottom-left",
         minView : 2
-      });
+});
 	
 })

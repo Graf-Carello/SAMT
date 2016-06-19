@@ -1,5 +1,7 @@
 package at.fh.swenga.samt.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class HomeworkController {
 		HomeworkModel homework = homeworkRepository.findOne(id);
 
 		if (homework != null) {
-			model.addAttribute("homeworks", homework);
+			model.addAttribute("homework", homework);
 
 			return "homework/create";
 		} else {
@@ -78,13 +80,12 @@ public class HomeworkController {
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
-
 			model.addAttribute("errorMessage", errorMessage);
 			return "forward:index/";
 		}
 
 		HomeworkModel homework = homeworkRepository.findOne(changedHomeworkModel.getId());
-
+		
 		if (homework == null) {
 			model.addAttribute("errorMessage", "Forum does not exist!<br>");
 		} else {
@@ -92,7 +93,7 @@ public class HomeworkController {
 			homework.setCourse(changedHomeworkModel.getCourse());
 			homework.setDescription(changedHomeworkModel.getDescription());
 			homework.setDeadline(changedHomeworkModel.getDeadline());
-			homework.setOwner(changedHomeworkModel.getOwner());
+			
 		}
 		return "forward:index/";
 	}
@@ -106,7 +107,7 @@ public class HomeworkController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
 	public String add(Model model, @RequestParam String course, @RequestParam String description,
-			@RequestParam Date deadline) {
+			@RequestParam String deadline) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -114,13 +115,21 @@ public class HomeworkController {
 
 			List<UserModel> userList = userRepository.findByUserName(stringOwner);
 			int intOwner = userList.get(0).getId();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			Date formattedDeadline = new Date();
+			try {
+				formattedDeadline = sdf.parse(deadline);
+			} catch (ParseException e) {
+				model.addAttribute("errorMessage", "Date Parsing Error" + e);
+			}
 
 			model.addAttribute(course);
 			model.addAttribute(description);
-			model.addAttribute(deadline);
+			model.addAttribute(formattedDeadline);
 			model.addAttribute(intOwner);
 
-			HomeworkModel hm = new HomeworkModel(course, description, deadline, intOwner);
+			HomeworkModel hm = new HomeworkModel(course, description, formattedDeadline);
 
 			homeworkRepository.save(hm);
 		}

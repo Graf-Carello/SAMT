@@ -70,7 +70,6 @@
 										<input type="submit" value="edit">
 									</form>
 									</c:if>
-									</ich>
 									<a href="<c:url value="reply?oPost=${post.id}"/>" class="reply">Reply</a>
 								</div>
 								<div class="post_right col-lg-11">

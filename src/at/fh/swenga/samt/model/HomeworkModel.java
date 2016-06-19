@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "Homework")
 public class HomeworkModel {
@@ -31,10 +33,8 @@ public class HomeworkModel {
 
 	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date deadline;
-
-	@Column(nullable = false)
-	private int owner;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel user;
@@ -46,12 +46,11 @@ public class HomeworkModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HomeworkModel(String course, String description, Date deadline, int owner) {
+	public HomeworkModel(String course, String description, Date deadline) {
 		super();
 		this.course = course;
 		this.description = description;
 		this.deadline = deadline;
-		this.owner = owner;
 	}
 
 	public int getId() {
@@ -84,14 +83,6 @@ public class HomeworkModel {
 
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
-	}
-
-	public int getOwner() {
-		return owner;
-	}
-
-	public void setOwner(int owner) {
-		this.owner = owner;
 	}
 
 	public UserModel getUser() {
