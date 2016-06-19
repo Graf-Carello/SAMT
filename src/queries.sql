@@ -37,24 +37,51 @@ VALUES ('GPM', 'final exam on monday', 1, 1);
 INSERT INTO Notes(name, content, version, user_id)
 VALUES ('FH', 'plan final celebration for semester finish', 1, 2);
 
-
--- Insert Groups
-INSERT INTO Groups(groupName, members, project, version)
-VALUES ('SAMT', '1, 2, 3, 4', 'SWENGA project', 1);
-
-INSERT INTO Groups(groupName, members, project, version)
-VALUES ('EWGUBI', '1, 2, 3', 'Gaming und free time fun activities', 1);
-
-
 -- Insert Forum
-INSERT INTO Forum(forumName, user, post, thread, version)
-VALUES ('SWENGA', 1, 'Need help with current homework pls', 1, 1);
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1);
 
-INSERT INTO Forum(forumName, user, post, thread, version)
-VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1, 1);
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1);
 
-INSERT INTO Forum(forumName, user, post, thread, version)
-VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1, 1);
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 1, 'Need help with current homework pls', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 2, 'just look at the tutorial on moodle', 1);
+
+INSERT INTO Forum(title, user, content, version)
+VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fine', 1);
 
 
 -- Insert Homework
@@ -62,7 +89,7 @@ INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-06-20', 'BAC-1 thesis', 1, 1);
 
 INSERT INTO Homework(deadline, description, version, user_id)
-VALUES ('2016-06-01', 'QMMGT term paper', 1, 4);
+VALUES ('2016-06-01', 'QMMGT term paper', 1, 3);
 
 INSERT INTO Homework(deadline, description, version, user_id)
 VALUES ('2016-06-13', 'HVSYS term paper', 1, 3);
@@ -72,13 +99,14 @@ VALUES ('2016-07-01', 'GPMGT example 4', 1, 2);
 
 
 -- Insert Projects
-INSERT INTO Projects(projectName, deadline, progress, course, user, version)
-VALUES ('SAMT', '2016-06-20', '40', 'SWENGA', '1', 1);
+INSERT INTO Projects(projectName, deadline, pid, progress, course, user, version)
+VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '1', 1);
 
-INSERT INTO Projects(projectName, deadline, progress, course, user, version)
-VALUES ('BAC-1', '2016-07-11', '30', 'BAC-1', '1', 1);
+INSERT INTO Projects(projectName, deadline, pid, progress, course, user, version)
+VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '2', 1);
 
-
+INSERT INTO Projects(projectName, deadline, pid, progress, course, user, version)
+VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '3', 1);
 
 
 
