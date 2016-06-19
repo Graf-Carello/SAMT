@@ -28,9 +28,6 @@ public class ForumModel {
 	private String post;
 
 	@Column
-	private String thread;
-
-	@Column
 	private Integer user;
 
 	@ManyToMany(mappedBy = "forum", fetch = FetchType.EAGER)
@@ -43,11 +40,10 @@ public class ForumModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ForumModel(String forumName, String post, String thread, Integer user) {
+	public ForumModel(String forumName, String post, Integer user) {
 		super();
 		this.forumName = forumName;
-		this.post = post;
-		this.thread = thread;
+		this.post = post;		
 		this.user = user;
 	}
 
@@ -73,14 +69,6 @@ public class ForumModel {
 
 	public void setPost(String post) {
 		this.post = post;
-	}
-
-	public String getThread() {
-		return thread;
-	}
-
-	public void setThread(String thread) {
-		this.thread = thread;
 	}
 
 	public Integer getUser() {
