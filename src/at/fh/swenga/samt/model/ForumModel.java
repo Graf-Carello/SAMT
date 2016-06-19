@@ -22,10 +22,10 @@ public class ForumModel {
 	private int id;
 
 	@Column
-	private String forumName;
+	private String title;
 
 	@Column
-	private String post;
+	private String content;
 
 	@Column
 	private Integer user;
@@ -40,10 +40,10 @@ public class ForumModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ForumModel(String forumName, String post, Integer user) {
+	public ForumModel(String title, String content, Integer user) {
 		super();
-		this.forumName = forumName;
-		this.post = post;		
+		this.title = title;
+		this.content = content;		
 		this.user = user;
 	}
 
@@ -55,20 +55,20 @@ public class ForumModel {
 		this.id = id;
 	}
 
-	public String getForumName() {
-		return forumName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setForumName(String forumName) {
-		this.forumName = forumName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getPost() {
-		return post;
+	public String getContent() {
+		return content;
 	}
 
-	public void setPost(String post) {
-		this.post = post;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Integer getUser() {

@@ -9,5 +9,5 @@ import at.fh.swenga.samt.model.ForumModel;
 @Repository
 @Transactional
 public interface ForumRepository extends JpaRepository<ForumModel, Integer>{
-
+	
 }

@@ -6,6 +6,8 @@
     clear:both;
 }
 
+.clear { clear:both; }
+
 .navbar .container-fluid { padding:7px; }
 .navbar .container-fluid .delete { float:right; }
 
@@ -61,3 +63,16 @@
 .projectcontainer { position:relative; }
 .projcheck { position:absolute; }
 .projcon { margin-left:40px; }
+
+/* FORUM */
+.post .author { display:block; color:#fff; }
+
+.post { border:1px solid #aaa; margin-bottom:20px; }
+.post img { padding:10px; border:1px solid #000; text-align:center; margin-top:10px; background:#fff; }
+.post_left { background:#555; }
+.post_right { background:#fff; }
+.post_right h3 { margin-top:10px; margin-left:20px; font-weight:bold; }
+.post_right p { font-size:18px; margin-left:20px; }
+
+
+.post div { padding:5px; }

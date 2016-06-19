@@ -1,5 +1,6 @@
 package at.fh.swenga.samt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,8 +37,21 @@ public class ForumController {
 	@RequestMapping(value = { "/", "index/" })
 	public String index(Model model) {
 		List<ForumModel> forum = forumRepository.findAll();
-		model.addAttribute("forum", forum);
-		model.addAttribute("type", "findAll");
+		List<UserModel> creator = new ArrayList<UserModel>();
+		for (ForumModel post : forum) {
+			creator.add(userRepository.findById(post.getUser()));
+		}
+
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String stringCreator = userdet.getUsername();
+
+		List<UserModel> userList = userRepository.findByUserName(stringCreator);
+		int currentUser = userList.get(0).getId();
+
+		model.addAttribute("title", "Forum");
+		model.addAttribute("creator", creator);
+		model.addAttribute("posts", forum);
+		model.addAttribute("currentUser", currentUser);
 		return "forum/index";
 	}
 
@@ -48,19 +62,29 @@ public class ForumController {
 		return "forward:index/";
 	}
 
-	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "editPage", method = RequestMethod.POST)
 	@Transactional
 	public String showEditForm(Model model, @RequestParam int id) {
 
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String stringCreator = userdet.getUsername();
+
+		List<UserModel> userList = userRepository.findByUserName(stringCreator);
+		int currentUser = userList.get(0).getId();
+
 		ForumModel forum = forumRepository.findOne(id);
 
-		if (forum != null) {
-			model.addAttribute("forum", forum);
-
-			return "forum/create";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find forum " + id);
+		if (forum.getUser() != currentUser) {
 			return "forward:index/";
+		} else {
+
+			if (forum != null) {
+				model.addAttribute("post", forum);
+				return "forum/create";
+			} else {
+				model.addAttribute("errorMessage", "Couldn't find forum " + id);
+				return "forward:index/";
+			}
 		}
 
 	}
@@ -79,18 +103,37 @@ public class ForumController {
 			return "forward:index/";
 		}
 
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String stringCreator = userdet.getUsername();
+
+		List<UserModel> userList = userRepository.findByUserName(stringCreator);
+		int intCreator = userList.get(0).getId();
+
 		ForumModel forum = forumRepository.findOne(changedForumModel.getId());
 
 		if (forum == null) {
 			model.addAttribute("errorMessage", "Forum does not exist!<br>");
 		} else {
 
-			forum.setForumName(changedForumModel.getForumName());
-			forum.setPost(changedForumModel.getPost());
-			forum.setUser(changedForumModel.getUser());
+			forum.setTitle(changedForumModel.getTitle());
+			forum.setContent(changedForumModel.getContent());
+			forum.setUser(intCreator);
 		}
 
 		return "forward:index/";
+	}
+
+	@RequestMapping(value = "reply", method = RequestMethod.GET)
+	public String showAddNoteForm(Model model, @RequestParam ForumModel oPost) {
+
+		int user = oPost.getUser();
+		String op = userRepository.findUserNameById(user);
+		String title = oPost.getTitle();
+
+		model.addAttribute("oPost", oPost);
+		model.addAttribute("type", "reply");
+		model.addAttribute("op", op);
+		return "forum/create";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)

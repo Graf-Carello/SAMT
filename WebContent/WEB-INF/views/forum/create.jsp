@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>Edit Note | SAMT</title>
+<title>Forumposting | SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -19,13 +19,13 @@
 
 		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
-			<c:when test="${not empty note}">
-				<c:set var="legend">Change Note ${note.id}</c:set>
+			<c:when test="${not empty post}">
+				<c:set var="legend">Change Post ${post.id}</c:set>
 				<c:set var="formAction">edit</c:set>
 				<c:set var="readonly">readonly</c:set>
 			</c:when>
 			<c:otherwise>
-				<c:set var="legend">New Note</c:set>
+				<c:set var="legend">New Post</c:set>
 				<c:set var="formAction">add</c:set>
 				<c:set var="readonly"></c:set>
 			</c:otherwise>
@@ -36,17 +36,25 @@
 				<form class="form-horizontal" method="post" action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${note.id }" />
+						value="${post.id }" />
 
 					<fieldset>
 						<legend>${legend}</legend>
 
-						<!-- ----------------  name ---------------- -->
+						<!-- ----------------  title ---------------- -->
 						<div class="form-group">
-							<label for="inputName" class="col-md-2 control-label">Name</label>
+							<label for="inputTitle" class="col-md-2 control-label">Title</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputName" type="text"
-									name="name" value="<c:out value="${note.name}"/>">
+								<c:choose>
+									<c:when test="${type == 'reply'}">
+										<input readonly class="form-control" id="inputTitle"
+											type="text" name="title" value="@${op} | ${oPost.title}" />
+									</c:when>
+									<c:otherwise>
+										<input class="form-control" id="inputTitle" type="text"
+											name="title" value="<c:out value="${post.title}"/>">
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 
@@ -54,26 +62,9 @@
 						<div class="form-group">
 							<label for="inputContent" class="col-md-2 control-label">Content</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputContent" type="text"
-									name="content" value="<c:out value="${note.content}"/>">
-							</div>
-						</div>
-
-						<!-- ----------------  public ---------------- -->
-						<div class="form-group">
-							<label for="isPublic" class="col-md-2 control-label">Public</label>
-
-							<div class="col-md-10">
-								<c:choose>
-									<c:when test="${note.isPublic}">
-										<input checked class="form-control checkbox" id="checkPublic"
-											type="checkbox" name="isPublic" value="true">
-									</c:when>
-									<c:otherwise>
-										<input class="form-control checkbox" id="checkPublic" type="checkbox"
-											name="isPublic" value="true">
-									</c:otherwise>
-								</c:choose>
+								<c:if test="${type == 'reply'}"><p><b>original message: </b>${oPost.content}</p></c:if>
+								<textarea class="form-control textarea" rows="10" id="inputContent" type="text"
+									name="content"><c:out value="${post.content}" /></textarea>
 							</div>
 						</div>
 
