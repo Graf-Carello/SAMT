@@ -1,18 +1,22 @@
 package at.fh.swenga.samt.controller;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.fluttercode.datafactory.impl.DataFactory;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.HomeworkRepository;
@@ -24,105 +28,106 @@ import at.fh.swenga.samt.model.UserModel;
 @RequestMapping("/homework")
 public class HomeworkController {
 
-
 	@Autowired
 	HomeworkRepository homeworkRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping("/")
+	@RequestMapping(value = { "/", "index/" })
 	public String index(Model model) {
-		List<HomeworkModel> homeworks = homeworkRepository.findAll(); //get all emp
-		model.addAttribute("homeworks", homeworks); //put into model
-		model.addAttribute("type", "findAll"); //type request parameter
-		return "index"; //all empl distplay on bootstrap
-	}
+		List<HomeworkModel> homeworks = homeworkRepository.findAll();
 
-	@RequestMapping("/getPage")
-	public String getPageHomework(Pageable page,Model model) {
-		//page contains list and some addit. info
-		Page<HomeworkModel> homeworks = homeworkRepository.findAll(page);
-		model.addAttribute("homeworks", homeworks.getContent()); //liste mit empl zeigen 
-		model.addAttribute("homeworksPage", homeworks); //die Seite zeigen
-		return "index";
-	}
-
-	@RequestMapping(value = { "/find" })
-	//search for reqpar with type and return as type
-	public String find(Model model, @RequestParam String searchString, @ModelAttribute("type")  String type) {
-		List<HomeworkModel> homeworks = null;
-		int count=0;
-
-		switch (type) {
-		case "findAll":
-			homeworks=homeworkRepository.findAll();
-			break;
-			
-		default:
-			homeworks = homeworkRepository.findAll(); //defaut einstellungen, falls nichts gibt, wird find all ausgeführt
-		}
-		
 		model.addAttribute("homeworks", homeworks);
-		model.addAttribute("count", count);
+		model.addAttribute("title", "Homework");
 
-		return "index";
-	}
-
-	@RequestMapping(value = { "/findById" })
-	public String findById(@RequestParam("id") HomeworkModel e, Model model) {
-
-		
-		List<HomeworkModel> homeworks = new ArrayList<>();
-		homeworks.add(e);
-		model.addAttribute("homeworks", homeworks);
-		
-		return "index";
-	}
-	
-	@RequestMapping("/fill")
-	@Transactional
-	public String fillData(Model model) { 
-
-		DataFactory df = new DataFactory(); //random die Namen von employes erstellen, für test zwecken
-		UserModel user = null;
-		for(int i = 0; i<100; i++) { //0 devided by 10 is 0; first iteration: create or use existing one
-			
-			//(String firstName, String lastName, String degreeCourse, String email, String password,
-			//String profilePicture)
-			
-			
-			if(i%10==0){
-				String userUserName = "testUser11";
-				String userFirstName = df.getFirstName();
-				String userLastName = df.getLastName();
-				String degreeCourse = "IMA";
-				String email = userFirstName + userLastName + "@gmail.com";
-				String password = "password";
-				String profilePicture = "picture";
-				user = userRepository.findFirstByEmail(userFirstName + userLastName + "@gmail.com"); //weil in model string name gibt für comrepository
-				if(user == null) { //if company not in db then create one in db
-					user = new UserModel(userUserName, userFirstName, userLastName, degreeCourse, email, password, profilePicture); //unmanaged; but when we ask it from db, than a managed instance is returned
-				}
-			}
-			
-			//int id, String description, Date deadline, UserModel user
-			
-			HomeworkModel hm = new HomeworkModel(df.getNumber(), df.getRandomText(50), df.getDateBetween(df.getDate(2016, 3, 1), df.getDate(2016, 7, 10)), user);
-			homeworkRepository.save(hm);
-		
-		}
-		return "forward:list";
+		return "homework/index";
 	}
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		homeworkRepository.delete(id);
 
-		return "forward:list";
+		return "forward:index/";
 	}
 
-	@ExceptionHandler(Exception.class) //catch block, exception handler, for example if asked for id(string), but there is only id(int)
+	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@Transactional
+	public String showEditForm(Model model, @RequestParam int id) {
+
+		HomeworkModel homework = homeworkRepository.findOne(id);
+
+		if (homework != null) {
+			model.addAttribute("homeworks", homework);
+
+			return "homework/create";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find homework " + id);
+			return "forward:index/";
+		}
+
+	}
+
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	@Transactional
+	public String edit(@Valid @ModelAttribute HomeworkModel changedHomeworkModel, BindingResult bindingResult,
+			Model model) {
+
+		if (bindingResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "forward:index/";
+		}
+
+		HomeworkModel homework = homeworkRepository.findOne(changedHomeworkModel.getId());
+
+		if (homework == null) {
+			model.addAttribute("errorMessage", "Forum does not exist!<br>");
+		} else {
+
+			homework.setCourse(changedHomeworkModel.getCourse());
+			homework.setDescription(changedHomeworkModel.getDescription());
+			homework.setDeadline(changedHomeworkModel.getDeadline());
+			homework.setOwner(changedHomeworkModel.getOwner());
+		}
+		return "forward:index/";
+	}
+
+	@RequestMapping(value = "add", method = RequestMethod.GET)
+	public String showAddNoteForm(Model model) {
+
+		return "homework/create";
+	}
+
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@Transactional
+	public String add(Model model, @RequestParam String course, @RequestParam String description,
+			@RequestParam Date deadline) {
+		{
+			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String stringOwner = userdet.getUsername();
+
+			List<UserModel> userList = userRepository.findByUserName(stringOwner);
+			int intOwner = userList.get(0).getId();
+
+			model.addAttribute(course);
+			model.addAttribute(description);
+			model.addAttribute(deadline);
+			model.addAttribute(intOwner);
+
+			HomeworkModel hm = new HomeworkModel(course, description, deadline, intOwner);
+
+			homeworkRepository.save(hm);
+		}
+		return "forward:index/";
+	}
+
+	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
 		return "showError";
