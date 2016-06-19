@@ -22,25 +22,25 @@ import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.UserModel;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin")
 public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping(value = { "", "list" })
+	@RequestMapping(value = { "/", "admin/" })
 	public String list(Model model) {
 		List<UserModel> users = userRepository.findAll();
 		model.addAttribute("users", users);
 		model.addAttribute("type", "findAll");
-		return "users";
+		return "admin/admin";
 	}
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		userRepository.delete(id);
 
-		return "forward:list";
+		return "forward:/";
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -52,10 +52,10 @@ public class UserController {
 		if (user != null) {
 			model.addAttribute("user", user);
 
-			return "user/create";
+			return "admin/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:"; // Einsetzen wohin
+			return "forward:admin/";
 		}
 
 	}
@@ -71,7 +71,7 @@ public class UserController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:"; // Einsetzen wohin
+			return "forward:admin/";
 		}
 
 		UserModel user = userRepository.findOne(changedUserModel.getId());
@@ -88,20 +88,20 @@ public class UserController {
 			user.setProfilePicture(changedUserModel.getProfilePicture());
 		}
 
-		return "forward:"; // Einsetzen wohin
+		return "forward:admin/";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String showAddNoteForm(Model model) {
 
-		return "forum/create";
+		return "admin/create";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String userName, @RequestParam String firstName, @RequestParam String lastName,
-			@RequestParam String degreeCourse, @RequestParam String email, @RequestParam String password,
-			@RequestParam String profilePicture) {
+	public String add(Model model, @RequestParam String userName, @RequestParam String firstName,
+			@RequestParam String lastName, @RequestParam String degreeCourse, @RequestParam String email,
+			@RequestParam String password, @RequestParam String profilePicture) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -123,7 +123,7 @@ public class UserController {
 			userRepository.save(um);
 		}
 
-		return "forward:"; // EIntragen wohin
+		return "forward:admin/";
 	}
 
 	@ExceptionHandler(Exception.class)

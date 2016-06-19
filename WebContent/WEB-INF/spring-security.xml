@@ -14,7 +14,7 @@
 		<intercept-url pattern="/fonts/**" access="permitAll" />
 		
 		<intercept-url pattern="/login" access="permitAll" />
-		
+		<intercept-url pattern="/admin" access="hasRole('ADMIN')"/>
 		<intercept-url pattern="/**" access="hasRole('USER')" />
 		<form-login default-target-url ="/" always-use-default-target="true" login-page="/login" />
 		<logout logout-success-url="/login" logout-url="/logout" />
