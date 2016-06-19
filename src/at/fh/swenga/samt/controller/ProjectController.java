@@ -48,22 +48,17 @@ public class ProjectController {
 		List<UserModel> userList = userRepository.findByUserName(userName);
 		int user = userList.get(0).getId();
 
-
 		List<ProjectModel> projects = projectRepository.findActiveProjects(user);
 		ArrayList<List<UserModel>> memberList = new ArrayList<List<UserModel>>();
 		for (ProjectModel project : projects) {
-			List<Integer> memberIDs = projectRepository.findUserByPidAndActive(project.getPid());
+			Set<Integer> memberIDs = projectRepository.findUserByPidAndActive(project.getPid());
 			List<UserModel> members = new ArrayList<UserModel>();
 			for (int member : memberIDs) {
 				members.add(userRepository.findById(member));
 			}
 			memberList.add(members);
-	    }
-	
-		for(List<UserModel> member : memberList) {
-			System.out.println(member.toString());
 		}
-		
+
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("projects", projects);
 		model.addAttribute("type", "findActiveProjects");
@@ -147,13 +142,11 @@ public class ProjectController {
 
 		int pid = projectRepository.findPidById(changedProjectModel.getId());
 
-
 		/*
 		 * ProjectModel chp = projectRepository.findTop1ByOrderByPidDesc(); int
 		 * pid = 0; if (chp == null) { pid = 1; } else { pid = chp.getPid() + 1;
 		 * }
 		 */
-
 
 		List<Integer> previousMembers = new ArrayList();
 		List<Integer> users = projectRepository.findUserByPid(pid);
@@ -168,19 +161,19 @@ public class ProjectController {
 				newMembers.add(user.getId());
 			}
 		}
-		
-		//List<ProjectModel> projects = projectRepository.findByPid(pid);
-		
+
+		// List<ProjectModel> projects = projectRepository.findByPid(pid);
+
 		List<Integer> allMembers = new ArrayList<Integer>();
 		allMembers.addAll(newMembers);
 		allMembers.addAll(previousMembers);
-		
-		for(int member : allMembers) {
-			if(previousMembers.contains(member) && !newMembers.contains(member)) {
-				ProjectModel project = projectRepository.findByUserAndPid(member,pid);
+
+		for (int member : allMembers) {
+			if (previousMembers.contains(member) && !newMembers.contains(member)) {
+				ProjectModel project = projectRepository.findByUserAndPid(member, pid);
 				project.setIsArchived(true);
-			} else if(previousMembers.contains(member) && newMembers.contains(member)) {
-				ProjectModel project = projectRepository.findByUserAndPid(member,pid);
+			} else if (previousMembers.contains(member) && newMembers.contains(member)) {
+				ProjectModel project = projectRepository.findByUserAndPid(member, pid);
 				project.setPid(pid);
 				project.setProjectName(changedProjectModel.getProjectName());
 				project.setDeadline(changedProjectModel.getDeadline());
@@ -193,7 +186,7 @@ public class ProjectController {
 				} else {
 					project.setIsArchived(changedProjectModel.getIsArchived());
 				}
-			} else if(!previousMembers.contains(member) && newMembers.contains(member)) {
+			} else if (!previousMembers.contains(member) && newMembers.contains(member)) {
 				model.addAttribute(pid);
 				model.addAttribute(changedProjectModel.getProjectName());
 				model.addAttribute(changedProjectModel.getDeadline());
@@ -201,7 +194,9 @@ public class ProjectController {
 				model.addAttribute(member);
 				model.addAttribute(changedProjectModel.getProgress());
 
-				ProjectModel pm = new ProjectModel(pid, changedProjectModel.getProjectName(), changedProjectModel.getDeadline(), changedProjectModel.getProgress(), changedProjectModel.getCourse(), member);
+				ProjectModel pm = new ProjectModel(pid, changedProjectModel.getProjectName(),
+						changedProjectModel.getDeadline(), changedProjectModel.getProgress(),
+						changedProjectModel.getCourse(), member);
 				pm.setIsArchived(false);
 
 				projectRepository.save(pm);
@@ -256,7 +251,6 @@ public class ProjectController {
 				pid = chp.getPid() + 1;
 			}
 			for (int member : allMembers) {
-				System.out.println(member);
 				model.addAttribute(pid);
 				model.addAttribute(projectName);
 				model.addAttribute(deadline);

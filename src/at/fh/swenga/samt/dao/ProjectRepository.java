@@ -28,7 +28,7 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	public List<Integer> findUserByPid(@Param("pid") int pid);
 	
 	@Query("select p.user from ProjectModel p where p.pid = :pid and p.isArchived = false")
-	public List<Integer> findUserByPidAndActive(@Param("pid") int pid);
+	public Set<Integer> findUserByPidAndActive(@Param("pid") int pid);
 	
 	@Query("select p from ProjectModel p where p.pid = :pid")
 	public List<ProjectModel> findByPid(@Param("pid") int pid);

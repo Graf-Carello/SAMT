@@ -104,7 +104,7 @@
 							<div class="form-group">
 								<label for="inputProgress" class="col-md-2 control-label">Progress</label>
 								<div class="col-md-10">
-									<input class="form-control" id="inputProgress" type="text"
+									<input class="form-control" id="inputProgress" type="number"
 										name="progress" value="${project.progress}">
 								</div>
 							</div>
