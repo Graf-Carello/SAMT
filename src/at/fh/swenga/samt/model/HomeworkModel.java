@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,15 +24,21 @@ public class HomeworkModel {
 	private int id;
 
 	@Column(nullable = true, length = 200)
+	private String course;
+
+	@Column(nullable = true)
 	private String description;
 
 	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date deadline;
 
+	@Column(nullable = false)
+	private int owner;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel user;
-	
+
 	@Version
 	long version;
 
@@ -41,11 +46,12 @@ public class HomeworkModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HomeworkModel(int id, String description, Date deadline, UserModel user) {
+	public HomeworkModel(String course, String description, Date deadline, int owner) {
 		super();
-		this.id = id;
+		this.course = course;
 		this.description = description;
 		this.deadline = deadline;
+		this.owner = owner;
 	}
 
 	public int getId() {
@@ -54,6 +60,14 @@ public class HomeworkModel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
 	}
 
 	public String getDescription() {
@@ -72,11 +86,20 @@ public class HomeworkModel {
 		this.deadline = deadline;
 	}
 
+	public int getOwner() {
+		return owner;
+	}
+
+	public void setOwner(int owner) {
+		this.owner = owner;
+	}
+
 	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUsers(UserModel user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
+
 }
