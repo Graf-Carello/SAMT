@@ -85,16 +85,16 @@ VALUES ('SWENGA', 3, 'just press it a couple of times, and it will work just fin
 
 
 -- Insert Homework
-INSERT INTO Homework(deadline, description, version, course, owner)
+INSERT INTO Homework(deadline, description, version, course, user_id)
 VALUES ('2016-06-20', 'write thesis', 1, 'BAC', 1);
 
-INSERT INTO Homework(deadline, description, version, course, owner)
+INSERT INTO Homework(deadline, description, version, course, user_id)
 VALUES ('2016-06-01', 'term paper', 1, 'QMMGT', 3);
 
-INSERT INTO Homework(deadline, description, version, course, owner)
+INSERT INTO Homework(deadline, description, version, course, user_id)
 VALUES ('2016-06-13', 'term paper', 1, 'HVSYS', 3);
 
-INSERT INTO Homework(deadline, description, version, course, owner)
+INSERT INTO Homework(deadline, description, version, course, user_id)
 VALUES ('2016-07-01', 'example 4', 1, 'GMPGT', 2);
 
 
