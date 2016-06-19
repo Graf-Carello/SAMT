@@ -23,7 +23,6 @@ import at.fh.swenga.samt.dao.UserRepository;
 import at.fh.swenga.samt.model.ForumModel;
 import at.fh.swenga.samt.model.UserModel;
 
-
 @Controller
 @RequestMapping("/forum")
 public class ForumController {
@@ -34,19 +33,19 @@ public class ForumController {
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping("/")
+	@RequestMapping(value = { "/", "index/" })
 	public String index(Model model) {
 		List<ForumModel> forum = forumRepository.findAll();
 		model.addAttribute("forum", forum);
 		model.addAttribute("type", "findAll");
-		return "index";
+		return "forum/index";
 	}
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		forumRepository.delete(id);
 
-		return "forward:list";
+		return "forward:index/";
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -61,7 +60,7 @@ public class ForumController {
 			return "forum/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find forum " + id);
-			return "forward:"; // Einsetzen wohin
+			return "forward:index/";
 		}
 
 	}
@@ -77,7 +76,7 @@ public class ForumController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:"; // Einsetzen wohin
+			return "forward:index/";
 		}
 
 		ForumModel forum = forumRepository.findOne(changedForumModel.getId());
@@ -88,10 +87,10 @@ public class ForumController {
 
 			forum.setForumName(changedForumModel.getForumName());
 			forum.setPost(changedForumModel.getPost());
-			forum.setThread(changedForumModel.getThread());
+			forum.setUser(changedForumModel.getUser());
 		}
 
-		return "forward:"; // Einsetzen wohin
+		return "forward:index/";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
@@ -102,7 +101,7 @@ public class ForumController {
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam String post, @RequestParam String thread) {
+	public String add(Model model, @RequestParam String title, @RequestParam String content) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -111,17 +110,16 @@ public class ForumController {
 			List<UserModel> userList = userRepository.findByUserName(stringCreator);
 			int intCreator = userList.get(0).getId();
 
-			model.addAttribute(name);
-			model.addAttribute(post);
-			model.addAttribute(thread);
+			model.addAttribute(title);
+			model.addAttribute(content);
 			model.addAttribute(intCreator);
 
-			ForumModel fm = new ForumModel(name, post, thread, intCreator);
+			ForumModel fm = new ForumModel(title, content, intCreator);
 
 			forumRepository.save(fm);
 		}
 
-		return "forward:"; // EIntragen wohin
+		return "forward:index/";
 	}
 
 	@ExceptionHandler(Exception.class)
