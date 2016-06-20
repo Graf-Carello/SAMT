@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 	<div class="container" role="main">
 
 		<!--  add or edit?  ----------------------------------------------------------- -->
@@ -32,7 +31,20 @@
 		</c:choose>
 
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+
+
+
+			<div class="createForm col-md-8 col-md-offset-2">
+
+				<c:if test="${not empty errorMessage}">
+
+					<div class="error alert alert-danger fade in">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close"
+							title="close">×</a> ${errorMessage}
+					</div>
+
+				</c:if>
+
 				<form class="form-horizontal" method="post" action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"

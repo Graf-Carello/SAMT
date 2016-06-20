@@ -81,7 +81,7 @@ public class HomeworkController {
 				errorMessage += fieldError.getField() + " is invalid<br>";
 			}
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:index/";
+			return "forward:edit";
 		}
 
 		HomeworkModel homework = homeworkRepository.findOne(changedHomeworkModel.getId());

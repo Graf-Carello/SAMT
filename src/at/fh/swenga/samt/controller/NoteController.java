@@ -106,7 +106,7 @@ public class NoteController {
 			}
 			
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:own/";
+			return "forward:edit/";
 		}
 
 		NoteModel note = noteRepository.findOne(changedNoteModel.getId());

@@ -71,7 +71,7 @@ public class AdminController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:index/";
+			return "forward:edit/";
 		}
 
 		UserModel user = userRepository.findOne(changedUserModel.getId());

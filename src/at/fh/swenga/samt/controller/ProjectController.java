@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -132,7 +134,7 @@ public class ProjectController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:active/";
+			return "forward:editPage/";
 		}
 
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -223,6 +225,7 @@ public class ProjectController {
 	public String add(Model model, @RequestParam String projectName, @RequestParam String deadline,
 			@RequestParam String course, @RequestParam(value = "users", required = false) Set<Integer> users) {
 		{
+			
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
 			String stringCreator = userdet.getUsername();
@@ -250,6 +253,18 @@ public class ProjectController {
 			} else {
 				pid = chp.getPid() + 1;
 			}
+			try{
+				
+				new ProjectModel(pid, projectName, formattedDeadline, 0, course,1);
+				
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				String errorMessage = "test";
+				model.addAttribute("errorMessage",errorMessage);
+				return "projects/create";
+			}
+			
+			
 			for (int member : allMembers) {
 				model.addAttribute(pid);
 				model.addAttribute(projectName);
@@ -259,9 +274,7 @@ public class ProjectController {
 
 				ProjectModel pm = new ProjectModel(pid, projectName, formattedDeadline, 0, course, member);
 				pm.setIsArchived(false);
-
 				projectRepository.save(pm);
-
 			}
 
 		}

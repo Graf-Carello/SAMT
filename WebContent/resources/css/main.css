@@ -15,6 +15,11 @@
 
 .tagselect { width:100%; visibility:hidden; }
 
+
+.error { font-size:18px; margin:20px auto 20px; }
+
+.createForm { margin-top:30px; }
+
 /* NOTES */
 
 #notewrapper .note h3 { font-family: 'Indie Flower', cursive; font-weight:bold; font-size:25px; max-width:300px; word-break:break-all; margin-top:30px; }

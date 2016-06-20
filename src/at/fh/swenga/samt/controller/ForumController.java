@@ -100,7 +100,7 @@ public class ForumController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:index/";
+			return "forward:editPage/";
 		}
 
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
