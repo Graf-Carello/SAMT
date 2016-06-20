@@ -42,14 +42,17 @@ public class UserModel implements Serializable {
 	private String lastName;
 
 	private String degreeCourse;
-	
+
 	@Email
 	private String email;
 
 	@Column(nullable = false)
 	private String password;
-	
+
 	private String profilePicture;
+
+	@Column(name = "enabled", columnDefinition = "boolean default true")
+	private boolean enabled;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<ProjectModel> projects;
@@ -148,6 +151,14 @@ public class UserModel implements Serializable {
 		this.profilePicture = profilePicture;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
@@ -162,7 +173,6 @@ public class UserModel implements Serializable {
 		}
 		userRoles.add(role);
 	}
-	
 
 	public List<ProjectModel> getProjects() {
 		return projects;
