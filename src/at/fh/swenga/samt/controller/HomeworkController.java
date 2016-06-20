@@ -38,7 +38,14 @@ public class HomeworkController {
 
 	@RequestMapping(value = { "/", "index/" })
 	public String index(Model model) {
-		List<HomeworkModel> homeworks = homeworkRepository.findAll();
+
+		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userdet.getUsername();
+
+		List<UserModel> user = userRepository.findByUserName(userName);
+		UserModel userModel = user.get(0);
+
+		List<HomeworkModel> homeworks = homeworkRepository.findByUser(userModel);
 
 		model.addAttribute("homeworks", homeworks);
 		model.addAttribute("title", "Homework");
@@ -85,7 +92,7 @@ public class HomeworkController {
 		}
 
 		HomeworkModel homework = homeworkRepository.findOne(changedHomeworkModel.getId());
-		
+
 		if (homework == null) {
 			model.addAttribute("errorMessage", "Forum does not exist!<br>");
 		} else {
@@ -93,7 +100,7 @@ public class HomeworkController {
 			homework.setCourse(changedHomeworkModel.getCourse());
 			homework.setDescription(changedHomeworkModel.getDescription());
 			homework.setDeadline(changedHomeworkModel.getDeadline());
-			
+
 		}
 		return "forward:index/";
 	}
@@ -115,7 +122,7 @@ public class HomeworkController {
 
 			List<UserModel> userList = userRepository.findByUserName(stringOwner);
 			int intOwner = userList.get(0).getId();
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 			Date formattedDeadline = new Date();
 			try {

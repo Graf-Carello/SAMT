@@ -55,14 +55,10 @@
 					</nav>
 
 					<div id="homeworkwrapper">
+
+
 						<c:forEach items="${homeworks}" var="homework" varStatus="i">
-									
-								<div>
-									<h4>${homework.course} :: <fmt:formatDate value="${homework.deadline}" pattern="dd.MM.yyyy"/></h4>
-									<p>${homework.description}</p>
-									<a href="<c:url value="/homework/edit?id=${homework.id}" />">edit</a>
-								</div>
-							
+							<%@include file="content.jsp"%>
 						</c:forEach>
 					</div>
 

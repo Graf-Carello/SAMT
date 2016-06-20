@@ -56,28 +56,7 @@
 
 					<div id="forumwrapper">
 						<c:forEach items="${posts}" var="post" varStatus="i">
-
-							<div class="post row" id="${post.id}">
-								<div class="post_left col-lg-1">
-									<b class="author">${creator[i.index].userName}</b> <img
-										src="<c:url value="/img/profiles/${creator[i.index].profilePicture}" />"
-										alt="test">
-									<c:if test="${post.user == currentUser}">
-									<form method="post" action="editPage">
-										<input type="hidden" name="${_csrf.parameterName}"
-											value="${_csrf.token}" /> <input type="hidden"
-											value="${post.id}" name="id" />
-										<input type="submit" value="edit">
-									</form>
-									</c:if>
-									<a href="<c:url value="reply?oPost=${post.id}"/>" class="reply">Reply</a>
-								</div>
-								<div class="post_right col-lg-11">
-								<a href="#${post.id}">#</a> 
-									<h3>${post.title}</h3>
-									<p>${post.content}</p>
-								</div>
-							</div>
+							<%@include file="content.jsp"%>
 						</c:forEach>
 					</div>
 
