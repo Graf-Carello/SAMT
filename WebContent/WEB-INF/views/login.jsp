@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="meta/main.inc"%>
-<title>Users | SAMT</title>
+<title>Login | SAMT</title>
 
 <%@include file="includes/top.jsp"%>
 

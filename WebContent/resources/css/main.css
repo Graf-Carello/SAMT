@@ -74,24 +74,34 @@ a, a:focus, a:hover {
 	display: inline;
 }
 
-/* LOGIN */
-.login .btn-primary {
+.navbar a:hover { text-decoration:none; }
+
+
+.btn { background:#fff; }
+
+.btn:hover { background:#fff; }
+
+.btn-primary {
 	background: #555;
 	border-color: #555;
 }
 
-.login .btn-primary:hover {
+.btn-primary:hover {
 	background: #900909;
 }
 
-.login input {
-	margin-bottom: 10px;
-}
-
-.login .form-control:focus {
+.form-control:focus {
 	border-color: #900909;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
 		rgba(144, 9, 9, .6);
+}
+
+legend, h1 { color:#900909; }
+
+/* LOGIN */
+
+.login input {
+	margin-bottom: 10px;
 }
 
 /* DASHBOARD */
