@@ -40,6 +40,10 @@ public class MyUserDetailsService implements UserDetailsService {
 	private org.springframework.security.core.userdetails.User buildUserForAuthentication(UserModel user,
 			List<GrantedAuthority> authorities) {
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+				user.isEnabled(),
+				true, // account not expired
+				true, // credentials not expired
+				true, // account not locked
 				authorities);
 	}
 
