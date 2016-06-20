@@ -68,35 +68,7 @@
 					<br />
 
 					<c:forEach items="${projects}" var="project" varStatus="i">
-						<div class="projectcontainer">
-							<div class="projcheck">
-								<input class="form-control checkbox" type="checkbox" name="id"
-									value="${project.id}" />
-							</div>
-							<div class="projcon">
-								<div class="btn-group btn-group-justified projects" role="group"
-									aria-label="...">
-
-									<div class="btn-group" role="group">
-										<b>Course: </b>${project.course}</div>
-									<div class="btn-group" role="group">
-										<b>Name: </b>${project.projectName}</div>
-									<div class="btn-group" role="group">
-										<b>Deadline: </b><fmt:formatDate value="${project.deadline}" pattern="dd.MM.yyyy"/></div>
-									<div class="btn-group" role="group">
-										<b>Progress: </b>${project.progress}%</div>
-								</div>
-								<b>Members: </b>
-								<c:forEach items="${memberList[i.index]}" var="member"
-									varStatus="loop">
-							${member.firstName} ${member.lastName}<c:if test="${!loop.last}">,</c:if>
-								</c:forEach>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" aria-valuemin="0"
-										aria-valuemax="100" style="width: ${project.progress}%;"></div>
-								</div>
-							</div>
-						</div>
+						<%@include file="content.jsp"%>
 					</c:forEach>
 
 					</form>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>${title} | SAMT</title>
+<title>${title}| SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -57,32 +57,7 @@
 					</c:if>
 					<div id="notewrapper">
 						<c:forEach items="${notes}" var="note" varStatus="i">
-							<div class="note clearfix">
-								<h3>${note.name}</h3>
-								<c:choose>
-									<c:when test="${type == 'public'}">
-										<a class="globe" />
-										<i class="fa fa-globe fa-fw"></i>
-										</a>
-										<span class="author">by ${authors[i.index]}</span>
-										
-									</c:when>
-									<c:otherwise>
-										<c:if test="${note.isPublic}">
-											<a class="globe" />
-											<i class="fa fa-globe fa-fw"></i>
-											</a>
-										</c:if>
-										<a class="edit"
-											href="<c:url value="/notes/edit?id=${note.id}" />"><i
-											class="fa fa-wrench fa-fw"></i></a>
-										<a class="delete"
-											href="<c:url value="/notes/delete?id=${note.id}" />"><i
-											class="fa fa-ban fa-fw"></i></a>
-									</c:otherwise>
-								</c:choose>
-								<p>${note.content}</p>
-							</div>
+							<%@include file="content.jsp"%>
 						</c:forEach>
 					</div>
 
