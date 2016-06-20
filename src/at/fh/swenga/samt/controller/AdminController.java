@@ -23,24 +23,24 @@ import at.fh.swenga.samt.model.UserModel;
 
 @Controller
 @RequestMapping("/admin")
-public class UserController {
+public class AdminController {
 
 	@Autowired
 	UserRepository userRepository;
 
-	@RequestMapping(value = { "/", "admin/" })
+	@RequestMapping(value = { "/","index" })
 	public String list(Model model) {
 		List<UserModel> users = userRepository.findAll();
 		model.addAttribute("users", users);
 		model.addAttribute("type", "findAll");
-		return "admin/admin";
+		return "admin/index";
 	}
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		userRepository.delete(id);
 
-		return "forward:/";
+		return "forward:index/";
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
@@ -55,7 +55,7 @@ public class UserController {
 			return "admin/create";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:admin/";
+			return "forward:index/";
 		}
 
 	}
@@ -71,7 +71,7 @@ public class UserController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "forward:admin/";
+			return "forward:index/";
 		}
 
 		UserModel user = userRepository.findOne(changedUserModel.getId());
@@ -88,7 +88,7 @@ public class UserController {
 			user.setProfilePicture(changedUserModel.getProfilePicture());
 		}
 
-		return "forward:admin/";
+		return "forward:index/";
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
@@ -123,7 +123,7 @@ public class UserController {
 			userRepository.save(um);
 		}
 
-		return "forward:admin/";
+		return "forward:index/";
 	}
 
 	@ExceptionHandler(Exception.class)

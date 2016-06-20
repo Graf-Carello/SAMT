@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>Users | SAMT</title>
+<title>Usermanagement | SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -55,8 +55,8 @@
 							<tbody>
 								<tr>
 									<td rowspan="6" class="profilepic"><img
-										src="/SAMT/img/profiles/${user.profilePicture}"
-										alt="${user.firstName} ${user.lastName}"></td>
+										src="<c:url value="/img/profiles/${user.profilePicture}" />"
+										alt="test"></td>
 								</tr>
 								<tr>
 									<td class="name"><h2>${user.firstName}

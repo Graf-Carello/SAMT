@@ -41,12 +41,12 @@
 					<fieldset>
 						<legend>${legend}</legend>
 
-						<!-- ----------------  name ---------------- -->
+						<!-- ----------------  userName ---------------- -->
 						<div class="form-group">
 							<label for="inputUserName" class="col-md-2 control-label">User name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputUserName" type="text"
-									name="name" value="<c:out value="${user.userName}"/>">
+									name="userName" value="<c:out value="${user.userName}"/>">
 							</div>
 						</div>
 
@@ -55,7 +55,7 @@
 							<label for="inputFirstName" class="col-md-2 control-label">First name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputFirstName" type="text"
-									name="content" value="<c:out value="${user.firstName}"/>">
+									name="firstName" value="<c:out value="${user.firstName}"/>">
 							</div>
 						</div>
 						
@@ -64,7 +64,7 @@
 							<label for="inputLastName" class="col-md-2 control-label">Last name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputLastName" type="text"
-									name="content" value="<c:out value="${user.lastName}"/>">
+									name="lastName" value="<c:out value="${user.lastName}"/>">
 							</div>
 						</div>
 						
@@ -73,7 +73,7 @@
 							<label for="inputDegreeCourse" class="col-md-2 control-label">Degree course</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputDegreeCourse" type="text"
-									name="content" value="<c:out value="${user.degreeCourse}"/>">
+									name="degreeCourse" value="<c:out value="${user.degreeCourse}"/>">
 							</div>
 						</div>
 						
@@ -82,7 +82,7 @@
 							<label for="inputEmail" class="col-md-2 control-label">E-Mail</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputEmail" type="text"
-									name="content" value="<c:out value="${user.email}"/>">
+									name="email" value="<c:out value="${user.email}"/>">
 							</div>
 						</div>
 						
@@ -91,11 +91,11 @@
 							<label for="inputPassword" class="col-md-2 control-label">Password</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputPassword" type="text"
-									name="content" value="<c:out value="${user.password}"/>">
+									name="password" value="<c:out value="${user.password}"/>">
 							</div>
 						</div>
 
-						
+						<input type="hidden" name="profilePicture" value="${user.profilePicture}" />
 
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 

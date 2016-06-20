@@ -48,7 +48,7 @@
 					<li><a href="<c:url value="/notes/add/" />"> Add new</a></li>
 				</ul></li>
 
-			<sec:authorize access="hasRole('ADMIN')">
+			<sec:authorize url="admin">
 				<li><a href="<c:url value="/admin/" />"><i
 						class="fa fa-users fa-fw"></i> Edit Users</a></li>
 			</sec:authorize>
