@@ -118,10 +118,11 @@ public class HomeworkController {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
-			String stringOwner = userdet.getUsername();
+			String userName = userdet.getUsername();
 
-			List<UserModel> userList = userRepository.findByUserName(stringOwner);
-			int intOwner = userList.get(0).getId();
+			List<UserModel> user = userRepository.findByUserName(userName);
+			UserModel userModel = user.get(0);
+			int user_id = user.get(0).getId();
 
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 			Date formattedDeadline = new Date();
@@ -134,9 +135,10 @@ public class HomeworkController {
 			model.addAttribute(course);
 			model.addAttribute(description);
 			model.addAttribute(formattedDeadline);
-			model.addAttribute(intOwner);
+			model.addAttribute(user_id);
 
 			HomeworkModel hm = new HomeworkModel(course, description, formattedDeadline);
+			hm.setUser(userModel);
 
 			homeworkRepository.save(hm);
 		}
