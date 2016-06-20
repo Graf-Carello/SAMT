@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "Users")
@@ -42,6 +43,7 @@ public class UserModel implements Serializable {
 
 	private String degreeCourse;
 	
+	@Email
 	private String email;
 
 	@Column(nullable = false)
