@@ -1,4 +1,4 @@
-<table data-toggle="table" class="table table-striped users ${location}">
+<table data-toggle="table" class="table table-striped users">
 	<tbody>
 		<tr>
 			<td rowspan="6" class="profilepic"><img

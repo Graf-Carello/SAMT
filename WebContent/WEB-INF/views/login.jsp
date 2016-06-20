@@ -22,7 +22,7 @@
 
 				<div class="container" role="main">
 					<div class="row">
-						<div class="col-md-4 col-md-offset-4">
+						<div class="login col-md-4 col-md-offset-4">
 							<c:url value="/login" var="loginUrl" />
 							<form action="${loginUrl}" method="post">
 								<input type="hidden" name="${_csrf.parameterName}"

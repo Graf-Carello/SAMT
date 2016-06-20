@@ -54,7 +54,7 @@
 					</div>
 					</nav>
 
-					<div id="forumwrapper">
+					<div id="forumwrapper" class="container-fluid">
 						<c:forEach items="${posts}" var="post" varStatus="i">
 							<%@include file="content.jsp"%>
 						</c:forEach>

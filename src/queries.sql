@@ -1,6 +1,6 @@
 -- Insert users and their roles
 INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('admin','Felix', 'Graf', 'IMA', 'felix@graf.at', '$2a$06$MVAYELlfv3ghyEUF26J1sO/MAFOc7gk08PEQ4C.dJGIsUR7UkBsl6', 'felix.png', 1);
+VALUES ('admin','Hans', 'Imma', 'IMA', 'hans@ima.at', '$2a$06$aahb9BD2dl2DNywfGHfYsenkGFRrz7KxmB3h8kM4Daz6xDsJD2sGO', 'hans.png', 1);
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '1');
@@ -19,6 +19,18 @@ VALUES ('paul','Paul', 'Koerner', 'IMA', 'paul@koerner.at', '$2a$06$D2ZRNg4dA3EX
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '3');
+
+INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
+VALUES ('felix','Felix', 'Graf', 'IMA', 'felix@graf.at', '$2a$06$MVAYELlfv3ghyEUF26J1sO/MAFOc7gk08PEQ4C.dJGIsUR7UkBsl6', 'felix.png', 1);
+
+INSERT INTO user_roles (role, idUser)
+VALUES ('ROLE_USER', '4');
+
+INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
+VALUES ('anna','Anna', 'Görner', 'IMA', 'anna@görner.at', '$2a$06$bMmBqEHn7aBrmbpM1CokwOkxTDjLZPSPKkubeLup84a7./9pGYfym', 'anna.png', 1);
+
+INSERT INTO user_roles (role, idUser)
+VALUES ('ROLE_USER', '5');
 
 
 -- Insert Notes
@@ -107,9 +119,3 @@ VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '2', 1);
 
 INSERT INTO Projects(projectName, deadline, pid, progress, course, user, version)
 VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '3', 1);
-
-
-
-
-
-

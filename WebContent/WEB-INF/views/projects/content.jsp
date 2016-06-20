@@ -24,13 +24,20 @@
 		<c:if test="${location != 'dashboard'}">
 			<b>Members: </b>
 			<c:forEach items="${memberList[i.index]}" var="member"
-				varStatus="loop">
-							${member.firstName} ${member.lastName}<c:if test="${!loop.last}">,</c:if>
+				varStatus="loop">${member.firstName} ${member.lastName}<c:if test="${!loop.last}">,</c:if>
 			</c:forEach>
 		</c:if>
 		<div class="progress">
+			<c:choose>
+			<c:when test="${project.progress < 100}">
+				<c:set var="progress">${project.progress}</c:set>
+			</c:when>
+			<c:otherwise>
+				<c:set var="progress">a0</c:set>
+			</c:otherwise>
+		</c:choose>
 			<div class="progress-bar" role="progressbar" aria-valuemin="0"
-				aria-valuemax="100" style="width: ${project.progress}%;"></div>
+				aria-valuemax="100" style="background-color:#${progress}0909; width: ${project.progress}%;"></div>
 		</div>
 	</div>
 </div>

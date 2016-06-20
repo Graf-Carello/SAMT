@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div id="wrapper">
+	<div id="wrapper" class="${location}">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"

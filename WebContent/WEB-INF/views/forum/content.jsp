@@ -20,7 +20,7 @@
 	</div>
 	<div class="post_right col-lg-11">
 		<c:if test="${location != 'dashboard'}">
-			<a href="#${post.id}">#</a>
+			<a class="anchor" href="#${post.id}">#</a>
 		</c:if>
 		<h3>${post.title}</h3>
 		<p>${post.content}</p>
