@@ -66,7 +66,6 @@ public class NoteController {
 
 		model.addAttribute("notes", notes);
 		model.addAttribute("authors", authors);
-		//System.out.println(authors);
 		model.addAttribute("type", "public");
 		model.addAttribute("title", "All public notes");
 		return "notes/index";
