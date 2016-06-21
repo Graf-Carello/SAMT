@@ -1,22 +1,28 @@
-<h1>${titleForum}</h1>
 <div class="post row" id="${post.id}">
-	<div class="post_left col-lg-1">
+	<div class="post_left clearfix">
 		<b class="author">${creator[i.index].userName}</b> <img
 			src="<c:url value="/img/profiles/${creator[i.index].profilePicture}" />"
-			alt="test">
-		<c:if test="${post.user == currentUser}">
-			<form method="post" action="editPage">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <input type="hidden" value="${post.id}"
-					name="id" />
-				<c:if test="${location != 'dashboard'}">
-					<input type="submit" value="edit">
-				</c:if>
-			</form>
-		</c:if>
+			alt="${creater[i.index].userName}">
+
 		<c:if test="${location != 'dashboard'}">
-			<a href="<c:url value="reply?oPost=${post.id}"/>" class="reply">Reply</a>
+			<div class="buttons">
+				<a href="<c:url value="reply?oPost=${post.id}"/>" class="reply"><button
+						class="btn btn-primary">reply</button></a>
+
+				<c:if test="${post.user == currentUser}">
+
+					<form method="post" action="editPage">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <input type="hidden"
+							value="${post.id}" name="id" /> <input type="submit" class="btn btn-primary"
+							value="edit">
+
+					</form>
+
+				</c:if>
+			</div>
 		</c:if>
+
 	</div>
 	<div class="post_right col-lg-11">
 		<c:if test="${location != 'dashboard'}">

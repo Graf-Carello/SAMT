@@ -27,7 +27,7 @@ public class UserControllerAdvice {
 			String userrole = "";
 			switch (authority.toString()) {
 			case "ROLE_USER":
-				userrole = "User";
+				userrole = "Student";
 				break;
 			case "ROLE_ADMIN":
 				userrole = "Administrator";

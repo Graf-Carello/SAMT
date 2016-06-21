@@ -17,22 +17,10 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">SAMT</a>
-		</div>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 
 		<!-- Top-Navigation --> <%@include file="../partials/topnav.jsp"%>
-
 		<!-- Side-Navigation --> <%@include file="../partials/sidenav.jsp"%>
-
 
 		</nav>
 
@@ -42,12 +30,18 @@
 
 					<!-- ########## CONTENT ############################################################# -->
 
-					<h1>Users</h1>
+					<h1>Usermanagement</h1>
 
 
-					<a href="<c:url value="/admin/add" />">
-						<button type="button" class="btn btn-default success">Add</button>
-					</a>
+					<nav class="navbar navbar-default">
+						<div class="container-fluid">
+
+							<a href="<c:url value="/admin/add" />">
+								<button type="button" class="btn btn-default success">Add</button>
+							</a>
+
+						</div>
+						</nav>
 
 
 					<c:forEach items="${users}" var="user">

@@ -36,9 +36,20 @@ public class AdminController {
 		return "admin/index";
 	}
 
-	@RequestMapping("/delete")
-	public String deleteData(Model model, @RequestParam int id) {
-		userRepository.delete(id);
+	@RequestMapping("/disable")
+	@Transactional
+	public String disableUser(Model model, @RequestParam int id) {
+		UserModel user = userRepository.findOne(id);
+		user.setEnabled(false);
+
+		return "forward:index/";
+	}
+	
+	@RequestMapping("/enable")
+	@Transactional
+	public String enableUser(Model model, @RequestParam int id) {
+		UserModel user = userRepository.findOne(id);
+		user.setEnabled(true);
 
 		return "forward:index/";
 	}

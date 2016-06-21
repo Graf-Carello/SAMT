@@ -26,5 +26,11 @@ $(function() {
         pickerPosition : "bottom-left",
         minView : 2
 });
+  
+  $('.sidebar a').hover(function(){
+	    $(this).stop().animate({backgroundColor: '#900909', color: '#ffffff'},0,"easeOutBounce");
+	}, function() {
+	    $(this).stop().animate({backgroundColor: '#f8f8f8', color: '#555555'});
+	});
 	
 })

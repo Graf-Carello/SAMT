@@ -15,24 +15,12 @@
 <body>
 
 	<div id="wrapper" class="${location}">
-
+	
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">SAMT</a>
-		</div>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 
 		<!-- Top-Navigation --> <%@include file="partials/topnav.jsp"%>
-
 		<!-- Side-Navigation --> <%@include file="partials/sidenav.jsp"%>
-
 
 		</nav>
 
@@ -76,6 +64,7 @@
 			<!-- /Projects -->
 
 			<!-- Forum -->
+			<h1>${titleForum}</h1>
 			<div id="forumwrapper" class="container-fluid">
 				<c:forEach items="${posts}" var="post" varStatus="i">
 					<%@include file="forum/content.jsp"%>
