@@ -4,7 +4,7 @@ $(function() {
 
 	$('.delete').click(function(){
 	    return confirm("Are you sure you want to delete this note?");
-	})
+	});
 	
 	//$('input[type=number]').spinner();
 	
@@ -25,12 +25,12 @@ $(function() {
         todayBtn : true,
         pickerPosition : "bottom-left",
         minView : 2
-});
+  });
   
   $('.sidebar a').hover(function(){
 	    $(this).stop().animate({backgroundColor: '#900909', color: '#ffffff'},0,"easeOutBounce");
 	}, function() {
 	    $(this).stop().animate({backgroundColor: '#f8f8f8', color: '#555555'});
-	});
+  });
 	
-})
+});
