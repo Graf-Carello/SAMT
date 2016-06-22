@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>${title} | SAMT</title>
+<title>${title}| SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -15,15 +15,13 @@
 <body>
 	<div id="wrapper">
 
-		
+
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-
-		<!-- Top-Navigation --> <%@include file="../partials/topnav.jsp"%>
-		<!-- Side-Navigation --> <%@include file="../partials/sidenav.jsp"%>
-
-		</nav>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0"> <!-- Top-Navigation --> <%@include
+			file="../partials/topnav.jsp"%> <!-- Side-Navigation -->
+		<%@include file="../partials/sidenav.jsp"%> </nav>
 
 		<div id="page-wrapper">
 			<div class="row">
@@ -38,15 +36,14 @@
 
 						<a href="<c:url value="/projects/add" />">
 							<button type="button" class="btn btn-default success">Add</button>
-						</a>
-
+						</a> <a href="<c:url value="/projects/report" />"><button
+								class="btn btn-default report clearfix"><i class="fa fa-file-excel-o fa-fw"></i> Report</button></a>
 						<form method="POST" action="<c:url value="/projects/editPage" />">
 
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 
 							<button type="submit" class="btn btn-default">Edit</button>
-							<a href="<c:url value="/projects/report" />"><button class="btn btn-default report clearfix">create report</button></a>
 					</div>
 					</nav>
 

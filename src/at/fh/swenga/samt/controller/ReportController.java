@@ -27,8 +27,7 @@ public class ReportController {
 	ProjectRepository projectRepository;
 
 	@RequestMapping(value = { "projects/report" })
-	public String report(Model model, @RequestParam(required = false) String excel,
-			@RequestParam(name = "userId", required = false) List<Integer> userIds) {
+	public String report(Model model, @RequestParam(required = false) String excel) {
 
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userdet.getUsername();

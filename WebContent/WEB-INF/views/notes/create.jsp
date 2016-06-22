@@ -63,8 +63,8 @@
 						<div class="form-group">
 							<label for="inputContent" class="col-md-2 control-label">Content</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputContent" type="text"
-									name="content" value="<c:out value="${note.content}"/>">
+								<textarea class="form-control textarea" rows="10" id="inputContent" type="text"
+									name="content"><c:out value="${note.content}" /></textarea>
 							</div>
 						</div>
 
@@ -98,5 +98,13 @@
 	</div>
 
 	<%@include file="../includes/bottom.jsp"%>
+	<script type="text/javascript" src="<c:url value="/js/jquery.tinymce.min.js" />"></script>
+	<script type="text/javascript" src="<c:url value="/js/tinymce.min.js" />"></script>
+	<script type="text/javascript">
+	
+	tinymce.init({ selector:'textarea' });
+	
+	</script>
+	
 </body>
 </html>

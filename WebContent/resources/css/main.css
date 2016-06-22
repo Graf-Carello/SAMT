@@ -219,6 +219,7 @@ legend, h1 { color:#900909; }
 	border-top: 5px solid #555;
 	border-right: 5px solid #555;
 	margin-bottom: 20px;
+	position:relative;
 }
 
 .post img {
@@ -232,7 +233,7 @@ legend, h1 { color:#900909; }
 .post_left {
 	background: #555;
 	width:132px;
-	float:left;
+	position:absolute;
 }
 
 .post_left form { display:inline; }
@@ -241,8 +242,9 @@ legend, h1 { color:#900909; }
 .post_left .buttons { text-align:center; }
 
 .post_right {
-	background: #fff;
-	position: relative;
+	width:90%;
+	margin-left:132px;
+	min-height:206px;
 }
 
 .post_right h3 {

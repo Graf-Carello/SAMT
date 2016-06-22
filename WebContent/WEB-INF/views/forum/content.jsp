@@ -35,7 +35,7 @@
 		</c:if>
 
 	</div>
-	<div class="post_right col-lg-11">
+	<div class="post_right">
 		<c:if test="${location != 'dashboard'}">
 			<a class="anchor" href="#${post.id}">#</a>
 		</c:if>

@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -31,6 +33,8 @@ public class ExcelEmployeeReportView extends AbstractXlsxView {
 		// create a worksheet
 		CreationHelper createHelper = workbook.getCreationHelper();
 		Sheet sheet = workbook.createSheet("Homework Report");
+		Footer footer = sheet.getFooter();
+		footer.setRight( "Page " + HeaderFooter.page() + " of " + HeaderFooter.numPages() );
 
 		// create style for header cells
 		CellStyle style = workbook.createCellStyle();
