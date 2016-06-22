@@ -27,8 +27,9 @@ $(function() {
         minView : 2
   });
   
-  $("#inputEvent").datetimepicker({
-      format : "dd.mm.yyyy HH:mm",
+  $("#inputStart, #inputEnd").datetimepicker({
+      format : "dd.mm.yyyy hh:ii",
+      startView: 1,
       setStartDate : today,
       autoclose : true,
       todayBtn : true,
@@ -46,6 +47,7 @@ $(function() {
 		// put your options and callbacks here
 		events : 'eventEntries', // url
 		editable: true,
+		defaultView: 'agendaWeek',
 		
 		firstDay : 1, // 1 == Monday
 });

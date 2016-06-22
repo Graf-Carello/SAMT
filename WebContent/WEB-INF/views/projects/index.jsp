@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>${title}| SAMT</title>
+<title>${title}|SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -35,9 +35,11 @@
 					<div class="container-fluid">
 
 						<a href="<c:url value="/projects/add" />">
-							<button type="button" class="btn btn-default success">Add</button>
+							<button type="button" class="btn btn-default success">Add project</button>
 						</a> <a href="<c:url value="/projects/report" />"><button
-								class="btn btn-default report clearfix"><i class="fa fa-file-excel-o fa-fw"></i> Report</button></a>
+								class="btn btn-default report clearfix">
+								<i class="fa fa-file-excel-o fa-fw"></i> Report
+							</button></a>
 						<form method="POST" action="<c:url value="/projects/editPage" />">
 
 							<input type="hidden" name="${_csrf.parameterName}"
@@ -64,8 +66,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-		<%@include file="../includes/bottom.jsp"%>
+	<%@include file="../includes/bottom.jsp"%>
 </body>
 </html>

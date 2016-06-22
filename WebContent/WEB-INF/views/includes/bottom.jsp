@@ -16,5 +16,7 @@
 
 <script type="text/javascript" src="<c:url value="/js/chosen.js" />"></script>
 
+<script type="text/javascript" src="<c:url value="/js/validator.js" />"></script>
+
 <script type="text/javascript" src="<c:url value="/js/plugins.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/main.js" />"></script>

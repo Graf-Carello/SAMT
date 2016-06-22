@@ -3,9 +3,15 @@ a, a:focus, a:hover {
 	color: #900909;
 }
 
+.help-block { margin: 0px; }
+
+.info { margin:20px 0 10px; display:block; font-style:italic; }
+
 .sidebar ul li a.active {
 	background: transparent;
 }
+
+.sidebar li>a { padding-top:15px; padding-bottom:15px; }
 
 .sidebar a { color:#555; }
 .sidebar a i { color:#900909; }
@@ -98,7 +104,12 @@ a, a:focus, a:hover {
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary:active:focus,
-.btn-primary:active:hover {
+.btn-primary:active:hover,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:active,
+.btn-primary.disabled:active:focus,
+.btn-primary.disabled:active:hover {
 	background-color: #900909;
 	border-color:#555;
 }

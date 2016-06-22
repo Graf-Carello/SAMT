@@ -19,30 +19,40 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-
-		<!-- Top-Navigation --> <%@include file="../partials/topnav.jsp"%>
-		<!-- Side-Navigation --> <%@include file="../partials/sidenav.jsp"%>
-
-		</nav>
-
-
-
-		<!-- ########## CONTENT ############################################################# -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0"> <!-- Top-Navigation --> <%@include
+			file="../partials/topnav.jsp"%> <!-- Side-Navigation -->
+		<%@include file="../partials/sidenav.jsp"%> </nav>
 
 		<div id="page-wrapper">
-			<div class="graphs">
-				 <a href="<c:url value="/events/add" />">
-					<button type="button" class="btn btn-primary">
-						<span aria-hidden="true"></span>Add Event
-					</button>
-				</a>
-				<div id="calendar"></div>
+			<div class="row">
+				<div class="col-lg-12">
+
+					<!-- ########## CONTENT ############################################################# -->
+
+					<h1>Calendar</h1>
+
+					<nav class="navbar navbar-default">
+					<div class="container-fluid">
+
+						<a href="<c:url value="/events/add" />">
+							<button type="button" class="btn btn-default success">Add
+								Event</button>
+						</a>
+
+					</div>
+					</nav>
+
+					<div id="calendarwrapper" class="container-fluid">
+						<div id="calendar"></div>
+					</div>
+
+					<!-- ########## /CONTENT ############################################################ -->
+
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- ########## /CONTENT ############################################################ -->
 
 	<%@include file="../includes/bottom.jsp"%>
 	<script type="text/javascript"

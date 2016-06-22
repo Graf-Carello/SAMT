@@ -7,7 +7,7 @@
 <html>
 <head>
 <%@include file="../meta/main.inc"%>
-<title>${title} | SAMT</title>
+<title>${title}| SAMT</title>
 
 <%@include file="../includes/top.jsp"%>
 
@@ -17,12 +17,10 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-
-		<!-- Top-Navigation --> <%@include file="../partials/topnav.jsp"%>
-		<!-- Side-Navigation --> <%@include file="../partials/sidenav.jsp"%>
-
-		</nav>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0"> <!-- Top-Navigation --> <%@include
+			file="../partials/topnav.jsp"%> <!-- Side-Navigation -->
+		<%@include file="../partials/sidenav.jsp"%> </nav>
 
 		<div id="page-wrapper">
 			<div class="row">
@@ -36,7 +34,7 @@
 					<div class="container-fluid">
 
 						<a href="<c:url value="/homework/add" />">
-							<button type="button" class="btn btn-default success">Add</button>
+							<button type="button" class="btn btn-default success">Add homework</button>
 						</a>
 
 					</div>
@@ -55,8 +53,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-		<%@include file="../includes/bottom.jsp"%>
+	<%@include file="../includes/bottom.jsp"%>
 </body>
 </html>

@@ -17,7 +17,6 @@
 
 	<div class="container" role="main">
 
-		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
 			<c:when test="${not empty post}">
 				<c:set var="legend">Change Post ${post.id}</c:set>
@@ -34,34 +33,32 @@
 		<div class="row">
 			<div class="createForm col-md-8 col-md-offset-2">
 
-				<c:if test="${not empty errorMessage}">
-
-					<div class="error alert alert-danger fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close"
-							title="close">×</a> ${errorMessage}
-					</div>
-
-				</c:if>
-				<form class="form-horizontal" method="post" action="${formAction}">
+				<form data-toggle="validator" class="form-horizontal" method="post"
+					action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${post.id }" />
+						value="${post.id}" />
 
 					<fieldset>
 						<legend>${legend}</legend>
 
 						<!-- ----------------  title ---------------- -->
 						<div class="form-group">
-							<label for="inputTitle" class="col-md-2 control-label">Title</label>
+							<label for="inputTitle" class="col-md-2 control-label">Title
+								*</label>
 							<div class="col-md-10">
 								<c:choose>
 									<c:when test="${type == 'reply'}">
-										<input readonly class="form-control" id="inputTitle"
-											type="text" name="title" value="@${op} | ${oPost.title}" />
+										<input readonly required class="form-control" id="inputTitle"
+											type="text" name="title" data-error="required"
+											value="@${op} | ${oPost.title}" />
+										<div class="help-block with-errors"></div>
 									</c:when>
 									<c:otherwise>
-										<input class="form-control" id="inputTitle" type="text"
-											name="title" value="<c:out value="${post.title}"/>">
+										<input required class="form-control" id="inputTitle"
+											type="text" name="title" data-error="required"
+											value="<c:out value="${post.title}"/>">
+										<div class="help-block with-errors"></div>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -69,13 +66,21 @@
 
 						<!-- ----------------  content ---------------- -->
 						<div class="form-group">
-							<label for="inputContent" class="col-md-2 control-label">Content</label>
+							<label for="inputContent" class="col-md-2 control-label">Content
+								*</label>
 							<div class="col-md-10">
-								<c:if test="${type == 'reply'}"><p><b>original message: </b>${oPost.content}</p></c:if>
-								<textarea class="form-control textarea" rows="10" id="inputContent" type="text"
-									name="content"><c:out value="${post.content}" /></textarea>
+								<c:if test="${type == 'reply'}">
+									<p>
+										<b>original message: </b>${oPost.content}</p>
+								</c:if>
+								<textarea required class="form-control textarea" rows="10"
+									id="inputContent" type="text" name="content"
+									data-error="required"><c:out value="${post.content}" /></textarea>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
+
+						<span class="info">Fields labeled with an * are required!</span>
 
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
@@ -89,12 +94,14 @@
 	</div>
 
 	<%@include file="../includes/bottom.jsp"%>
-	<script type="text/javascript" src="<c:url value="/js/jquery.tinymce.min.js" />"></script>
-	<script type="text/javascript" src="<c:url value="/js/tinymce.min.js" />"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/jquery.tinymce.min.js" />"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/tinymce.min.js" />"></script>
 	<script type="text/javascript">
-	
-	tinymce.init({ selector:'textarea' });
-	
+		tinymce.init({
+			selector : 'textarea'
+		});
 	</script>
 </body>
 </html>

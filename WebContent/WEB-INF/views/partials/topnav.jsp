@@ -6,7 +6,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">SAMT</a>
+			<a class="navbar-brand" href="<c:url value="/" />">SAMT</a>
 		</div>
 
 <div class="nav navbar-top-links navbar-right">

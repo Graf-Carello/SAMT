@@ -34,37 +34,31 @@
 		<div class="row">
 			<div class="createForm col-md-8 col-md-offset-2">
 
-				<c:if test="${not empty errorMessage}">
-
-					<div class="error alert alert-danger fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close"
-							title="close">×</a> ${errorMessage}
-					</div>
-
-				</c:if>
-				<form class="form-horizontal" method="post" action="${formAction}">
+				<form data-toggle="validator" class="form-horizontal" method="post" action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${note.id }" />
+						value="${note.id}" />
 
 					<fieldset>
 						<legend>${legend}</legend>
 
 						<!-- ----------------  name ---------------- -->
 						<div class="form-group">
-							<label for="inputName" class="col-md-2 control-label">Name</label>
+							<label for="inputName" class="col-md-2 control-label">Name *</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputName" type="text"
-									name="name" value="<c:out value="${note.name}"/>">
+								<input required class="form-control" id="inputName" type="text"
+									name="name" data-error="required" value="<c:out value="${note.name}"/>">
+									<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<!-- ----------------  content ---------------- -->
 						<div class="form-group">
-							<label for="inputContent" class="col-md-2 control-label">Content</label>
+							<label for="inputContent" class="col-md-2 control-label">Content *</label>
 							<div class="col-md-10">
-								<textarea class="form-control textarea" rows="10" id="inputContent" type="text"
-									name="content"><c:out value="${note.content}" /></textarea>
+								<textarea required class="form-control textarea" rows="10" id="inputContent" type="text"
+									name="content" data-error="required"><c:out value="${note.content}" /></textarea>
+									<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
@@ -86,6 +80,8 @@
 							</div>
 						</div>
 
+						<span class="info">Field labeled with an * are required!</span>
+						
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
 					</fieldset>

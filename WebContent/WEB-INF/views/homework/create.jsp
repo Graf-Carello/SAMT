@@ -17,7 +17,6 @@
 
 	<div class="container" role="main">
 
-		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
 			<c:when test="${not empty homework}">
 				<c:set var="legend">Change Homework ${homework.id}</c:set>
@@ -34,15 +33,8 @@
 		<div class="row">
 			<div class="createForm col-md-8 col-md-offset-2">
 
-				<c:if test="${not empty errorMessage}">
-
-					<div class="error alert alert-danger fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close"
-							title="close">×</a> ${errorMessage}
-					</div>
-
-				</c:if>
-				<form class="form-horizontal" method="post" action="${formAction}">
+				<form data-toggle="validator" class="form-horizontal" method="post"
+					action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
 						value="${homework.id }" />
@@ -52,34 +44,45 @@
 
 						<!-- ----------------  course ---------------- -->
 						<div class="form-group">
-							<label for="inputCourse" class="col-md-2 control-label">Course</label>
+							<label for="inputCourse" class="col-md-2 control-label">Course
+								*</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputTitle" type="text"
-											name="course" value="<c:out value="${homework.course}"/>">
+								<input required class="form-control" id="inputTitle" type="text"
+									name="course" data-error="required"
+									value="<c:out value="${homework.course}"/>">
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<!-- ----------------  description ---------------- -->
 						<div class="form-group">
-							<label for="inputDescription" class="col-md-2 control-label">Description</label>
-							<div class="col-md-10">							
-								<textarea class="form-control textarea" rows="10"
-									id="inputDescription" type="text" name="description"><c:out
-										value="${homework.description}" /></textarea>
-							</div>
-						</div>
-						
-						<!-- ----------------  deadline ---------------- -->
-						<div class="form-group">
-							<label for="inputDeadline" class="col-md-2 control-label">Deadline</label>
+							<label for="inputDescription" class="col-md-2 control-label">Description
+								*</label>
 							<div class="col-md-10">
-								<input class="form-control form_datetime" id="inputDeadline"
-									type="text" name="deadline"
-									value="<fmt:formatDate value="${homework.deadline}" pattern="dd.MM.yyyy"/>">
+								<textarea required class="form-control textarea" rows="10"
+									id="inputDescription" data-error="required" type="text"
+									name="description"><c:out
+										value="${homework.description}" /></textarea>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
-						<input class="btn btn-lg btn-primary btn-block" type="submit" value="Save" \>
+						<!-- ----------------  deadline ---------------- -->
+						<div class="form-group">
+							<label for="inputDeadline" class="col-md-2 control-label">Deadline
+								*</label>
+							<div class="col-md-10">
+								<input required class="form-control form_datetime"
+									id="inputDeadline" type="text" name="deadline"
+									data-error="required"
+									value="<fmt:formatDate value="${homework.deadline}" pattern="dd.MM.yyyy"/>">
+								<div class="help-block with-errors"></div>
+							</div>
+						</div>
+
+						<span class="info">Fields labeled with an * are required!</span>
+						
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
 					</fieldset>
 

@@ -16,7 +16,6 @@
 
 	<div class="container" role="main">
 
-		<!--  add or edit?  ----------------------------------------------------------- -->
 		<c:choose>
 			<c:when test="${not empty project}">
 				<c:set var="legend">Change Project ${project.id}</c:set>
@@ -36,19 +35,11 @@
 
 			<div class="createForm col-md-8 col-md-offset-2">
 
-				<c:if test="${not empty errorMessage}">
-
-					<div class="error alert alert-danger fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close"
-							title="close">×</a> ${errorMessage}
-					</div>
-
-				</c:if>
-
-				<form class="form-horizontal" method="post" action="${formAction}">
+				<form data-toggle="validator" class="form-horizontal" method="post"
+					action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${project.id }" />
+						value="${project.id}" />
 
 					<fieldset>
 						<legend>${legend}</legend>
@@ -60,36 +51,44 @@
 
 						<!-- ----------------  projectName ---------------- -->
 						<div class="form-group">
-							<label for="inputProjectName" class="col-md-2 control-label">Projectname</label>
+							<label for="inputProjectName" class="col-md-2 control-label">Projectname
+								*</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputProjectName" type="text"
-									name="projectName"
+								<input required class="form-control" id="inputProjectName"
+									type="text" name="projectName" data-error="required"
 									value="<c:out value="${project.projectName}"/>">
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<!-- ----------------  deadline ---------------- -->
 						<div class="form-group">
-							<label for="inputProjectName" class="col-md-2 control-label">Deadline</label>
+							<label for="inputProjectName" class="col-md-2 control-label">Deadline
+								*</label>
 							<div class="col-md-10">
-								<input class="form-control form_datetime" id="inputDeadline"
-									type="text" name="deadline"
+								<input required class="form-control form_datetime"
+									id="inputDeadline" type="text" name="deadline"
+									data-error="required"
 									value="<fmt:formatDate value="${project.deadline}" pattern="dd.MM.yyyy"/>">
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<!-- ----------------  course ---------------- -->
 						<div class="form-group">
-							<label for="inputCourse" class="col-md-2 control-label">Course</label>
+							<label for="inputCourse" class="col-md-2 control-label">Course
+								*</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputCourse" type="text"
-									name="course" value="<c:out value="${project.course}"/>">
+								<input required class="form-control" id="inputCourse"
+									type="text" name="course" data-error="required"
+									value="<c:out value="${project.course}"/>">
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<!-- ----------------  user ---------------- -->
 						<div class="form-group">
-							<label for="inputMembers" class="col-md-2 control-label">Member</label>
+							<label for="inputMembers" class="col-md-2 control-label">Members</label>
 							<div class="col-md-10">
 
 								<c:if test="${type == 'edit'}">
@@ -101,7 +100,7 @@
 									</c:forEach>
 								</c:if>
 								<select multiple class="tagselect" name="users"
-									data-placeholder="Choose one or more project members">
+									data-placeholder="you are automatically a member">
 									<c:forEach items="${possibleMembers}" var="member">
 										<option value="${member.id}">${member.firstName}
 											${member.lastName}</option>
@@ -114,10 +113,17 @@
 
 							<!-- ----------------  progress ---------------- -->
 							<div class="form-group">
-								<label for="inputProgress" class="col-md-2 control-label">Progress</label>
+								<label for="inputProgress" class="col-md-2 control-label">Progress *</label>
 								<div class="col-md-10">
-									<input class="form-control" id="inputProgress" type="number"
-										name="progress" value="${project.progress}">
+									<div class="input-group">
+										<span class="input-group-addon">%</span> <input required
+											class="form-control" id="inputProgress" type="number"
+											name="progress" min="0" max="100"
+											data-error="required and must be between 0 and 100"
+											value="${project.progress}">
+
+									</div>
+									<div class="help-block with-errors"></div>
 								</div>
 							</div>
 
@@ -132,6 +138,8 @@
 
 						</c:if>
 
+						<span class="info">Fields labeled with an * are required!</span>
+						
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
 					</fieldset>

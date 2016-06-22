@@ -17,12 +17,10 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-
-		<!-- Top-Navigation --> <%@include file="../partials/topnav.jsp"%>
-		<!-- Side-Navigation --> <%@include file="../partials/sidenav.jsp"%>
-
-		</nav>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0"> <!-- Top-Navigation --> <%@include
+			file="../partials/topnav.jsp"%> <!-- Side-Navigation -->
+		<%@include file="../partials/sidenav.jsp"%> </nav>
 
 		<div id="page-wrapper">
 			<div class="row">
@@ -34,14 +32,14 @@
 
 
 					<nav class="navbar navbar-default">
-						<div class="container-fluid">
+					<div class="container-fluid">
 
-							<a href="<c:url value="/admin/add" />">
-								<button type="button" class="btn btn-default success">Add</button>
-							</a>
+						<a href="<c:url value="/admin/add" />">
+							<button type="button" class="btn btn-default success">Add new user</button>
+						</a>
 
-						</div>
-						</nav>
+					</div>
+					</nav>
 
 
 					<c:forEach items="${users}" var="user">
@@ -54,8 +52,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-		<%@include file="../includes/bottom.jsp"%>
+	<%@include file="../includes/bottom.jsp"%>
 </body>
 </html>
