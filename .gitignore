@@ -13,4 +13,3 @@ hs_err_pid*
 /build/
 /target/
 Zeiterfassung.txt
-src/db.properties
