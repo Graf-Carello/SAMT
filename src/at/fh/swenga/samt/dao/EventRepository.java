@@ -10,7 +10,7 @@ import at.fh.swenga.samt.model.EventModel;
 
 public interface EventRepository extends JpaRepository<EventModel, Integer>{
 	
-	@Query("select e from EventModel e join e.user u where e.id = :userId ")
+	@Query("select e.name, e.startDate, e.endDate from EventModel e join e.user u where u.id = :userId ")
 	public List<EventModel> findByUserId(@Param("userId") int userId);
 
 }

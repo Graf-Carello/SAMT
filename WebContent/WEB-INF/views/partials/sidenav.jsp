@@ -33,7 +33,7 @@
 					<li><a href="<c:url value="/notes/public/" />"> View public</a></li>
 					<li><a href="<c:url value="/notes/add/" />"> Create new</a></li>
 				</ul></li>
-<li><a href="<c:url value="/calendar/" />"><i
+<li><a href="<c:url value="/events/" />"><i
 						class="fa fa-calendar fa-fw"></i> Calendar</a></li>
 			<sec:authorize url="/admin">
 				<li><a href="<c:url value="/admin/" />"><i
