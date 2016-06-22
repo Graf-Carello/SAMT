@@ -121,11 +121,11 @@ INSERT INTO Projects(projectName, deadline, pid, progress, course, user, version
 VALUES ('SAMT', '2016-06-20', 2, '40', 'SWENGA', '3', 1);
 
 -- Insert Events
-INSERT INTO Events(name, startDate, endDate, user_id, version)
-VALUES ('SAMT', '2016-06-20', '2016-06-20', 1, 0);
+INSERT INTO Events(title, start, end, creator, version)
+VALUES ('SAMT', '2016-06-20', '2016-06-20', 2, 0);
 
-INSERT INTO Events(name, startDate, endDate, user_id, version)
-VALUES ('BAC', '2016-06-21', null, 2, 0);
+INSERT INTO Events(title, start, end, creator, version)
+VALUES ('BAC', '2016-06-21', '2016-06-24', 3, 0);
 
-INSERT INTO Events(name, startDate, endDate, user_id, version)
-VALUES ('HVSYS', '2016-06-22', '2016-06-24', 3, 0);
+INSERT INTO Events(title, start, end, creator, version)
+VALUES ('HVSYS', '2016-06-22', '2016-06-24', 1, 0);
