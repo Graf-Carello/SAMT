@@ -45,7 +45,7 @@
 									<label for="inputTitle" class="col-md-2 control-label">Title</label>
 									<div class="col-md-10">
 										<input class="form-control" id="inputTitle" type="text"
-											name="title" value="<c:out value="${event.title}"/>">
+											name="title" value="<c:out value="${event.name}"/>">
 									</div>
 								</div>
 
@@ -57,8 +57,8 @@
 										date</label>
 									<div class="col-md-10">
 										<input class="form_datetime" id="inputStartDate"
-											placeholder="Start Date" type="text" name="startDate"
-											value="<fmt:formatDate value="${event.startDate}" pattern="dd.MM.yyyy HH:mm"/>">
+											placeholder="Start Date" type="text" name="start"
+											value="<fmt:formatDate value="${event.startDate}" pattern="dd.MM.yyyy"/>">
 									</div>
 								</div>
 
@@ -68,8 +68,8 @@
 										date</label>
 									<div class="col-md-10">
 										<input class="form_datetime" id="inputEndDate"
-											placeholder="Start Date" type="text" name="endDate"
-											value="<fmt:formatDate value="${event.endDate}" pattern="dd.MM.yyyy HH:mm"/>">
+											placeholder="End Date" type="text" name="end"
+											value="<fmt:formatDate value="${event.endDate}" pattern="dd.MM.yyyy"/>">
 									</div>
 								</div>
 

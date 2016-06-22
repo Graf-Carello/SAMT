@@ -45,7 +45,7 @@ public class EventController {
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
 		model.addAttribute("type", "findAll");
-		model.addAttribute("title", "Calendar");
+		model.addAttribute("pageTitle", "Calendar");
 		return "events/index";
 	}
 
@@ -91,9 +91,9 @@ public class EventController {
 		if (event == null) {
 			model.addAttribute("errorMessage", "Event does not exist!<br>");
 		} else {
-			event.setName(changedEventModel.getName());
-			event.setStartDate(changedEventModel.getStartDate());
-			event.setEndDate(changedEventModel.getEndDate());
+			event.setTitle(changedEventModel.getTitle());
+			event.setStart(changedEventModel.getStart());
+			event.setEnd(changedEventModel.getEnd());
 		}
 
 		return "forward:index/";
@@ -107,8 +107,8 @@ public class EventController {
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam String startDate,
-			@RequestParam String endDate) {
+	public String add(Model model, @RequestParam String title, @RequestParam String start,
+			@RequestParam String end) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -118,20 +118,20 @@ public class EventController {
 			UserModel userModel = userList.get(0);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-			Date formattedStartDate = new Date();
-			Date formattedEndDate = new Date();
+			Date formattedStart = new Date();
+			Date formattedEnd = new Date();
 			try {
-				formattedStartDate = sdf.parse(startDate);
-				formattedEndDate = sdf.parse(startDate);
+				formattedStart = sdf.parse(start);
+				formattedEnd = sdf.parse(end);
 			} catch (ParseException e) {
 				model.addAttribute("errorMessage", "Date Parsing Error" + e);
 			}
 
-			model.addAttribute(name);
-			model.addAttribute(formattedStartDate);
-			model.addAttribute(formattedEndDate);
+			model.addAttribute(title);
+			model.addAttribute(formattedStart);
+			model.addAttribute(formattedEnd);
 
-			EventModel em = new EventModel(name, formattedStartDate, formattedEndDate);
+			EventModel em = new EventModel(title, formattedStart, formattedEnd);
 			em.setUser(userModel);
 			eventRepository.save(em);
 		}
@@ -149,6 +149,7 @@ public class EventController {
 		int intCreator = userList.get(0).getId();
 
 		response.setCharacterEncoding("UTF-8");
+
 		String json = new Gson().toJson(eventRepository.findByUserId(intCreator));
 		return json;
 	}

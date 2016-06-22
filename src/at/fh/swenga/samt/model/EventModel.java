@@ -29,18 +29,18 @@ public class EventModel {
 	private int id;
 	
 	@Column
-	private String name;
+	private String title;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@NotNull(message = "{0} is required")
-	private Date startDate;
+	private Date start;
 	
 	@Column(nullable=true)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
-	private Date endDate;
+	private Date end;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel user;
@@ -52,11 +52,11 @@ public class EventModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EventModel(String name, Date startDate, Date endDate) {
+	public EventModel(String title, Date start, Date end) {
 		super();
-		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.title = title;
+		this.start = start;
+		this.end = end;
 	}
 
 	public int getId() {
@@ -67,28 +67,28 @@ public class EventModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Date getStart() {
+		return start;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStart(Date start) {
+		this.start = start;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Date getEnd() {
+		return end;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 
 	public UserModel getUser() {
