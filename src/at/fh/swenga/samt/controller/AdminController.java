@@ -1,7 +1,11 @@
 package at.fh.swenga.samt.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,8 @@ public class AdminController {
 	UserRepository userRepository;
 	@Autowired
 	UserRoleRepository userRoleRepository;
+	@Autowired
+    ServletContext context; 
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
 
@@ -123,7 +129,7 @@ public class AdminController {
 	@Transactional
 	public String add(Model model, @RequestParam String userName, @RequestParam String firstName,
 			@RequestParam String lastName, @RequestParam String degreeCourse, @RequestParam String email,
-			@RequestParam String password, @RequestParam String profilePicture) {
+			@RequestParam String password) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
@@ -141,10 +147,28 @@ public class AdminController {
 			password = encoder.encode(password);
 			model.addAttribute(password);
 
-			profilePicture = "test.png";
-			model.addAttribute(profilePicture);
+			List<String> profilepics = new ArrayList<String>() {{ 
+				add("anna.png");
+				add("felix.png");
+				add("flower.png");
+				add("gamefolder.png");
+				add("hans.png");
+				add("ironman.png");
+				add("mateshka.png");
+				add("michael.png");
+				add("movie.png");
+				add("paul.png");
+				add("redgirl.png");
+				add("warhol.png");
+				add("wrench.png");
+			}};
+			
+			Random randomGenerator = new Random();
+			int random = randomGenerator.nextInt(profilepics.size());
+	        String randompic = profilepics.get(random);
+			model.addAttribute(randompic);
 
-			UserModel um = new UserModel(userName, firstName, lastName, degreeCourse, email, password, profilePicture);
+			UserModel um = new UserModel(userName, firstName, lastName, degreeCourse, email, password, randompic);
 
 			um.setEnabled(true);
 

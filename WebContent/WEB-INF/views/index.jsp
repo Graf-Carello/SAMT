@@ -40,13 +40,17 @@
 			<!-- /User -->
 
 			<!-- Homework -->
+			<c:if test="${he}">
 			<h2>oldest Homework</h2>
 			<%@include file="homework/content.jsp"%>
+			</c:if>
 			<!-- /Homework -->
 
 			<!-- Projects -->
+			<c:if test="${pe}">
 			<h2>Project with closest deadline</h2>
 			<%@include file="projects/content.jsp"%>
+			</c:if>
 			<!-- /Projects -->
 
 			<!-- Forum -->

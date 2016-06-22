@@ -51,13 +51,15 @@ public class DashboardController {
 		
 		//Homework
 		
-		HomeworkModel homework = homeworkRepository.findByUserOrderByDeadlineAsc(user).get(0);
-		model.addAttribute("homework", homework);
+		List<HomeworkModel> homeworkList = homeworkRepository.findByUserOrderByDeadlineAsc(user);
+		if (!homeworkList.isEmpty()) { HomeworkModel homework = homeworkList.get(0); model.addAttribute("homework", homework); model.addAttribute("he",true);}
+		else { model.addAttribute("he",false); }
 		
 		//Projects
 
-		ProjectModel project = projectRepository.findLatestFromUser(user_id).get(0);
-		model.addAttribute("project", project);
+		List<ProjectModel> projectList = projectRepository.findLatestFromUser(user_id);
+		if (!projectList.isEmpty()) { ProjectModel project = projectList.get(0); model.addAttribute("project", project); model.addAttribute("pe",true); }
+		else { model.addAttribute("pe",false); }
 		
 		//Forum
 		
