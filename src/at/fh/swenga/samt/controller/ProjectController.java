@@ -81,7 +81,7 @@ public class ProjectController {
 		List<ProjectModel> projects = projectRepository.findArchivedProjects(user);
 
 		model.addAttribute("projects", projects);
-		model.addAttribute("type", "findArchivedProjects");
+		model.addAttribute("type", "archived");
 		model.addAttribute("title", "All your archived projects");
 
 		return "projects/index";

@@ -14,4 +14,6 @@ public interface ForumRepository extends JpaRepository<ForumModel, Integer>{
 	
 	public List<ForumModel> findTop1ByOrderByIdDesc();
 	
+	public List<ForumModel> findAllByTitleContainingOrContentContainingAllIgnoreCase(String title, String content); 
+	
 }

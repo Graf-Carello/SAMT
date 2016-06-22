@@ -36,14 +36,33 @@
 						<a href="<c:url value="/forum/add" />">
 							<button type="button" class="btn btn-default success">Create new post</button>
 						</a>
+						
+					<form method="post" action="search">
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+								<div class="search clearfix">
+								<input type="text" placeholder="Search" class="form-control" name="searchString">
+								<button type="submit" class="btn btn-default"><i
+					class="fa fa-search fa-fw"></i></button>
+								</div>
+							</form>
 
 					</div>
 					</nav>
 
 					<div id="forumwrapper" class="container-fluid">
-						<c:forEach items="${posts}" var="post" varStatus="i">
-							<%@include file="content.jsp"%>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${ifSearch != 'search'}">
+								<c:forEach items="${posts}" var="post" varStatus="i">
+									<%@include file="content.jsp"%>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${postSearch}" var="post" varStatus="i">
+									<%@include file="content.jsp"%>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 
 					<!-- ########## /CONTENT ############################################################ -->

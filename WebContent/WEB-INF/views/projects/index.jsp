@@ -31,6 +31,7 @@
 
 					<h1>${title}</h1>
 
+					<c:if test="${type != 'archived'}">
 					<nav class="navbar navbar-default">
 					<div class="container-fluid">
 
@@ -48,7 +49,7 @@
 							<button type="submit" class="btn btn-default">Edit</button>
 					</div>
 					</nav>
-
+					</c:if>
 
 
 

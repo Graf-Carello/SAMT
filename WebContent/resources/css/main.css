@@ -293,6 +293,9 @@ legend, h1 { color:#900909; }
 	padding: 5px;
 }
 
+.search { float:right; }
+.search input[type=text] { width:100px; display:inline; }
+
 /* ADMIN */
 .profilepic {
 	width: 100px;

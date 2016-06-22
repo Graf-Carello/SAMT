@@ -124,7 +124,7 @@ public class ForumController {
 	}
 
 	@RequestMapping(value = "reply", method = RequestMethod.GET)
-	public String showAddNoteForm(Model model, @RequestParam ForumModel oPost) {
+	public String showAddForumForm(Model model, @RequestParam ForumModel oPost) {
 
 		int user = oPost.getUser();
 		String op = userRepository.findUserNameById(user);
@@ -135,12 +135,22 @@ public class ForumController {
 		model.addAttribute("op", op);
 		return "forum/create";
 	}
+	
+	@RequestMapping(value = "search")
+	public String find(Model model, @RequestParam String searchString) {
+		List <ForumModel> postSearch = forumRepository.findAllByTitleContainingOrContentContainingAllIgnoreCase(searchString, searchString);
+		model.addAttribute("postSearch", postSearch);
+		model.addAttribute("ifSearch", "search");
+
+		return "forward:index/";
+	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String showAddNoteForm(Model model) {
+	public String showAddForumForm(Model model) {
 
 		return "forum/create";
 	}
+
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
@@ -171,4 +181,5 @@ public class ForumController {
 		return "showError";
 
 	}
+
 }
