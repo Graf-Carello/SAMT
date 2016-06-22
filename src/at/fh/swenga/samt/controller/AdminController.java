@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.samt.dao.UserRepository;
+import at.fh.swenga.samt.dao.UserRoleRepository;
 import at.fh.swenga.samt.model.UserModel;
+import at.fh.swenga.samt.model.UserRole;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,8 +30,12 @@ public class AdminController {
 
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	UserRoleRepository userRoleRepository;
 
-	@RequestMapping(value = { "/","index" })
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
+
+	@RequestMapping(value = { "/", "index" })
 	public String list(Model model) {
 		List<UserModel> users = userRepository.findAll();
 		model.addAttribute("users", users);
@@ -44,7 +51,7 @@ public class AdminController {
 
 		return "forward:index/";
 	}
-	
+
 	@RequestMapping("/enable")
 	@Transactional
 	public String enableUser(Model model, @RequestParam int id) {
@@ -90,6 +97,10 @@ public class AdminController {
 		if (user == null) {
 			model.addAttribute("errorMessage", "User does not exist!<br>");
 		} else {
+
+			// String sanitizedUserName =
+			// SanitizeString.setAsText(changedUserModel.getUserName());
+
 			user.setUserName(changedUserModel.getUserName());
 			user.setFirstName(changedUserModel.getFirstName());
 			user.setLastName(changedUserModel.getLastName());
@@ -126,12 +137,23 @@ public class AdminController {
 			model.addAttribute(lastName);
 			model.addAttribute(degreeCourse);
 			model.addAttribute(email);
+
+			password = encoder.encode(password);
 			model.addAttribute(password);
+
+			profilePicture = "test.png";
 			model.addAttribute(profilePicture);
 
 			UserModel um = new UserModel(userName, firstName, lastName, degreeCourse, email, password, profilePicture);
 
+			um.setEnabled(true);
+
 			userRepository.save(um);
+
+			String role = "ROLE_USER";
+			UserRole ur = new UserRole(role, um);
+
+			userRoleRepository.save(ur);
 		}
 
 		return "forward:index/";

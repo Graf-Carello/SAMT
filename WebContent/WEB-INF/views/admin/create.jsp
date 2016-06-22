@@ -52,7 +52,8 @@
 
 						<!-- ----------------  userName ---------------- -->
 						<div class="form-group">
-							<label for="inputUserName" class="col-md-2 control-label">User name</label>
+							<label for="inputUserName" class="col-md-2 control-label">User
+								name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputUserName" type="text"
 									name="userName" value="<c:out value="${user.userName}"/>">
@@ -61,31 +62,35 @@
 
 						<!-- ----------------  firstName ---------------- -->
 						<div class="form-group">
-							<label for="inputFirstName" class="col-md-2 control-label">First name</label>
+							<label for="inputFirstName" class="col-md-2 control-label">First
+								name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputFirstName" type="text"
 									name="firstName" value="<c:out value="${user.firstName}"/>">
 							</div>
 						</div>
-						
+
 						<!-- ----------------  lastName ---------------- -->
 						<div class="form-group">
-							<label for="inputLastName" class="col-md-2 control-label">Last name</label>
+							<label for="inputLastName" class="col-md-2 control-label">Last
+								name</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputLastName" type="text"
 									name="lastName" value="<c:out value="${user.lastName}"/>">
 							</div>
 						</div>
-						
+
 						<!-- ----------------  degreeCourse ---------------- -->
 						<div class="form-group">
-							<label for="inputDegreeCourse" class="col-md-2 control-label">Degree course</label>
+							<label for="inputDegreeCourse" class="col-md-2 control-label">Degree
+								course</label>
 							<div class="col-md-10">
 								<input class="form-control" id="inputDegreeCourse" type="text"
-									name="degreeCourse" value="<c:out value="${user.degreeCourse}"/>">
+									name="degreeCourse"
+									value="<c:out value="${user.degreeCourse}"/>">
 							</div>
 						</div>
-						
+
 						<!-- ----------------  email ---------------- -->
 						<div class="form-group">
 							<label for="inputEmail" class="col-md-2 control-label">E-Mail</label>
@@ -94,7 +99,7 @@
 									name="email" value="<c:out value="${user.email}"/>">
 							</div>
 						</div>
-						
+
 						<!-- ----------------  password ---------------- -->
 						<div class="form-group">
 							<label for="inputPassword" class="col-md-2 control-label">Password</label>
@@ -104,7 +109,19 @@
 							</div>
 						</div>
 
-						<input type="hidden" name="profilePicture" value="${user.profilePicture}" />
+						<!-- ----------------  profilePicture ---------------- -->
+						<div class="form-group">
+							<label for="inputProfilePicture" class="col-md-2 control-label">Profile
+								Picture</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputProfilePicture" type="text"
+									name="profilePicture"
+									value="<c:out value="${user.profilePicture}"/>">
+							</div>
+						</div>
+
+						<input type="hidden" name="profilePicture"
+							value="${user.profilePicture}" />
 
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
 
