@@ -116,8 +116,9 @@ public class EventController {
 
 			List<UserModel> userList = userRepository.findByUserName(stringCreator);
 			UserModel userModel = userList.get(0);
+			int intCreator = userModel.getId();
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 			Date formattedStart = new Date();
 			Date formattedEnd = new Date();
 			try {
@@ -130,13 +131,13 @@ public class EventController {
 			model.addAttribute(title);
 			model.addAttribute(formattedStart);
 			model.addAttribute(formattedEnd);
-
+			
 			EventModel em = new EventModel(title, formattedStart, formattedEnd);
-			em.setUser(userModel);
+			em.setCreator(intCreator);
 			eventRepository.save(em);
 		}
 
-		return "forward:/index";
+		return "forward:index/";
 	}
 
 	@RequestMapping(value = { "/eventEntries", "json" }, produces = "application/json")
@@ -147,10 +148,10 @@ public class EventController {
 		
 		List<UserModel> userList = userRepository.findByUserName(stringCreator);
 		int intCreator = userList.get(0).getId();
-
+		
 		response.setCharacterEncoding("UTF-8");
-
-		String json = new Gson().toJson(eventRepository.findByUserId(intCreator));
+		
+		String json = new Gson().toJson(eventRepository.findByCreator(intCreator));	
 		return json;
 	}
 

@@ -27,6 +27,15 @@ $(function() {
         minView : 2
   });
   
+  $("#inputEvent").datetimepicker({
+      format : "dd.mm.yyyy HH:mm",
+      setStartDate : today,
+      autoclose : true,
+      todayBtn : true,
+      pickerPosition : "bottom-left",
+      minView : 2
+});
+  
   $('.sidebar a').hover(function(){
 	    $(this).stop().animate({backgroundColor: '#900909', color: '#ffffff'},0,"easeOutBounce");
 	}, function() {
@@ -36,6 +45,8 @@ $(function() {
   $('#calendar').fullCalendar({
 		// put your options and callbacks here
 		events : 'eventEntries', // url
+		editable: true,
+		
 		firstDay : 1, // 1 == Monday
 });
 	
