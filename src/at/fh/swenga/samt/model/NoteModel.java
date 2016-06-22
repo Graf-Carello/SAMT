@@ -22,7 +22,7 @@ public class NoteModel {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = true, length = 500)
+	@Column(nullable = true)
 	private String content;
 	
 	@Column(name="isPublic", columnDefinition="boolean default false")

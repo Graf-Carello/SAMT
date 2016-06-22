@@ -42,7 +42,8 @@
 					</div>
 
 				</c:if>
-				<form class="form-horizontal" method="post" action="${formAction}">
+				<form data-toggle="validator" class="form-horizontal" method="post"
+					action="${formAction}">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="hidden" name="id"
 						value="${user.id }" />
@@ -95,8 +96,11 @@
 						<div class="form-group">
 							<label for="inputEmail" class="col-md-2 control-label">E-Mail</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputEmail" type="text"
-									name="email" value="<c:out value="${user.email}"/>">
+								<input required class="form-control" id="inputEmail"
+									type="email" placeholder="E-Mail"
+									data-error="obs keine E-Mail is" name="email"
+									value="<c:out value="${user.email}"/>">
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 

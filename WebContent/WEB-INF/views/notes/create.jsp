@@ -102,7 +102,7 @@
 	<script type="text/javascript" src="<c:url value="/js/tinymce.min.js" />"></script>
 	<script type="text/javascript">
 	
-	tinymce.init({ selector:'textarea' });
+	tinymce.init({forced_root_block : "",selector:'textarea'});
 	
 	</script>
 	
