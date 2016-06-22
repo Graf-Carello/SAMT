@@ -27,7 +27,7 @@ INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '4');
 
 INSERT INTO Users(userName, firstName, lastName, degreeCourse, email, password, profilePicture, version)
-VALUES ('anna','Anna', 'Görner', 'IMA', 'anna@görner.at', '$2a$06$bMmBqEHn7aBrmbpM1CokwOkxTDjLZPSPKkubeLup84a7./9pGYfym', 'anna.png', 1);
+VALUES ('anna','Anna', 'Goerner', 'IMA', 'anna@goerner.at', '$2a$06$bMmBqEHn7aBrmbpM1CokwOkxTDjLZPSPKkubeLup84a7./9pGYfym', 'anna.png', 1);
 
 INSERT INTO user_roles (role, idUser)
 VALUES ('ROLE_USER', '5');
