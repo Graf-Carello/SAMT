@@ -1,5 +1,7 @@
 package at.fh.swenga.samt.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,10 +41,11 @@ public class EventController {
 	UserRepository userRepository;
 
 	@RequestMapping(value = { "/", "index" })
-	public String list(Model model) {
+	public String index(Model model) {
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
 		model.addAttribute("type", "findAll");
+		model.addAttribute("title", "Calendar");
 		return "events/index";
 	}
 
@@ -104,29 +107,39 @@ public class EventController {
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@Transactional
-	public String add(Model model, @RequestParam String name, @RequestParam Date startDate,
-			@RequestParam Date endDate) {
+	public String add(Model model, @RequestParam String name, @RequestParam String startDate,
+			@RequestParam String endDate) {
 		{
 			final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
 			String stringCreator = userdet.getUsername();
 
 			List<UserModel> userList = userRepository.findByUserName(stringCreator);
-			int intCreator = userList.get(0).getId();
+			UserModel userModel = userList.get(0);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+			Date formattedStartDate = new Date();
+			Date formattedEndDate = new Date();
+			try {
+				formattedStartDate = sdf.parse(startDate);
+				formattedEndDate = sdf.parse(startDate);
+			} catch (ParseException e) {
+				model.addAttribute("errorMessage", "Date Parsing Error" + e);
+			}
 
 			model.addAttribute(name);
-			model.addAttribute(startDate);
-			model.addAttribute(endDate);
-			model.addAttribute(intCreator);
+			model.addAttribute(formattedStartDate);
+			model.addAttribute(formattedEndDate);
 
-			EventModel em = new EventModel(name, startDate, endDate);
+			EventModel em = new EventModel(name, formattedStartDate, formattedEndDate);
+			em.setUser(userModel);
 			eventRepository.save(em);
 		}
 
-		return "forward:index/";
+		return "forward:/index";
 	}
 
-	@RequestMapping(value = { "/events", "json" }, produces = "application/json")
+	@RequestMapping(value = { "/eventEntries", "json" }, produces = "application/json")
 	public @ResponseBody String getCalendarJson(HttpServletResponse response) {
 
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -136,7 +149,7 @@ public class EventController {
 		int intCreator = userList.get(0).getId();
 
 		response.setCharacterEncoding("UTF-8");
-		String json = new Gson().toJson(intCreator);
+		String json = new Gson().toJson(eventRepository.findByUserId(intCreator));
 		return json;
 	}
 

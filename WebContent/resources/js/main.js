@@ -32,5 +32,12 @@ $(function() {
 	}, function() {
 	    $(this).stop().animate({backgroundColor: '#f8f8f8', color: '#555555'});
   });
+  
+  $('#calendar').fullCalendar({
+		// put your options and callbacks here
+		events : 'eventEntries', // url
+		timeFormat : 'HH:mm',
+		firstDay : 1, // 1 == Monday
+});
 	
 });

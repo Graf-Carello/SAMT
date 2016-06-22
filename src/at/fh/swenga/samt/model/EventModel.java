@@ -10,7 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="Events")
@@ -24,10 +31,15 @@ public class EventModel {
 	@Column
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable=false)
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@NotNull(message = "{0} is required")
 	private Date startDate;
 	
-	@Column
+	@Column(nullable=true)
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date endDate;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -35,6 +47,10 @@ public class EventModel {
 	
 	@Version
 	long version;
+	
+	public EventModel() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public EventModel(String name, Date startDate, Date endDate) {
 		super();
