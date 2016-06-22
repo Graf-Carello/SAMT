@@ -9,9 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import at.fh.swenga.samt.model.HomeworkModel;
 import at.fh.swenga.samt.model.ProjectModel;
-import at.fh.swenga.samt.model.UserModel;
 
 @Repository
 @Transactional

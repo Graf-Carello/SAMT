@@ -17,6 +17,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,14 +34,17 @@ public class EventModel {
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	@NotNull(message = "{0} is required")
 	private Date start;
 	
 	@Column(nullable=true)
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	private Date end;
+	
+	@Column
+	private int creator;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private UserModel user;
@@ -89,6 +93,14 @@ public class EventModel {
 
 	public void setEnd(Date end) {
 		this.end = end;
+	}
+
+	public int getCreator() {
+		return creator;
+	}
+
+	public void setCreator(int creator) {
+		this.creator = creator;
 	}
 
 	public UserModel getUser() {

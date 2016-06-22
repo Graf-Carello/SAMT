@@ -35,41 +35,43 @@
 			<div class="xs tabls">
 				<div class="bs-example4" data-example-id="contextual-table">
 
-					<table class="table">
-						<form class="form-horizontal" method="post" action="${formAction}">
-							<fieldset>
+					<form class="form-horizontal" method="post" action="${formAction}">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <input type="hidden" name="id"
+							value="${event.id }" />
 
-
+						<fieldset>
+							<table class="table">
 								<!-- ----------------  name ---------------- -->
 								<div class="form-group">
 									<label for="inputTitle" class="col-md-2 control-label">Title</label>
 									<div class="col-md-10">
 										<input class="form-control" id="inputTitle" type="text"
-											name="title" value="<c:out value="${event.name}"/>">
+											name="title" value="<c:out value="${event.title}"/>">
 									</div>
 								</div>
 
 
 
-								<!-- ----------------  startDate ---------------- -->
+								<!-- ----------------  start ---------------- -->
 								<div class="form-group">
-									<label for="inputStartDate" class="col-md-2 control-label">Start
+									<label for="inputStart" class="col-md-2 control-label">Start
 										date</label>
 									<div class="col-md-10">
-										<input class="form_datetime" id="inputStartDate"
-											placeholder="Start Date" type="text" name="start"
-											value="<fmt:formatDate value="${event.startDate}" pattern="dd.MM.yyyy"/>">
+										<input class="form_datetime" id="inputStart"
+											placeholder="Start Date" type="text" name="start" id="inputEvent"
+											value="<fmt:formatDate value="${event.start}" pattern="dd.MM.yyyy HH:mm"/>">
 									</div>
 								</div>
 
-								<!--  ----------------  endDate ---------------- -->
+								<!--  ----------------  end ---------------- -->
 								<div class="form-group">
-									<label for="inputEndDate" class="col-md-2 control-label">End
+									<label for="inputEnd" class="col-md-2 control-label">End
 										date</label>
 									<div class="col-md-10">
-										<input class="form_datetime" id="inputEndDate"
-											placeholder="End Date" type="text" name="end"
-											value="<fmt:formatDate value="${event.endDate}" pattern="dd.MM.yyyy"/>">
+										<input class="form_datetime" id="inputEnd"
+											placeholder="End Date" type="text" name="end" id="inputEvent"
+											value="<fmt:formatDate value="${event.end}" pattern="dd.MM.yyyy HH:mm"/>">
 									</div>
 								</div>
 
@@ -83,30 +85,14 @@
 										</a>
 									</div>
 								</div>
-							</fieldset>
-						</form>
-					</table>
+							</table>
+						</fieldset>
+					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>
 	<!-- JS for Datetime picker -->
-
-	<script>
-		$(function() {
-
-			$(".form_datetime").datetimepicker({
-				format : "dd.mm.yyyy hh:ii",
-				autoclose : true,
-				todayBtn : true,
-				pickerPosition : "bottom-left",
-				minuteStep : 5
-			});
-
-		});
-	</script>
-
 	<%@include file="../includes/bottom.jsp"%>
 </body>
 </html>

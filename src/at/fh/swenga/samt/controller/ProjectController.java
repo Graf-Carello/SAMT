@@ -150,7 +150,7 @@ public class ProjectController {
 		 * }
 		 */
 
-		List<Integer> previousMembers = new ArrayList();
+		List<Integer> previousMembers = new ArrayList<Integer>();
 		List<Integer> users = projectRepository.findUserByPid(pid);
 		for (int user : users) {
 			previousMembers.add(userRepository.findById(user).getId());
