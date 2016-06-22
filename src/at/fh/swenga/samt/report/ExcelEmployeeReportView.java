@@ -34,7 +34,7 @@ public class ExcelEmployeeReportView extends AbstractXlsxView {
 		CreationHelper createHelper = workbook.getCreationHelper();
 		Sheet sheet = workbook.createSheet("Homework Report");
 		Footer footer = sheet.getFooter();
-		footer.setRight( "Page " + HeaderFooter.page() + " of " + HeaderFooter.numPages() );
+		footer.setRight("Page " + HeaderFooter.page() + " of " + HeaderFooter.numPages());
 
 		// create style for header cells
 		CellStyle style = workbook.createCellStyle();
@@ -95,7 +95,16 @@ public class ExcelEmployeeReportView extends AbstractXlsxView {
 			cell2.setCellStyle(cellStyle);
 			cell2.setCellValue(project.getDeadline());
 
-			row.createCell(3).setCellValue(project.getProgress());
+			cell3 = row.createCell(3);
+			cell3.setCellValue(0.123);
+			CellStyle stylePercent = workbook.createCellStyle();
+			stylePercent.setDataFormat(workbook.createDataFormat().getFormat("0 %"));
+			cell3.setCellStyle(stylePercent);
+
+			double progressValue = (double) (project.getProgress());
+			double progressPercent = progressValue / 100;
+			cell3.setCellValue(progressPercent);
+
 			row.createCell(4).setCellValue(project.getCourse());
 
 			Date deadline = project.getDeadline();
