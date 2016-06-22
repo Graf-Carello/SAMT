@@ -44,52 +44,28 @@ public class DashboardController {
 		final UserDetails userdet = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userName = userdet.getUsername();
 		
-		List<UserModel> user = userRepository.findByUserName(userName);
-		UserModel userModel = user.get(0);
-		
-		//User
-		
-		List<UserModel> users = userRepository.findByUserName(userName);
-		model.addAttribute("user", users);
-		
+		List<UserModel> userList = userRepository.findByUserName(userName);
+		UserModel user = userList.get(0);
+		int user_id = user.getId();
+		model.addAttribute("user", user);
 		
 		//Homework
 		
-		List<HomeworkModel> homeworks = homeworkRepository.findByUser(userModel);
-
-		model.addAttribute("homeworks", homeworks);
-		model.addAttribute("titleHomework", "Homework");
+		HomeworkModel homework = homeworkRepository.findByUserOrderByDeadlineAsc(user).get(0);
+		model.addAttribute("homework", homework);
 		
 		//Projects
-		
-		List<UserModel> userList = userRepository.findByUserName(userName);
-		int intUser = userList.get(0).getId();
 
-		List<ProjectModel> projects = projectRepository.findActiveProjects(intUser);
-		ArrayList<List<UserModel>> memberList = new ArrayList<List<UserModel>>();
-		for (ProjectModel project : projects) {
-			Set<Integer> memberIDs = projectRepository.findUserByPidAndActive(project.getPid());
-			List<UserModel> members = new ArrayList<UserModel>();
-			for (int member : memberIDs) {
-				members.add(userRepository.findById(member));
-			}
-			memberList.add(members);
-		}
-		
-		model.addAttribute("projects", projects);
-		model.addAttribute("titleProjects", "Projects");
+		ProjectModel project = projectRepository.findLatestFromUser(user_id).get(0);
+		model.addAttribute("project", project);
 		
 		//Forum
 		
-		List<ForumModel> forum = forumRepository.findTop1ByOrderByIdDesc();
-		List<UserModel> creator = new ArrayList<UserModel>();
-		for (ForumModel post : forum) {
-			creator.add(userRepository.findById(post.getUser()));
-		}
+		ForumModel post = forumRepository.findTop1ByOrderByIdDesc().get(0);
+		UserModel creator = userRepository.findById(post.getUser());
 
-		model.addAttribute("titleForum", "Most recent post");
 		model.addAttribute("creator", creator);
-		model.addAttribute("posts", forum);
+		model.addAttribute("post", post);
 		
 		model.addAttribute("location", "dashboard");
 		

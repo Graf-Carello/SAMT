@@ -28,7 +28,7 @@ a, a:focus, a:hover {
 	padding: 7px;
 }
 
-.navbar .container-fluid .delete {
+.navbar .container-fluid .report {
 	float: right;
 }
 
@@ -216,7 +216,8 @@ legend, h1 { color:#900909; }
 }
 
 .post {
-	border: 1px solid #aaa;
+	border-top: 5px solid #555;
+	border-right: 5px solid #555;
 	margin-bottom: 20px;
 }
 
@@ -259,7 +260,6 @@ legend, h1 { color:#900909; }
 	position: absolute;
 	top: -1px;
 	right: -1px;
-	border: 1px solid #aaa;
 	height: 30px;
 	width: 30px;
 	text-align: center;

@@ -32,7 +32,7 @@
 
 		<div id="page-wrapper">
 			<div class="graphs">
-				</a> <a href="add">
+				</a> <a href="/events/add">
 					<button type="button" class="btn btn-primary">
 						<span aria-hidden="true"></span>Add Event
 					</button>
