@@ -36,7 +36,6 @@ $(function() {
   $('#calendar').fullCalendar({
 		// put your options and callbacks here
 		events : 'eventEntries', // url
-		timeFormat : 'HH:mm',
 		firstDay : 1, // 1 == Monday
 });
 	
