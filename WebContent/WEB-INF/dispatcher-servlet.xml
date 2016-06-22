@@ -83,6 +83,13 @@
 	<mvc:resources mapping="/less/**" location="resources/less/" />
 	<mvc:resources mapping="/img/**" location="resources/img/" />
 
+	<!-- before InternalResourceViewResolver -->
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location">
+			<value>/WEB-INF/spring-views.xml</value>
+		</property>
+	</bean>
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">

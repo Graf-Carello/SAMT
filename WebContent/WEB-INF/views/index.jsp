@@ -36,39 +36,23 @@
 			<!-- ##################### Content  ##################### -->
 
 			<!-- User -->
-			<c:forEach items="${user}" var="user">
-				<%@include file="admin/content.jsp"%>
-			</c:forEach>
+			<%@include file="admin/content.jsp"%>
 			<!-- /User -->
 
-			<!-- Notes -->
-			<div id="notewrapper">
-				<c:forEach items="${notes}" var="note" varStatus="i">
-					<%@include file="notes/content.jsp"%>
-				</c:forEach>
-			</div>
-			<!-- /Notes -->
-
 			<!-- Homework -->
-			<c:forEach items="${homeworks}" var="homework" varStatus="i">
-				<%@include file="homework/content.jsp"%>
-			</c:forEach>
-
+			<h2>oldest Homework</h2>
+			<%@include file="homework/content.jsp"%>
 			<!-- /Homework -->
 
 			<!-- Projects -->
-			<c:forEach items="${projects}" var="project" varStatus="i">
-				<%@include file="projects/content.jsp"%>
-			</c:forEach>
-
+			<h2>Project with closest deadline</h2>
+			<%@include file="projects/content.jsp"%>
 			<!-- /Projects -->
 
 			<!-- Forum -->
-			<h1>${titleForum}</h1>
+			<h2>most recent forum entry</h2>
 			<div id="forumwrapper" class="container-fluid">
-				<c:forEach items="${posts}" var="post" varStatus="i">
-					<%@include file="forum/content.jsp"%>
-				</c:forEach>
+				<%@include file="forum/content.jsp"%>
 			</div>
 			<!-- /Forum -->
 

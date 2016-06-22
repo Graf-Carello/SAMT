@@ -46,7 +46,7 @@
 								value="${_csrf.token}" />
 
 							<button type="submit" class="btn btn-default">Edit</button>
-							<!-- <button type="submit" class="btn btn-danger delete clearfix">Delete</button> -->
+							<a href="<c:url value="/projects/report" />"><button class="btn btn-default report clearfix">create report</button></a>
 					</div>
 					</nav>
 

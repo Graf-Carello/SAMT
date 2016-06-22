@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.fh.swenga.samt.model.HomeworkModel;
 import at.fh.swenga.samt.model.ProjectModel;
 import at.fh.swenga.samt.model.UserModel;
 
@@ -39,7 +40,7 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	@Query("select p from ProjectModel p where p.user = :user and p.pid = :pid")
 	public ProjectModel findByUserAndPid(@Param("user") int user, @Param("pid") int pid);
 	
-	//@Query("select u from ProjectModel p join p.user u where p.pid = :pid")
-	//public List<UserModel> findMembers(@Param("pid") int pid);
+	@Query("select p from ProjectModel p where p.user = :user_id order by deadline asc")
+	public List<ProjectModel> findLatestFromUser(@Param("user_id") int user_id);
 	
 }

@@ -37,7 +37,7 @@ public class ProjectModel {
 	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
-	@Future
+	//@Future
 	private Date deadline;
 
 	@Column(name = "progress", columnDefinition = "int default 0")
