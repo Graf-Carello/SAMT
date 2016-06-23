@@ -145,22 +145,22 @@ public class NoteController {
 			List<UserModel> user = userRepository.findByUserName(userName);
 			UserModel userModel = user.get(0);
 			int user_id = user.get(0).getId();
-
+			
+			Boolean isP = false;
+			
+			if (isPublic != null) {
+				isP = isPublic;
+			}
+			
 			model.addAttribute(name);
 			model.addAttribute(content);
 			model.addAttribute(user_id);
-			model.addAttribute(isPublic);
+			model.addAttribute(isP);
 			
-
 			NoteModel nm = new NoteModel(name, content);
 			nm.setUser(userModel);
+			nm.setIsPublic(isP);
 
-			if (isPublic == null) {
-				nm.setIsPublic(false);
-			} else {
-				nm.setIsPublic(isPublic);
-			}
-			
 			noteRepository.save(nm);
 
 		}
