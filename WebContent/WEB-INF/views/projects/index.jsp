@@ -41,11 +41,11 @@
 								class="btn btn-default report clearfix">
 								<i class="fa fa-file-excel-o fa-fw"></i> Report
 							</button></a>
-						<form method="POST" action="<c:url value="/projects/editPage" />">
+						<form data-toggle="validator" method="POST" action="<c:url value="/projects/editPage" />">
 
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
-
+							
 							<button type="submit" class="btn btn-default">Edit</button>
 					</div>
 					</nav>

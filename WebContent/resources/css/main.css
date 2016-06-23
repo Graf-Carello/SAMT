@@ -38,7 +38,7 @@ a, a:focus, a:hover {
 	float: right;
 }
 
-.checkbox {
+.checkbox, .radio {
 	width: 34px;
 }
 

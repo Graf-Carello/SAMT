@@ -1,8 +1,8 @@
 <h1>${titleProjects}</h1>
 <div class="projectcontainer">
 	<div class="projcheck">
-		<c:if test="${location != 'dashboard'}">
-			<input class="form-control checkbox" type="checkbox" name="id"
+		<c:if test="${location != 'dashboard' && type != 'archived'}">
+			<input required class="form-control radio" type="radio" name="id"
 				value="${project.id}" />
 		</c:if>
 	</div>
