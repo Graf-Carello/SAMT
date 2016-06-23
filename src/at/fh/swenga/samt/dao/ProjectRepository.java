@@ -38,7 +38,7 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Integer>{
 	@Query("select p from ProjectModel p where p.user = :user and p.pid = :pid")
 	public ProjectModel findByUserAndPid(@Param("user") int user, @Param("pid") int pid);
 	
-	@Query("select p from ProjectModel p where p.user = :user_id order by deadline asc")
+	@Query("select p from ProjectModel p where p.user = :user_id and p.isArchived = 'false' order by deadline asc")
 	public List<ProjectModel> findLatestFromUser(@Param("user_id") int user_id);
 	
 }
