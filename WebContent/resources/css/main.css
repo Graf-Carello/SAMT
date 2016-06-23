@@ -216,6 +216,8 @@ legend, h1 { color:#900909; }
 	position: absolute;
 }
 
+.projcheck>input.archived{ display:none; }
+
 .projcon {
 	margin-left: 40px;
 }
