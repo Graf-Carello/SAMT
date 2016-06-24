@@ -28,7 +28,7 @@ $(function() {
   });
   
   $("#inputStart, #inputEnd").datetimepicker({
-      format : "dd.mm.yyyy hh:ii",
+      format : "dd.mm.yyyy hh:00",
       startView: 1,
       setStartDate : today,
       autoclose : true,
@@ -48,6 +48,10 @@ $(function() {
 		events : 'eventEntries', // url
 		editable: true,
 		defaultView: 'agendaWeek',
+		nowIndicator: true,
+		lang: 'de',
+		editable: false,
+		allDaySlot: false,
 		
 		firstDay : 1, // 1 == Monday
 });

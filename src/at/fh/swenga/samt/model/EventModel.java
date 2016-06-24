@@ -33,13 +33,13 @@ public class EventModel {
 	private String title;
 	
 	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	@NotNull(message = "{0} is required")
 	private Date start;
 	
 	@Column(nullable=true)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
 	private Date end;
 	
